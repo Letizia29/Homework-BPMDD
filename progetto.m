@@ -39,4 +39,4 @@ for i=1:6
     hold off
     legend('Non healthy','Average DAT non healthy','Healthy controls','Average DAT healthy')
 end
-%%
+
