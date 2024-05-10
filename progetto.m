@@ -2,8 +2,6 @@ clear all
 close all
 clc
 
-
-descr = readstruct("MasterPatient_Legend.json","FileType","json");
 data = readtable("Patient_Master.csv");
 
 DAT_SCAN_SPECT = [data.DATSCAN_CAUDATE_R data.DATSCAN_CAUDATE_L data.DATSCAN_PUTAMEN_R  data.DATSCAN_PUTAMEN_L data.DATSCAN_PUTAMEN_R_ANT data.DATSCAN_PUTAMEN_L_ANT];
