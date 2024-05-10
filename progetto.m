@@ -30,4 +30,4 @@ for i=1:6
     hist(HC_DAT_SCAN_SPECT(:,i))
     hold off
 end
-
+%%
