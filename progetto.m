@@ -2,6 +2,7 @@ clear all
 close all
 clc
 
+%% load data
 data = readtable("Patient_Master.csv");
 
 DAT_SCAN_SPECT = [data.DATSCAN_CAUDATE_R data.DATSCAN_CAUDATE_L data.DATSCAN_PUTAMEN_R  data.DATSCAN_PUTAMEN_L data.DATSCAN_PUTAMEN_R_ANT data.DATSCAN_PUTAMEN_L_ANT];
@@ -23,6 +24,7 @@ Prodromal_DAT_SCAN_SPECT = DAT_SCAN_SPECT(idx_Prodromal,:);
 
 NON_HC_DAT_SCAN_SPECT = DAT_SCAN_SPECT([idx_Prodromal; idx_PD; idx_SWEDD],:);
 
+%% histograms
 for i=1:6
     subplot(2,3,i)
     histogram(NON_HC_DAT_SCAN_SPECT(:,i),'FaceColor','auto','Normalization','probability')
@@ -39,4 +41,16 @@ for i=1:6
     hold off
     legend('Non healthy','Average DAT non healthy','Healthy controls','Average DAT healthy')
 end
+
+%% Analysis missing data ex family history
+answers_fam_pd = data.ANYFAMPD;
+idx_yes_fam_pd = find(string(answers_fam_pd) =='1');
+%yes_fam_pd = answers_fam_pd
+num_yes_fam_pd = length(idx_yes_fam_pd);
+idx_no_fam_pd = find(string(answers_fam_pd) =='0');
+num_no_fam_pd = length(idx_no_fam_pd);
+idx_nan_fam_pd = find(string(answers_fam_pd) =='NA');
+num_nan_fam_pd = length(idx_nan_fam_pd);
+
+percent_not_nan = (num_no_fam_pd + num_yes_fam_pd)/(num_no_fam_pd + num_yes_fam_pd+num_nan_fam_pd);
 
