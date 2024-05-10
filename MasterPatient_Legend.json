@@ -8,9 +8,10 @@
             "PD" : "Parkinson's Disease",
             "HC" : "Healthy Control",
             "SWEDD" : "SWEDD",
-            "Prodromal" : "Prodromal"
+            "Prodromal" : "Prodromal"            
         }
     },
+    
    "ENROLL_AGE":{
         "Description": "Age at Enrollment"
    },
