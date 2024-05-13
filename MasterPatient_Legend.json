@@ -113,7 +113,7 @@
         }
     },
     "DXBRADY": {
-        "Description": "Rigidity present at diagnosis?",
+        "Description": "Bradykinesia present at diagnosis?",
         "Levels": {
             "0": "No",
             "1": "Yes",
@@ -454,6 +454,7 @@
             "1": "Yes"
         }
     },
+    
     "DBSYN": {
         "Description": "Does participant have DBS",
         "Levels": {

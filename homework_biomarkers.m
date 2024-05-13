@@ -36,7 +36,7 @@ for i=1:6
     histogram(HC_DAT_SCAN_SPECT(:,i),'FaceColor','auto','Normalization','probability')
     mu_hc = mean(HC_DAT_SCAN_SPECT(:,i));
     xline(mu_hc,'LineWidth',2,'Color','b')
-     xlabel('Striatal binding ratio [adim]')
+    xlabel('Striatal binding ratio [adim]')
     title(['SBR in ' ROIs_labels(i)])
     hold off
     legend('Non healthy','Average DAT non healthy','Healthy controls','Average DAT healthy')
