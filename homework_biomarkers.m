@@ -88,18 +88,35 @@ np1p_norm = np1p./sum(np1p);
 np2_norm = np2./sum(np2);
 np3_norm = np3./sum(np3);
 
+figure(2), hold on
+histogram(np1r_norm, "FaceColor", 'r')
+histogram(np1p_norm, "FaceColor", 'b')
+histogram(np2_norm, "FaceColor", 'g')
+histogram(np3_norm, "FaceColor", 'm')
+axis tight
+legend('NP1R', 'NP1P', 'NP2', 'NP3')
+title('Normalized sum of symptoms scores')
+xlabel('Normalized score')
+ylabel('Subjects')
+
+
+
 %% DAT SCAN lateralization
 DATSCAN_CAUDATE_lat = data.DATSCAN_CAUDATE_R - data.DATSCAN_CAUDATE_L;
 DATSCAN_PUTAMEN_lat = data.DATSCAN_PUTAMEN_R - data.DATSCAN_PUTAMEN_L;
 DATSCAN_PUTAMEN_ANT_lat = data.DATSCAN_PUTAMEN_R_ANT - data.DATSCAN_PUTAMEN_L_ANT;
 
-% COMPARISON
+% If the difference right-left is >0, then the DAT signal from the right
+% side of the ROI is stronger than the left side.
+
+% Graphical comparison
+% graphical measures
 x_left = [0; 0; 1556; 1556];
 y_left = [0; 1.9600; 1.9600; 0];
 x_right = [0; 0; 1556; 1556];
 y_right = [-1.9600; 0; 0; -1.9600];
 
-figure(2), hold on, axis tight
+figure(3), hold on, axis tight
 plot(DATSCAN_CAUDATE_lat, 'k')
 title('Caudate DAT signal lateralization (right-left)')
 ylabel('[adim]')
@@ -109,7 +126,7 @@ patch(x_left, y_left, 'b', 'FaceAlpha', 0.3)
 patch(x_right, y_right, 'r', 'FaceAlpha', 0.3)
 legend('DAT_{right} - DAT_{left}', 'Threshold', 'DAT_{right} bigger', 'DAT_{left} bigger')
 
-figure(3), hold on, axis tight
+figure(4), hold on, axis tight
 plot(DATSCAN_PUTAMEN_lat, 'k')
 title('Putamen DAT signal lateralization (right-left)')
 ylabel('[adim]')
@@ -119,7 +136,7 @@ patch(x_left, y_left, 'b', 'FaceAlpha', 0.3)
 patch(x_right, y_right, 'r', 'FaceAlpha', 0.3)
 legend('DAT_{right} - DAT_{left}', 'Threshold', 'DAT_{right} bigger', 'DAT_{left} bigger')
 
-figure(4), hold on, axis tight
+figure(5), hold on, axis tight
 plot(DATSCAN_PUTAMEN_ANT_lat, 'k')
 title('Putamen ant. DAT signal lateralization (right-left)')
 ylabel('[adim]')
@@ -128,3 +145,4 @@ yline(0, 'r', 'LineWidth', 2)
 patch(x_left, y_left, 'b', 'FaceAlpha', 0.3)
 patch(x_right, y_right, 'r', 'FaceAlpha', 0.3)
 legend('DAT_{right} - DAT_{left}', 'Threshold', 'DAT_{right} bigger', 'DAT_{left} bigger')
+
