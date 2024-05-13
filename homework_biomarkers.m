@@ -56,46 +56,92 @@ num_nan_fam_pd = length(idx_nan_fam_pd);
 percent_not_nan = (num_no_fam_pd + num_yes_fam_pd)/(num_no_fam_pd + num_yes_fam_pd+num_nan_fam_pd);
 
 %% Variabili riassuntive
-np1r = data.NP1RTOT;
-np1p = data.NP1PTOT;
-np2 = data.NP2PTOT;
-np3 = data.NP3TOT;
-np4 = data.NP4TOT;
+
+% HEALTHY CONTROLS ------------------------------------------------------
+np1r_HC = data.NP1RTOT(idx_HC, :);
+np1p_HC = data.NP1PTOT(idx_HC, :);
+np2_HC = data.NP2PTOT(idx_HC, :);
+np3_HC = data.NP3TOT(idx_HC, :);
+np4_HC = data.NP4TOT(idx_HC, :);
 
 % Find missing data
-idx_nan_np1r = find(isnan(np1r));
-idx_nan_np1p = find(isnan(np1p));
-idx_nan_np2 = find(isnan(np2));
-idx_nan_np3 = find(isnan(np3));
-idx_nan_np4 = find(string(np4) =='NA'); 
-idx_nan_np1 = union(idx_nan_np1r, idx_nan_np1p);
-idx_nan_np23 = union(idx_nan_np2, idx_nan_np3);
-idx_nan_np123 = union(idx_nan_np23,idx_nan_np1);
-idx_nan_np = union(idx_nan_np123,idx_nan_np4);
+idx_nan_np1r_HC = find(isnan(np1r_HC));
+idx_nan_np1p_HC = find(isnan(np1p_HC));
+idx_nan_np2_HC = find(isnan(np2_HC));
+idx_nan_np3_HC = find(isnan(np3_HC));
+idx_nan_np4_HC = find(string(np4_HC) =='NA'); 
+idx_nan_np1_HC = union(idx_nan_np1r_HC, idx_nan_np1p_HC);
+idx_nan_np23_HC = union(idx_nan_np2_HC, idx_nan_np3_HC);
+idx_nan_np123_HC = union(idx_nan_np23_HC, idx_nan_np1_HC);
+idx_nan_np_HC = union(idx_nan_np123_HC, idx_nan_np4_HC);
 
-data_without_nan_np = data(:,:);
-data_without_nan_np(idx_nan_np123,:) = [];
+data_without_nan_np = data(idx_HC,:);
+data_without_nan_np(idx_nan_np123_HC,:) = [];
 
-np1r = data_without_nan_np.NP1RTOT;
-np1p = data_without_nan_np.NP1PTOT;
-np2 = data_without_nan_np.NP2PTOT;
-np3 = data_without_nan_np.NP3TOT;
-np4 = data_without_nan_np.NP4TOT;
+np1r_HC = data_without_nan_np.NP1RTOT;
+np1p_HC = data_without_nan_np.NP1PTOT;
+np2_HC = data_without_nan_np.NP2PTOT;
+np3_HC = data_without_nan_np.NP3TOT;
+np4_HC = data_without_nan_np.NP4TOT;
 
 % Normalization
-np1r_norm = np1r./sum(np1r);
-np1p_norm = np1p./sum(np1p);
-np2_norm = np2./sum(np2);
-np3_norm = np3./sum(np3);
+np1r_norm_HC = np1r_HC./sum(np1r_HC);
+np1p_norm_HC = np1p_HC./sum(np1p_HC);
+np2_norm_HC = np2_HC./sum(np2_HC);
+np3_norm_HC = np3_HC./sum(np3_HC);
 
 figure(2), hold on
-histogram(np1r_norm, "FaceColor", 'r')
-histogram(np1p_norm, "FaceColor", 'b')
-histogram(np2_norm, "FaceColor", 'g')
-histogram(np3_norm, "FaceColor", 'm')
+histogram(np1r_norm_HC, "FaceColor", 'r')
+histogram(np1p_norm_HC, "FaceColor", 'b')
+histogram(np2_norm_HC, "FaceColor", 'g')
+histogram(np3_norm_HC, "FaceColor", 'm')
 axis tight
 legend('NP1R', 'NP1P', 'NP2', 'NP3')
-title('Normalized sum of symptoms scores')
+title('Normalized sum of symptoms scores - HC')
+xlabel('Normalized score')
+ylabel('Subjects')
+
+% PD PATIENTS ------------------------------------------------------
+np1r_PD = data.NP1RTOT([idx_Prodromal; idx_PD; idx_SWEDD],:);
+np1p_PD = data.NP1PTOT([idx_Prodromal; idx_PD; idx_SWEDD],:);
+np2_PD = data.NP2PTOT([idx_Prodromal; idx_PD; idx_SWEDD],:);
+np3_PD = data.NP3TOT([idx_Prodromal; idx_PD; idx_SWEDD],:);
+np4_PD = data.NP4TOT([idx_Prodromal; idx_PD; idx_SWEDD],:);
+
+% Find missing data
+idx_nan_np1r_PD = find(isnan(np1r_PD));
+idx_nan_np1p_PD = find(isnan(np1p_PD));
+idx_nan_np2_PD = find(isnan(np2_PD));
+idx_nan_np3_PD = find(isnan(np3_PD));
+idx_nan_np4_PD = find(string(np4_PD) =='NA'); 
+idx_nan_np1_PD = union(idx_nan_np1r_PD, idx_nan_np1p_PD);
+idx_nan_np23_PD = union(idx_nan_np2_PD, idx_nan_np3_PD);
+idx_nan_np123_PD = union(idx_nan_np23_PD, idx_nan_np1_PD);
+idx_nan_np_PD = union(idx_nan_np123_PD, idx_nan_np4_PD);
+
+data_without_nan_np = data([idx_Prodromal; idx_PD; idx_SWEDD],:);
+data_without_nan_np(idx_nan_np123_PD,:) = [];
+
+np1r_PD = data_without_nan_np.NP1RTOT;
+np1p_PD = data_without_nan_np.NP1PTOT;
+np2_PD = data_without_nan_np.NP2PTOT;
+np3_PD = data_without_nan_np.NP3TOT;
+np4_PD = data_without_nan_np.NP4TOT;
+
+% Normalization
+np1r_norm_PD = np1r_PD./sum(np1r_PD);
+np1p_norm_PD = np1p_PD./sum(np1p_PD);
+np2_norm_PD = np2_PD./sum(np2_PD);
+np3_norm_PD = np3_PD./sum(np3_PD);
+
+figure(3), hold on
+histogram(np1r_norm_PD, "FaceColor", 'r')
+histogram(np1p_norm_PD, "FaceColor", 'b')
+histogram(np2_norm_PD, "FaceColor", 'g')
+histogram(np3_norm_PD, "FaceColor", 'm')
+axis tight
+legend('NP1R', 'NP1P', 'NP2', 'NP3')
+title('Normalized sum of symptoms scores - PD')
 xlabel('Normalized score')
 ylabel('Subjects')
 
@@ -116,7 +162,7 @@ y_left = [0; 1.9600; 1.9600; 0];
 x_right = [0; 0; 1556; 1556];
 y_right = [-1.9600; 0; 0; -1.9600];
 
-figure(3), hold on, axis tight
+figure(4), hold on, axis tight
 plot(DATSCAN_CAUDATE_lat, 'k')
 title('Caudate DAT signal lateralization (right-left)')
 ylabel('[adim]')
@@ -126,7 +172,7 @@ patch(x_left, y_left, 'b', 'FaceAlpha', 0.3)
 patch(x_right, y_right, 'r', 'FaceAlpha', 0.3)
 legend('DAT_{right} - DAT_{left}', 'Threshold', 'DAT_{right} bigger', 'DAT_{left} bigger')
 
-figure(4), hold on, axis tight
+figure(5), hold on, axis tight
 plot(DATSCAN_PUTAMEN_lat, 'k')
 title('Putamen DAT signal lateralization (right-left)')
 ylabel('[adim]')
@@ -136,7 +182,7 @@ patch(x_left, y_left, 'b', 'FaceAlpha', 0.3)
 patch(x_right, y_right, 'r', 'FaceAlpha', 0.3)
 legend('DAT_{right} - DAT_{left}', 'Threshold', 'DAT_{right} bigger', 'DAT_{left} bigger')
 
-figure(5), hold on, axis tight
+figure(6), hold on, axis tight
 plot(DATSCAN_PUTAMEN_ANT_lat, 'k')
 title('Putamen ant. DAT signal lateralization (right-left)')
 ylabel('[adim]')
