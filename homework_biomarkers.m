@@ -55,7 +55,7 @@ num_nan_fam_pd = length(idx_nan_fam_pd);
 
 percent_not_nan = (num_no_fam_pd + num_yes_fam_pd)/(num_no_fam_pd + num_yes_fam_pd+num_nan_fam_pd);
 
-%% Vari riassuntive
+%% Variabili riassuntive
 np1r = data.NP1RTOT;
 np1p = data.NP1PTOT;
 np2 = data.NP2PTOT;
