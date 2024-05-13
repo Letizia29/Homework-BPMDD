@@ -25,7 +25,6 @@ Prodromal_DAT_SCAN_SPECT = DAT_SCAN_SPECT(idx_Prodromal,:);
 NON_HC_DAT_SCAN_SPECT = DAT_SCAN_SPECT([idx_Prodromal; idx_PD; idx_SWEDD],:);
 
 %% histograms
-figure(1)
 for i=1:6
     subplot(2,3,i)
     histogram(NON_HC_DAT_SCAN_SPECT(:,i),'FaceColor','auto','Normalization','probability')
@@ -60,13 +59,15 @@ DATSCAN_CAUDATE_lat = data.DATSCAN_CAUDATE_R - data.DATSCAN_CAUDATE_L;
 DATSCAN_PUTAMEN_lat = data.DATSCAN_PUTAMEN_R - data.DATSCAN_PUTAMEN_L;
 DATSCAN_PUTAMEN_ANT_lat = data.DATSCAN_PUTAMEN_R_ANT - data.DATSCAN_PUTAMEN_L_ANT;
 
-% COMPARISON
+% CONFRONTO
 x_left = [0; 0; 1556; 1556];
 y_left = [0; 1.9600; 1.9600; 0];
 x_right = [0; 0; 1556; 1556];
 y_right = [-1.9600; 0; 0; -1.9600];
 
-figure(2), hold on, axis tight
+figure, hold on, axis tight
+%plot(data.DATSCAN_CAUDATE_R, 'r')
+%plot(data.DATSCAN_CAUDATE_L, 'b')
 plot(DATSCAN_CAUDATE_lat, 'k')
 title('Caudate DAT signal lateralization (right-left)')
 ylabel('[adim]')
@@ -74,24 +75,5 @@ xlabel('Subjects')
 yline(0, 'r', 'LineWidth', 2)
 patch(x_left, y_left, 'b', 'FaceAlpha', 0.3)
 patch(x_right, y_right, 'r', 'FaceAlpha', 0.3)
-legend('DAT_{right} - DAT_{left}', 'Threshold', 'DAT_{right} bigger', 'DAT_{left} bigger')
+legend('DAT_{right} - DATleft', 'threshold', 'DAT signal rigth bigger', 'DAT signal left bigger')
 
-figure(3), hold on, axis tight
-plot(DATSCAN_PUTAMEN_lat, 'k')
-title('Putamen DAT signal lateralization (right-left)')
-ylabel('[adim]')
-xlabel('Subjects')
-yline(0, 'r', 'LineWidth', 2)
-patch(x_left, y_left, 'b', 'FaceAlpha', 0.3)
-patch(x_right, y_right, 'r', 'FaceAlpha', 0.3)
-legend('DAT_{right} - DAT_{left}', 'Threshold', 'DAT_{right} bigger', 'DAT_{left} bigger')
-
-figure(4), hold on, axis tight
-plot(DATSCAN_PUTAMEN_ANT_lat, 'k')
-title('Putamen ant. DAT signal lateralization (right-left)')
-ylabel('[adim]')
-xlabel('Subjects')
-yline(0, 'r', 'LineWidth', 2)
-patch(x_left, y_left, 'b', 'FaceAlpha', 0.3)
-patch(x_right, y_right, 'r', 'FaceAlpha', 0.3)
-legend('DAT_{right} - DAT_{left}', 'Threshold', 'DAT_{right} bigger', 'DAT_{left} bigger')
