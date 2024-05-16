@@ -188,7 +188,21 @@ for i = 1:length(idx_nan_age_pd)
     age_pd(idx_nan) = datscan_year - birth_year;
 end
 
-%% - 
+%% - Dominant hand
+hand_hc = data_hc.HANDED;
+hand_pd = data_pd.HANDED;
+
+idx_right_hand_hc = find(hand_hc == "Right");
+idx_left_hand_hc = find(hand_hc == "Left");
+idx_mixed_hand_hc = find(hand_hc == "Mixed");
+
+idx_right_hand_pd = find(hand_pd == "Right");
+idx_left_hand_pd = find(hand_pd == "Left");
+idx_mixed_hand_pd = find(hand_pd == "Mixed");
+
+%% - Primary diagnosis
+prim_diag_hc = data_hc.PRIMDIAG;
+prim_diag_pd = data_pd.PRIMDIAG;
 
 
 
