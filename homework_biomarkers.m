@@ -24,38 +24,29 @@ Prodromal_DAT_SCAN_SPECT = DAT_SCAN_SPECT(idx_Prodromal,:);
 
 NON_HC_DAT_SCAN_SPECT = DAT_SCAN_SPECT([idx_Prodromal; idx_PD; idx_SWEDD],:);
 
-%% histograms
-figure(1)
-for i=1:6
-    subplot(2,3,i)
-    histogram(NON_HC_DAT_SCAN_SPECT(:,i),'FaceColor','auto','Normalization','probability')
-    xlabel('Striatal binding ratio [adim]')
-    title(['SBR in ' ROIs_labels(i)])
-    hold on 
-    mu_non_hc = mean(NON_HC_DAT_SCAN_SPECT(:,i));
-    xline(mu_non_hc,'LineWidth',2,'Color','b')
-    histogram(HC_DAT_SCAN_SPECT(:,i),'FaceColor','auto','Normalization','probability')
-    mu_hc = mean(HC_DAT_SCAN_SPECT(:,i));
-    xline(mu_hc,'LineWidth',2,'Color','r')
-    xlabel('Striatal binding ratio [adim]')
-    title(['SBR in ' ROIs_labels(i)])
-    hold off
-    legend('Non healthy','Average DAT non healthy','Healthy controls','Average DAT healthy')
-end
+%%%%%%%%%%% histograms
+% figure(1)
+% for i=1:6
+%     subplot(2,3,i)
+%     histogram(NON_HC_DAT_SCAN_SPECT(:,i),'FaceColor','auto','Normalization','probability')
+%     xlabel('Striatal binding ratio [adim]')
+%     title(['SBR in ' ROIs_labels(i)])
+%     hold on 
+%     mu_non_hc = mean(NON_HC_DAT_SCAN_SPECT(:,i));
+%     xline(mu_non_hc,'LineWidth',2,'Color','b')
+%     histogram(HC_DAT_SCAN_SPECT(:,i),'FaceColor','auto','Normalization','probability')
+%     mu_hc = mean(HC_DAT_SCAN_SPECT(:,i));
+%     xline(mu_hc,'LineWidth',2,'Color','r')
+%     xlabel('Striatal binding ratio [adim]')
+%     title(['SBR in ' ROIs_labels(i)])
+%     hold off
+%     legend('Non healthy','Average DAT non healthy','Healthy controls','Average DAT healthy')
+% end
+%%%%%%%%%%%%
 
-%% Analysis missing data ex family history
-answers_fam_pd = data.ANYFAMPD;
-idx_yes_fam_pd = find(string(answers_fam_pd) =='1');
-%yes_fam_pd = answers_fam_pd
-num_yes_fam_pd = length(idx_yes_fam_pd);
-idx_no_fam_pd = find(string(answers_fam_pd) =='0');
-num_no_fam_pd = length(idx_no_fam_pd);
-idx_nan_fam_pd = find(string(answers_fam_pd) =='NA');
-num_nan_fam_pd = length(idx_nan_fam_pd);
 
-percent_not_nan = (num_no_fam_pd + num_yes_fam_pd)/(num_no_fam_pd + num_yes_fam_pd+num_nan_fam_pd);
-
-%% Variabili riassuntive
+%% IMPORTANT VARIABLES EXTRACTION:
+%% - Summing-up variables: summing scores for each part 
 
 % HEALTHY CONTROLS ------------------------------------------------------
 np1r_HC = data.NP1RTOT(idx_HC, :);
@@ -90,16 +81,16 @@ np1p_norm_HC = np1p_HC./sum(np1p_HC);
 np2_norm_HC = np2_HC./sum(np2_HC);
 np3_norm_HC = np3_HC./sum(np3_HC);
 
-figure(2), hold on
-histogram(np1r_norm_HC, "FaceColor", 'r')
-histogram(np1p_norm_HC, "FaceColor", 'b')
-histogram(np2_norm_HC, "FaceColor", 'g')
-histogram(np3_norm_HC, "FaceColor", 'm')
-axis tight
-legend('NP1R', 'NP1P', 'NP2', 'NP3')
-title('Normalized sum of symptoms scores - HC')
-xlabel('Normalized score')
-ylabel('Subjects')
+% figure(2), hold on
+% histogram(np1r_norm_HC, "FaceColor", 'r')
+% histogram(np1p_norm_HC, "FaceColor", 'b')
+% histogram(np2_norm_HC, "FaceColor", 'g')
+% histogram(np3_norm_HC, "FaceColor", 'm')
+% axis tight
+% legend('NP1R', 'NP1P', 'NP2', 'NP3')
+% title('Normalized sum of symptoms scores - HC')
+% xlabel('Normalized score')
+% ylabel('Subjects')
 
 % PD PATIENTS ------------------------------------------------------
 np1r_PD = data.NP1RTOT([idx_Prodromal; idx_PD; idx_SWEDD],:);
@@ -134,18 +125,39 @@ np1p_norm_PD = np1p_PD./sum(np1p_PD);
 np2_norm_PD = np2_PD./sum(np2_PD);
 np3_norm_PD = np3_PD./sum(np3_PD);
 
-figure(3), hold on
-histogram(np1r_norm_PD, "FaceColor", 'r')
-histogram(np1p_norm_PD, "FaceColor", 'b')
-histogram(np2_norm_PD, "FaceColor", 'g')
-histogram(np3_norm_PD, "FaceColor", 'm')
-axis tight
-legend('NP1R', 'NP1P', 'NP2', 'NP3')
-title('Normalized sum of symptoms scores - PD')
-xlabel('Normalized score')
-ylabel('Subjects')
+% figure(3), hold on
+% histogram(np1r_norm_PD, "FaceColor", 'r')
+% histogram(np1p_norm_PD, "FaceColor", 'b')
+% histogram(np2_norm_PD, "FaceColor", 'g')
+% histogram(np3_norm_PD, "FaceColor", 'm')
+% axis tight
+% legend('NP1R', 'NP1P', 'NP2', 'NP3')
+% title('Normalized sum of symptoms scores - PD')
+% xlabel('Normalized score')
+% ylabel('Subjects')
+
+%% - 
 
 
+
+
+
+
+
+
+
+%% MISSING VALUES MANAGING
+%% Analysis missing data ex family history
+answers_fam_pd = data.ANYFAMPD;
+idx_yes_fam_pd = find(string(answers_fam_pd) =='1');
+%yes_fam_pd = answers_fam_pd
+num_yes_fam_pd = length(idx_yes_fam_pd);
+idx_no_fam_pd = find(string(answers_fam_pd) =='0');
+num_no_fam_pd = length(idx_no_fam_pd);
+idx_nan_fam_pd = find(string(answers_fam_pd) =='NA');
+num_nan_fam_pd = length(idx_nan_fam_pd);
+
+percent_not_nan = (num_no_fam_pd + num_yes_fam_pd)/(num_no_fam_pd + num_yes_fam_pd+num_nan_fam_pd);
 
 %% DAT SCAN lateralization
 DATSCAN_CAUDATE_lat = data.DATSCAN_CAUDATE_R - data.DATSCAN_CAUDATE_L;
@@ -155,40 +167,40 @@ DATSCAN_PUTAMEN_ANT_lat = data.DATSCAN_PUTAMEN_R_ANT - data.DATSCAN_PUTAMEN_L_AN
 % If the difference right-left is >0, then the DAT signal from the right
 % side of the ROI is stronger than the left side.
 
-% Graphical comparison
-% graphical measures
-x_left = [0; 0; 1556; 1556];
-y_left = [0; 1.9600; 1.9600; 0];
-x_right = [0; 0; 1556; 1556];
-y_right = [-1.9600; 0; 0; -1.9600];
-
-figure(4), hold on, axis tight
-plot(DATSCAN_CAUDATE_lat, 'k')
-title('Caudate DAT signal lateralization (right-left)')
-ylabel('[adim]')
-xlabel('Subjects')
-yline(0, 'r', 'LineWidth', 2)
-patch(x_left, y_left, 'b', 'FaceAlpha', 0.3)
-patch(x_right, y_right, 'r', 'FaceAlpha', 0.3)
-legend('DAT_{right} - DAT_{left}', 'Threshold', 'DAT_{right} bigger', 'DAT_{left} bigger')
-
-figure(5), hold on, axis tight
-plot(DATSCAN_PUTAMEN_lat, 'k')
-title('Putamen DAT signal lateralization (right-left)')
-ylabel('[adim]')
-xlabel('Subjects')
-yline(0, 'r', 'LineWidth', 2)
-patch(x_left, y_left, 'b', 'FaceAlpha', 0.3)
-patch(x_right, y_right, 'r', 'FaceAlpha', 0.3)
-legend('DAT_{right} - DAT_{left}', 'Threshold', 'DAT_{right} bigger', 'DAT_{left} bigger')
-
-figure(6), hold on, axis tight
-plot(DATSCAN_PUTAMEN_ANT_lat, 'k')
-title('Putamen ant. DAT signal lateralization (right-left)')
-ylabel('[adim]')
-xlabel('Subjects')
-yline(0, 'r', 'LineWidth', 2)
-patch(x_left, y_left, 'b', 'FaceAlpha', 0.3)
-patch(x_right, y_right, 'r', 'FaceAlpha', 0.3)
-legend('DAT_{right} - DAT_{left}', 'Threshold', 'DAT_{right} bigger', 'DAT_{left} bigger')
-
+%%%%%%%%%%%%%% Graphical comparison
+% % graphical measures
+% x_left = [0; 0; 1556; 1556];
+% y_left = [0; 1.9600; 1.9600; 0];
+% x_right = [0; 0; 1556; 1556];
+% y_right = [-1.9600; 0; 0; -1.9600];
+% 
+% figure(4), hold on, axis tight
+% plot(DATSCAN_CAUDATE_lat, 'k')
+% title('Caudate DAT signal lateralization (right-left)')
+% ylabel('[adim]')
+% xlabel('Subjects')
+% yline(0, 'r', 'LineWidth', 2)
+% patch(x_left, y_left, 'b', 'FaceAlpha', 0.3)
+% patch(x_right, y_right, 'r', 'FaceAlpha', 0.3)
+% legend('DAT_{right} - DAT_{left}', 'Threshold', 'DAT_{right} bigger', 'DAT_{left} bigger')
+% 
+% figure(5), hold on, axis tight
+% plot(DATSCAN_PUTAMEN_lat, 'k')
+% title('Putamen DAT signal lateralization (right-left)')
+% ylabel('[adim]')
+% xlabel('Subjects')
+% yline(0, 'r', 'LineWidth', 2)
+% patch(x_left, y_left, 'b', 'FaceAlpha', 0.3)
+% patch(x_right, y_right, 'r', 'FaceAlpha', 0.3)
+% legend('DAT_{right} - DAT_{left}', 'Threshold', 'DAT_{right} bigger', 'DAT_{left} bigger')
+% 
+% figure(6), hold on, axis tight
+% plot(DATSCAN_PUTAMEN_ANT_lat, 'k')
+% title('Putamen ant. DAT signal lateralization (right-left)')
+% ylabel('[adim]')
+% xlabel('Subjects')
+% yline(0, 'r', 'LineWidth', 2)
+% patch(x_left, y_left, 'b', 'FaceAlpha', 0.3)
+% patch(x_right, y_right, 'r', 'FaceAlpha', 0.3)
+% legend('DAT_{right} - DAT_{left}', 'Threshold', 'DAT_{right} bigger', 'DAT_{left} bigger')
+%%%%%%%%%%%%%%%%%
