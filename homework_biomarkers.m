@@ -24,6 +24,10 @@ Prodromal_DAT_SCAN_SPECT = DAT_SCAN_SPECT(idx_Prodromal,:);
 
 NON_HC_DAT_SCAN_SPECT = DAT_SCAN_SPECT([idx_Prodromal; idx_PD; idx_SWEDD],:);
 
+% division HC - PD
+data_pd = data([idx_Prodromal; idx_PD; idx_SWEDD],:);
+data_hc = data(idx_HC, :);
+
 %%%%%%%%%%% histograms
 % figure(1)
 % for i=1:6
@@ -136,13 +140,55 @@ np3_norm_PD = np3_PD./sum(np3_PD);
 % xlabel('Normalized score')
 % ylabel('Subjects')
 
+%% - Check repetitions in PATNO - patients ID
+IDs = data.PATNO;
+unique_ids = unique(IDs);
+if length(IDs) == length(unique_ids)
+    disp('No repetitions')
+end
+
+%% - Genetic history
+genetics_hc = data_hc.GENETICS;
+genetics_pd = data_pd.GENETICS;
+
+familiarity_hc = data_hc.ANYFAMPD;
+familiarity_pd = data_pd.ANYFAMPD;
+
+%% - Demographics data
+ethnicity_hc = data_hc.ETHNICITY;
+ethnicity_pd = data_pd.ETHNICITY;
+
+sex_hc = data_hc.SEX;
+sex_pd = data_pd.SEX;
+
+age_hc = data_hc.ENROLL_AGE;
+age_pd = data_pd.ENROLL_AGE;
+
+% computing missing age data
+idx_nan_age_hc = find(isnan(age_hc));
+idx_nan_age_pd = find(isnan(age_pd));
+
+% age at the time of the DAT SCAN ---- HC
+for i = 1:length(idx_nan_age_hc)
+    idx_nan = idx_nan_age_hc(i);
+    datscan_date = char(data_hc.DATSCAN_DATE(idx_nan));
+    birth_date = char(data_hc.BIRTHDT(idx_nan));
+    datscan_year = str2double(string(datscan_date(end-3:end)));
+    birth_year = str2double(string(birth_date(end-3:end)));
+    age_hc(idx_nan) = datscan_year - birth_year;
+end
+
+% age at the time of the DAT SCAN ---- PD
+for i = 1:length(idx_nan_age_pd)
+    idx_nan = idx_nan_age_pd(i);
+    datscan_date = char(data_pd.DATSCAN_DATE(idx_nan));
+    birth_date = char(data_pd.BIRTHDT(idx_nan));
+    datscan_year = str2double(string(datscan_date(end-3:end)));
+    birth_year = str2double(string(birth_date(end-3:end)));
+    age_pd(idx_nan) = datscan_year - birth_year;
+end
+
 %% - 
-
-
-
-
-
-
 
 
 
