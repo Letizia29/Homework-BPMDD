@@ -53,37 +53,29 @@ data_hc = data(idx_HC, :);
 %% - Summing-up variables: summing scores for each part 
 
 % HEALTHY CONTROLS ------------------------------------------------------
-np1r_HC = data.NP1RTOT(idx_HC, :);
-np1p_HC = data.NP1PTOT(idx_HC, :);
-np2_HC = data.NP2PTOT(idx_HC, :);
-np3_HC = data.NP3TOT(idx_HC, :);
-np4_HC = data.NP4TOT(idx_HC, :);
-
 % Find missing data
-idx_nan_np1r_HC = find(isnan(np1r_HC));
-idx_nan_np1p_HC = find(isnan(np1p_HC));
-idx_nan_np2_HC = find(isnan(np2_HC));
-idx_nan_np3_HC = find(isnan(np3_HC));
-idx_nan_np4_HC = find(string(np4_HC) =='NA'); 
-idx_nan_np1_HC = union(idx_nan_np1r_HC, idx_nan_np1p_HC);
-idx_nan_np23_HC = union(idx_nan_np2_HC, idx_nan_np3_HC);
-idx_nan_np123_HC = union(idx_nan_np23_HC, idx_nan_np1_HC);
-idx_nan_np_HC = union(idx_nan_np123_HC, idx_nan_np4_HC);
+np_test.np1r.HC.idx_nan = find(isnan(data.NP1RTOT(idx_HC, :)));
+np_test.np1p.HC.idx_nan = find(isnan(data.NP1PTOT(idx_HC, :)));
+np_test.np2.HC.idx_nan = find(isnan(data.NP2PTOT(idx_HC, :)));
+np_test.np3.HC.idx_nan = find(isnan(data.NP3TOT(idx_HC, :)));
+np_test.np4.HC.idx_nan = find(string(data.NP4TOT(idx_HC, :)) =='NA'); 
+
+np_test.idx_nan.HC = union(np_test.np1r.HC.idx_nan, union(np_test.np1p.HC.idx_nan,union(np_test.np2.HC.idx_nan,np_test.np3.HC.idx_nan)));
 
 data_without_nan_np = data(idx_HC,:);
-data_without_nan_np(idx_nan_np123_HC,:) = [];
+data_without_nan_np(np_test.idx_nan.HC,:) = [];
 
-np1r_HC = data_without_nan_np.NP1RTOT;
-np1p_HC = data_without_nan_np.NP1PTOT;
-np2_HC = data_without_nan_np.NP2PTOT;
-np3_HC = data_without_nan_np.NP3TOT;
-np4_HC = data_without_nan_np.NP4TOT;
+np_test.np1r.HC.data = data_without_nan_np.NP1RTOT;
+np_test.np1p.HC.data = data_without_nan_np.NP1PTOT;
+np_test.np2.HC.data  = data_without_nan_np.NP2PTOT;
+np_test.np3.HC.data = data_without_nan_np.NP3TOT;
+np_test.np4.HC.data = data_without_nan_np.NP4TOT;
 
 % Normalization
-np1r_norm_HC = np1r_HC./sum(np1r_HC);
-np1p_norm_HC = np1p_HC./sum(np1p_HC);
-np2_norm_HC = np2_HC./sum(np2_HC);
-np3_norm_HC = np3_HC./sum(np3_HC);
+np_test.np1r.HC.data_normalized  = np_test.np1r.HC.data ./sum(np_test.np1r.HC.data );
+np_test.np1p.HC.data_normalized = np_test.np1p.HC.data./sum(np_test.np1p.HC.data);
+np_test.np2.HC.data_normalized  = np_test.np2.HC.data./sum(np_test.np2.HC.data);
+np_test.np3.HC.data_normalized = np_test.np3.HC.data./sum(np_test.np3.HC.data);
 
 %%%%%%%%%%
 % figure(2), hold on
@@ -99,37 +91,29 @@ np3_norm_HC = np3_HC./sum(np3_HC);
 %%%%%%%%%
 
 % PD PATIENTS ------------------------------------------------------
-np1r_PD = data.NP1RTOT([idx_Prodromal; idx_PD; idx_SWEDD],:);
-np1p_PD = data.NP1PTOT([idx_Prodromal; idx_PD; idx_SWEDD],:);
-np2_PD = data.NP2PTOT([idx_Prodromal; idx_PD; idx_SWEDD],:);
-np3_PD = data.NP3TOT([idx_Prodromal; idx_PD; idx_SWEDD],:);
-np4_PD = data.NP4TOT([idx_Prodromal; idx_PD; idx_SWEDD],:);
-
 % Find missing data
-idx_nan_np1r_PD = find(isnan(np1r_PD));
-idx_nan_np1p_PD = find(isnan(np1p_PD));
-idx_nan_np2_PD = find(isnan(np2_PD));
-idx_nan_np3_PD = find(isnan(np3_PD));
-idx_nan_np4_PD = find(string(np4_PD) =='NA'); 
-idx_nan_np1_PD = union(idx_nan_np1r_PD, idx_nan_np1p_PD);
-idx_nan_np23_PD = union(idx_nan_np2_PD, idx_nan_np3_PD);
-idx_nan_np123_PD = union(idx_nan_np23_PD, idx_nan_np1_PD);
-idx_nan_np_PD = union(idx_nan_np123_PD, idx_nan_np4_PD);
+np_test.np1r.PD.idx_nan = find(isnan(data.NP1RTOT([idx_Prodromal; idx_PD; idx_SWEDD],:)));
+np_test.np1p.PD.idx_nan = find(isnan(data.NP1PTOT([idx_Prodromal; idx_PD; idx_SWEDD],:)));
+np_test.np2.PD.idx_nan = find(isnan(data.NP2PTOT([idx_Prodromal; idx_PD; idx_SWEDD],:)));
+np_test.np3.PD.idx_nan = find(isnan(data.NP3TOT([idx_Prodromal; idx_PD; idx_SWEDD],:)));
+np_test.np4.PD.idx_nan = find(string(data.NP4TOT([idx_Prodromal; idx_PD; idx_SWEDD],:)) =='NA'); 
+
+np_test.idx_nan.PD = union(np_test.np1r.PD.idx_nan, union(np_test.np1p.PD.idx_nan, union(np_test.np2.PD.idx_nan,np_test.np3.PD.idx_nan)));
 
 data_without_nan_np = data([idx_Prodromal; idx_PD; idx_SWEDD],:);
-data_without_nan_np(idx_nan_np123_PD,:) = [];
+data_without_nan_np(np_test.idx_nan.PD,:) = [];
 
-np1r_PD = data_without_nan_np.NP1RTOT;
-np1p_PD = data_without_nan_np.NP1PTOT;
-np2_PD = data_without_nan_np.NP2PTOT;
-np3_PD = data_without_nan_np.NP3TOT;
-np4_PD = data_without_nan_np.NP4TOT;
+np_test.np1r.PD.data = data_without_nan_np.NP1RTOT;
+np_test.np1p.PD.data = data_without_nan_np.NP1PTOT;
+np_test.np2.PD.data = data_without_nan_np.NP2PTOT;
+np_test.np3.PD.data = data_without_nan_np.NP3TOT;
+np_test.np4.PD.data = data_without_nan_np.NP4TOT;
 
 % Normalization
-np1r_norm_PD = np1r_PD./sum(np1r_PD);
-np1p_norm_PD = np1p_PD./sum(np1p_PD);
-np2_norm_PD = np2_PD./sum(np2_PD);
-np3_norm_PD = np3_PD./sum(np3_PD);
+np_test.np1r.PD.data_normalized = np_test.np1r.PD.data./sum(np_test.np1r.PD.data);
+np_test.np1p.PD.data_normalized = np_test.np1p.PD.data./sum(np_test.np1p.PD.data);
+np_test.np2.PD.data_normalized = np_test.np2.PD.data./sum(np_test.np2.PD.data);
+np_test.np3.PD.data_normalized = np_test.np3.PD.data./sum(np_test.np3.PD.data);
 
 %%%%%%%%%%
 % figure(3), hold on
