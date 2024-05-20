@@ -244,15 +244,44 @@ percent_not_nan = (num_no_fam_pd + num_yes_fam_pd)/(num_no_fam_pd + num_yes_fam_
 % Left = |(right - left putamen SBR/right + left putamen SBR)| > 0.20
 % From: Ipsilateral deficits of dopaminergic neurotransmission in Parkinson s disease
 
-DATSCAN_CAUDATE_lat = data.DATSCAN_CAUDATE_R - data.DATSCAN_CAUDATE_L;
-DATSCAN_PUTAMEN_lat = data.DATSCAN_PUTAMEN_R - data.DATSCAN_PUTAMEN_L;
-DATSCAN_PUTAMEN_ANT_lat = data.DATSCAN_PUTAMEN_R_ANT - data.DATSCAN_PUTAMEN_L_ANT;
+DATSCAN_CAUDATE_lat = (data.DATSCAN_CAUDATE_R - data.DATSCAN_CAUDATE_L)./(data.DATSCAN_CAUDATE_R + data.DATSCAN_CAUDATE_L);
+DATSCAN_PUTAMEN_lat = (data.DATSCAN_PUTAMEN_R - data.DATSCAN_PUTAMEN_L)./(data.DATSCAN_PUTAMEN_R + data.DATSCAN_PUTAMEN_L);
+DATSCAN_PUTAMEN_ANT_lat = (data.DATSCAN_PUTAMEN_R_ANT - data.DATSCAN_PUTAMEN_L_ANT)./(data.DATSCAN_PUTAMEN_R_ANT + data.DATSCAN_PUTAMEN_L_ANT);
 
 % If the difference right-left is >0, then the DAT signal from the right
 % side of the ROI is stronger than the left side.
 
+% With significant difference: 20%
+
+idx_right_lateralization_caudate = find(DATSCAN_CAUDATE_lat>0.2);
+patients_right_lat_caudate = data(idx_right_lateralization_caudate,:);
+
+idx_left_lateralization_caudate = find(DATSCAN_CAUDATE_lat<-0.2);
+patients_left_lat_caudate = data(idx_left_lateralization_caudate,:);
+
+idx_no_lateralization_caudate = find(DATSCAN_CAUDATE_lat>-0.2 | DATSCAN_CAUDATE_lat<0.2);
+patients_no_lat_caudate = data(idx_no_lateralization_caudate,:);
+
+idx_right_lateralization_putamen = find(DATSCAN_PUTAMEN_lat>0.2);
+patients_right_lat_putamen = data(idx_right_lateralization_putamen,:);
+
+idx_left_lateralization_putamen = find(DATSCAN_PUTAMEN_lat<-0.2);
+patients_left_lat_putamen = data(idx_left_lateralization_putamen,:);
+
+idx_no_lateralization_putamen = find(DATSCAN_PUTAMEN_lat<-0.2 | DATSCAN_PUTAMEN_lat<0.2);
+patients_no_lat_putamen = data(idx_no_lateralization_putamen,:);
+
+idx_right_lateralization_putamen_ant = find(DATSCAN_PUTAMEN_ANT_lat>0.2);
+patients_right_lat_putamen_ant = data(idx_right_lateralization_putamen_ant,:);
+
+idx_left_lateralization_putamen_ant = find(DATSCAN_PUTAMEN_ANT_lat<-0.2);
+patients_left_lat_putamen_ant = data(idx_left_lateralization_putamen_ant,:);
+
+idx_no_lateralization_putamen_ant = find(DATSCAN_PUTAMEN_ANT_lat<-0.2 | DATSCAN_PUTAMEN_ANT_lat<0.2);
+patients_no_lat_putamen_ant = data(idx_no_lateralization_putamen_ant,:);
+
 %%%%%%%%%%%%%% Graphical comparison
-% % graphical measures
+% graphical measures
 % x_left = [0; 0; 1556; 1556];
 % y_left = [0; 1.9600; 1.9600; 0];
 % x_right = [0; 0; 1556; 1556];
