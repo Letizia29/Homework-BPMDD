@@ -239,6 +239,11 @@ num_nan_fam_pd = length(idx_nan_fam_pd);
 percent_not_nan = (num_no_fam_pd + num_yes_fam_pd)/(num_no_fam_pd + num_yes_fam_pd+num_nan_fam_pd);
 
 %% DAT SCAN lateralization
+
+% Right = |(right - left putamen SBR/right + left putamen SBR)| > 0.20
+% Left = |(right - left putamen SBR/right + left putamen SBR)| > 0.20
+% From: Ipsilateral deficits of dopaminergic neurotransmission in Parkinson s disease
+
 DATSCAN_CAUDATE_lat = data.DATSCAN_CAUDATE_R - data.DATSCAN_CAUDATE_L;
 DATSCAN_PUTAMEN_lat = data.DATSCAN_PUTAMEN_R - data.DATSCAN_PUTAMEN_L;
 DATSCAN_PUTAMEN_ANT_lat = data.DATSCAN_PUTAMEN_R_ANT - data.DATSCAN_PUTAMEN_L_ANT;
