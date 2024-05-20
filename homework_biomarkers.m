@@ -49,7 +49,7 @@ data_hc = data(idx_HC, :);
 %%%%%%%%%%%%
 
 
-%% IMPORTANT VARIABLES EXTRACTION:
+%% IMPORTANT VARIABLES EXTRACTION and MANAGING MISSING VALUES
 %% - Summing-up variables: summing scores for each part 
 
 % HEALTHY CONTROLS ------------------------------------------------------
@@ -152,20 +152,24 @@ if length(IDs) == length(unique_ids)
 end
 
 %% - Genetic history
-genetics_hc = data_hc.GENETICS;
+% genetics_hc = data_hc.GENETICS; % tutti NA
 genetics_pd = data_pd.GENETICS;
 
-familiarity_hc = data_hc.ANYFAMPD;
-familiarity_pd = data_pd.ANYFAMPD;
+familiarity_hc = data_hc.ANYFAMPD; % alcuni hanno familiarità
+familiarity_pd = data_pd.ANYFAMPD; % 47% NAN 
 
 %% - Demographics data
-ethnicity_hc = data_hc.ETHNICITY;
+ethnicity_hc = data_hc.ETHNICITY; % nessun NA 
+
+idx_nan_ethnicity = find(data_pd.ETHNICITY == "NA");
+data_pd(idx_nan_ethnicity,:) = [];
+
 ethnicity_pd = data_pd.ETHNICITY;
 
-sex_hc = data_hc.SEX;
-sex_pd = data_pd.SEX;
+sex_hc = data_hc.SEX; % no NA
+sex_pd = data_pd.SEX; % no NA
 
-age_hc = data_hc.ENROLL_AGE;
+age_hc = data_hc.ENROLL_AGE; % già sistemati NA
 age_pd = data_pd.ENROLL_AGE;
 
 % computing missing age data
@@ -193,8 +197,12 @@ for i = 1:length(idx_nan_age_pd)
 end
 
 %% - Dominant hand
-hand_hc = data_hc.HANDED;
-hand_pd = data_pd.HANDED;
+hand_hc = data_hc.HANDED; % no NA
+
+idx_nan_hand= find(data_pd.HANDED == "NA");
+data_pd(idx_nan_hand,:) = [];
+
+hand_pd = data_pd.HANDED; 
 
 idx_right_hand_hc = find(hand_hc == "Right");
 idx_left_hand_hc = find(hand_hc == "Left");
@@ -209,10 +217,10 @@ idx_mixed_hand_pd = find(hand_pd == "Mixed");
 ind_97_hc = find(data_hc.PRIMDIAG == 97);
 ind_97_pd = find(data_pd.PRIMDIAG == 97);
 for i = 1:length(ind_97_hc)
-    data_hc(ind_97_hc(i),:) = [];
+    data_hc(ind_97_hc(i),"PRIMDIAG") = "NA";
 end
 for i = 1:length(ind_97_pd)
-    data_pd(ind_97_pd(i),:) = [];
+    data_pd(ind_97_pd(i),"PRIMDIAG") = "NA";
 end
 
 prim_diag_hc = data_hc.PRIMDIAG;
