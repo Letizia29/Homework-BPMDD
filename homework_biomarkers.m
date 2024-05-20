@@ -145,8 +145,8 @@ familiarity_pd = data_pd.ANYFAMPD; % 47% NAN
 %% - Demographics data
 ethnicity_hc = data_hc.ETHNICITY; % nessun NA 
 
-idx_nan_ethnicity = find(data_pd.ETHNICITY == "NA");
-data_pd(idx_nan_ethnicity,:) = [];
+idx_nan.ethnicity = find(data_pd.ETHNICITY == "NA");
+data_pd(idx_nan.ethnicity,:) = [];
 
 ethnicity_pd = data_pd.ETHNICITY;
 
@@ -157,34 +157,34 @@ age_hc = data_hc.ENROLL_AGE; % già sistemati NA
 age_pd = data_pd.ENROLL_AGE;
 
 % computing missing age data
-idx_nan_age_hc = find(isnan(age_hc));
-idx_nan_age_pd = find(isnan(age_pd));
+idx_nan.age.HC = find(isnan(age_hc));
+idx_nan.age.PD = find(isnan(age_pd));
 
 % age at the time of the DAT SCAN ---- HC
-for i = 1:length(idx_nan_age_hc)
-    idx_nan = idx_nan_age_hc(i);
-    datscan_date = char(data_hc.DATSCAN_DATE(idx_nan));
-    birth_date = char(data_hc.BIRTHDT(idx_nan));
+for i = 1:length(idx_nan.age.HC)
+    idx_nan_temp = idx_nan.age.HC(i);
+    datscan_date = char(data_hc.DATSCAN_DATE(idx_nan_temp));
+    birth_date = char(data_hc.BIRTHDT(idx_nan_temp));
     datscan_year = str2double(string(datscan_date(end-3:end)));
     birth_year = str2double(string(birth_date(end-3:end)));
-    age_hc(idx_nan) = datscan_year - birth_year;
+    age_hc(idx_nan_temp) = datscan_year - birth_year;
 end
 
 % age at the time of the DAT SCAN ---- PD
-for i = 1:length(idx_nan_age_pd)
-    idx_nan = idx_nan_age_pd(i);
-    datscan_date = char(data_pd.DATSCAN_DATE(idx_nan));
-    birth_date = char(data_pd.BIRTHDT(idx_nan));
+for i = 1:length(idx_nan.age.PD)
+    idx_nan_temp = idx_nan.age.PD(i);
+    datscan_date = char(data_pd.DATSCAN_DATE(idx_nan_temp));
+    birth_date = char(data_pd.BIRTHDT(idx_nan_temp));
     datscan_year = str2double(string(datscan_date(end-3:end)));
     birth_year = str2double(string(birth_date(end-3:end)));
-    age_pd(idx_nan) = datscan_year - birth_year;
+    age_pd(idx_nan_temp) = datscan_year - birth_year;
 end
 
 %% - Dominant hand
 hand_hc = data_hc.HANDED; % no NA
 
-idx_nan_hand= find(data_pd.HANDED == "NA");
-data_pd(idx_nan_hand,:) = [];
+idx_nan.hand= find(data_pd.HANDED == "NA");
+data_pd(idx_nan.hand,:) = [];
 
 hand_pd = data_pd.HANDED; 
 
@@ -210,10 +210,10 @@ end
 prim_diag_hc = data_hc.PRIMDIAG;
 prim_diag_pd = data_pd.PRIMDIAG;
 
-if isempty(find(prim_diag_hc == 97))
+if isempty(find(prim_diag_hc == 97,1))
     disp('Successful SWEDD exclusion in HC')
 end
-if isempty(find(prim_diag_pd == 97))
+if isempty(find(prim_diag_pd == 97,1))
     disp('Successful SWEDD exclusion in PD')
 end
 
@@ -237,78 +237,78 @@ percent_not_nan = (num_no_fam_pd + num_yes_fam_pd)/(num_no_fam_pd + num_yes_fam_
 % From: Ipsilateral deficits of dopaminergic neurotransmission in Parkinson s disease
 
 % DATSCAN lateralization PD ------------------------------------------
-DATSCAN_CAUDATE_lat_pd = (data_pd.DATSCAN_CAUDATE_R - data_pd.DATSCAN_CAUDATE_L)./(data_pd.DATSCAN_CAUDATE_R + data_pd.DATSCAN_CAUDATE_L);
-DATSCAN_PUTAMEN_lat_pd = (data_pd.DATSCAN_PUTAMEN_R - data_pd.DATSCAN_PUTAMEN_L)./(data_pd.DATSCAN_PUTAMEN_R + data_pd.DATSCAN_PUTAMEN_L);
-DATSCAN_PUTAMEN_ANT_lat_pd = (data_pd.DATSCAN_PUTAMEN_R_ANT - data_pd.DATSCAN_PUTAMEN_L_ANT)./(data_pd.DATSCAN_PUTAMEN_R_ANT + data_pd.DATSCAN_PUTAMEN_L_ANT);
+DATSCAN.CAUDATE_lat.PD = (data_pd.DATSCAN_CAUDATE_R - data_pd.DATSCAN_CAUDATE_L)./(data_pd.DATSCAN_CAUDATE_R + data_pd.DATSCAN_CAUDATE_L);
+DATSCAN.PUTAMEN_lat.PD = (data_pd.DATSCAN_PUTAMEN_R - data_pd.DATSCAN_PUTAMEN_L)./(data_pd.DATSCAN_PUTAMEN_R + data_pd.DATSCAN_PUTAMEN_L);
+DATSCAN.PUTAMEN_ANT_lat.PD = (data_pd.DATSCAN_PUTAMEN_R_ANT - data_pd.DATSCAN_PUTAMEN_L_ANT)./(data_pd.DATSCAN_PUTAMEN_R_ANT + data_pd.DATSCAN_PUTAMEN_L_ANT);
 
 % If the difference right-left is >0, then the DAT signal from the right
 % side of the ROI is stronger than the left side.
 
 % With significant difference: 20%
 
-lat_index.CAUDATE.PD.right = find(DATSCAN_CAUDATE_lat_pd>0.2);
-pd_right_lat_caudate = data_pd(lat_index.CAUDATE.PD.right,:);
+lateralization.CAUDATE.PD.right.index = find(DATSCAN.CAUDATE_lat.PD>0.2);
+lateralization.CAUDATE.PD.right.population = data_pd(lateralization.CAUDATE.PD.right.index,:);
 
-lat_index.CAUDATE.PD.left = find(DATSCAN_CAUDATE_lat_pd<-0.2);
-pd_left_lat_caudate = data_pd(lat_index.CAUDATE.PD.left,:);
+lateralization.CAUDATE.PD.left.index = find(DATSCAN.CAUDATE_lat.PD<-0.2);
+lateralization.CAUDATE.PD.left.population = data_pd(lateralization.CAUDATE.PD.left.index,:);
 
-lat_index.CAUDATE.PD.none = find(DATSCAN_CAUDATE_lat_pd>-0.2 | DATSCAN_CAUDATE_lat_pd<0.2);
-pd_no_lat_caudate = data_pd(lat_index.CAUDATE.PD.none,:);
+lateralization.CAUDATE.PD.none.index = find(DATSCAN.CAUDATE_lat.PD>-0.2 | DATSCAN.CAUDATE_lat.PD<0.2);
+lateralization.CAUDATE.PD.none.population = data_pd(lateralization.CAUDATE.PD.none.index,:);
 
-lat_index.PUTAMEN.PD.right = find(DATSCAN_PUTAMEN_lat_pd>0.2);
-pd_right_lat_putamen = data_pd(lat_index.PUTAMEN.PD.right,:);
+lateralization.PUTAMEN.PD.right.index = find(DATSCAN.PUTAMEN_lat.PD>0.2);
+lateralization.PUTAMEN.PD.right.population = data_pd(lateralization.PUTAMEN.PD.right.index,:);
 
-lat_index.PUTAMEN.PD.left = find(DATSCAN_PUTAMEN_lat_pd<-0.2);
-pd_left_lat_putamen = data_pd(lat_index.PUTAMEN.PD.left,:);
+lateralization.PUTAMEN.PD.left.index = find(DATSCAN.PUTAMEN_lat.PD<-0.2);
+lateralization.PUTAMEN.PD.left.population = data_pd(lateralization.PUTAMEN.PD.left.index,:);
 
-lat_index.PUTAMEN.PD.none = find(DATSCAN_PUTAMEN_lat_pd<-0.2 | DATSCAN_PUTAMEN_lat_pd<0.2);
-pd_no_lat_putamen = data_pd(lat_index.PUTAMEN.PD.none,:);
+lateralization.PUTAMEN.PD.none.index = find(DATSCAN.PUTAMEN_lat.PD<-0.2 | DATSCAN.PUTAMEN_lat.PD<0.2);
+lateralization.PUTAMEN.PD.none.population = data_pd(lateralization.PUTAMEN.PD.none.index,:);
 
-lat_index.PUTAMEN_ANT.PD.right = find(DATSCAN_PUTAMEN_ANT_lat_pd>0.2);
-pd_right_lat_putamen_ant = data_pd(lat_index.PUTAMEN_ANT.PD.right ,:);
+lateralization.PUTAMEN_ANT.PD.right.index = find(DATSCAN.PUTAMEN_ANT_lat.PD>0.2);
+lateralization.PUTAMEN_ANT.PD.right.population = data_pd(lateralization.PUTAMEN_ANT.PD.right.index ,:);
 
-lat_index.PUTAMEN_ANT.PD.left = find(DATSCAN_PUTAMEN_ANT_lat_pd<-0.2);
-pd_left_lat_putamen_ant = data_pd(lat_index.PUTAMEN_ANT.PD.left,:);
+lateralization.PUTAMEN_ANT.PD.left.index = find(DATSCAN.PUTAMEN_ANT_lat.PD<-0.2);
+lateralization.PUTAMEN_ANT.PD.left.population = data_pd(lateralization.PUTAMEN_ANT.PD.left.index,:);
 
-lat_index.PUTAMEN_ANT.PD.none = find(DATSCAN_PUTAMEN_ANT_lat_pd<-0.2 | DATSCAN_PUTAMEN_ANT_lat_pd<0.2);
-pd_no_lat_putamen_ant = data_pd(lat_index.PUTAMEN_ANT.PD.none,:);
+lateralization.PUTAMEN_ANT.PD.none.index = find(DATSCAN.PUTAMEN_ANT_lat.PD<-0.2 | DATSCAN.PUTAMEN_ANT_lat.PD<0.2);
+lateralization.PUTAMEN_ANT.PD.none.population = data_pd(lateralization.PUTAMEN_ANT.PD.none.index,:);
 
 % DATSCAN lateralization HC ------------------------------------------
-DATSCAN_CAUDATE_lat_hc = (data_hc.DATSCAN_CAUDATE_R - data_hc.DATSCAN_CAUDATE_L)./(data_hc.DATSCAN_CAUDATE_R + data_hc.DATSCAN_CAUDATE_L);
-DATSCAN_PUTAMEN_lat_hc = (data_hc.DATSCAN_PUTAMEN_R - data_hc.DATSCAN_PUTAMEN_L)./(data_hc.DATSCAN_PUTAMEN_R + data_hc.DATSCAN_PUTAMEN_L);
-DATSCAN_PUTAMEN_ANT_lat_hc = (data_hc.DATSCAN_PUTAMEN_R_ANT - data_hc.DATSCAN_PUTAMEN_L_ANT)./(data_hc.DATSCAN_PUTAMEN_R_ANT + data_hc.DATSCAN_PUTAMEN_L_ANT);
+DATSCAN.CAUDATE_lat.HC = (data_hc.DATSCAN_CAUDATE_R - data_hc.DATSCAN_CAUDATE_L)./(data_hc.DATSCAN_CAUDATE_R + data_hc.DATSCAN_CAUDATE_L);
+DATSCAN.PUTAMEN_lat.HC = (data_hc.DATSCAN_PUTAMEN_R - data_hc.DATSCAN_PUTAMEN_L)./(data_hc.DATSCAN_PUTAMEN_R + data_hc.DATSCAN_PUTAMEN_L);
+DATSCAN.PUTAMEN_ANT_lat.HC = (data_hc.DATSCAN_PUTAMEN_R_ANT - data_hc.DATSCAN_PUTAMEN_L_ANT)./(data_hc.DATSCAN_PUTAMEN_R_ANT + data_hc.DATSCAN_PUTAMEN_L_ANT);
 
 % If the difference right-left is >0, then the DAT signal from the right
 % side of the ROI is stronger than the left side.
 
 % With significant difference: 20%
 
-lat_index.CAUDATE.HC.right = find(DATSCAN_CAUDATE_lat_hc>0.2);
-hc_right_lat_caudate = data_hc(lat_index.CAUDATE.HC.right,:);
+lateralization.CAUDATE.HC.right.index = find(DATSCAN.CAUDATE_lat.HC>0.2);
+lateralization.CAUDATE.HC.right.population = data_hc(lateralization.CAUDATE.HC.right.index,:);
 
-lat_index.CAUDATE.HC.left = find(DATSCAN_CAUDATE_lat_hc<-0.2);
-hc_left_lat_caudate = data_hc(lat_index.CAUDATE.HC.left,:);
+lateralization.CAUDATE.HC.left.index = find(DATSCAN.CAUDATE_lat.HC<-0.2);
+lateralization.CAUDATE.HC.left.population = data_hc(lateralization.CAUDATE.HC.left.index,:);
 
-lat_index.CAUDATE.HC.none = find(DATSCAN_CAUDATE_lat_hc>-0.2 | DATSCAN_CAUDATE_lat_hc<0.2);
-hc_no_lat_caudate = data_hc(lat_index.CAUDATE.HC.none,:);
+lateralization.CAUDATE.HC.none.index = find(DATSCAN.CAUDATE_lat.HC>-0.2 | DATSCAN.CAUDATE_lat.HC<0.2);
+lateralization.CAUDATE.HC.none.population = data_hc(lateralization.CAUDATE.HC.none.index,:);
 
-lat_index.PUTAMEN.HC.right = find(DATSCAN_PUTAMEN_lat_hc>0.2);
-hc_right_lat_putamen = data_hc(lat_index.PUTAMEN.HC.right,:);
+lateralization.PUTAMEN.HC.right.index = find(DATSCAN.PUTAMEN_lat.HC>0.2);
+lateralization.PUTAMEN.HC.right.population = data_hc(lateralization.PUTAMEN.HC.right.index,:);
 
-lat_index.PUTAMEN.HC.left = find(DATSCAN_PUTAMEN_lat_hc<-0.2);
-hc_left_lat_putamen = data_hc(lat_index.PUTAMEN.HC.left,:);
+lateralization.PUTAMEN.HC.left.index = find(DATSCAN.PUTAMEN_lat.HC<-0.2);
+lateralization.PUTAMEN.HC.left.population = data_hc(lateralization.PUTAMEN.HC.left.index,:);
 
-lat_index.PUTAMEN.HC.none = find(DATSCAN_PUTAMEN_lat_hc<-0.2 | DATSCAN_PUTAMEN_lat_hc<0.2);
-hc_no_lat_putamen = data_hc(lat_index.PUTAMEN.HC.none,:);
+lateralization.PUTAMEN.HC.none.index = find(DATSCAN.PUTAMEN_lat.HC<-0.2 | DATSCAN.PUTAMEN_lat.HC<0.2);
+lateralization.PUTAMEN.HC.none.population = data_hc(lateralization.PUTAMEN.HC.none.index,:);
 
-lat_index.PUTAMEN_ANT.HC.right = find(DATSCAN_PUTAMEN_ANT_lat_hc>0.2);
-hc_right_lat_putamen_ant = data_hc(lat_index.PUTAMEN_ANT.HC.right ,:);
+lateralization.PUTAMEN_ANT.HC.right.index = find(DATSCAN.PUTAMEN_ANT_lat.HC>0.2);
+lateralization.PUTAMEN_ANT.HC.right.population = data_hc(lateralization.PUTAMEN_ANT.HC.right.index ,:);
 
-lat_index.PUTAMEN_ANT.HC.left = find(DATSCAN_PUTAMEN_ANT_lat_hc<-0.2);
-hc_left_lat_putamen_ant = data_hc(lat_index.PUTAMEN_ANT.HC.left,:);
+lateralization.PUTAMEN_ANT.HC.left.index = find(DATSCAN.PUTAMEN_ANT_lat.HC<-0.2);
+lateralization.PUTAMEN_ANT.HC.left.population = data_hc(lateralization.PUTAMEN_ANT.HC.left.index,:);
 
-lat_index.PUTAMEN_ANT.HC.none = find(DATSCAN_PUTAMEN_ANT_lat_hc<-0.2 | DATSCAN_PUTAMEN_ANT_lat_hc<0.2);
-hc_no_lat_putamen_ant = data_hc(lat_index.PUTAMEN_ANT.HC.none,:);
+lateralization.PUTAMEN_ANT.HC.none.index = find(DATSCAN.PUTAMEN_ANT_lat.HC<-0.2 | DATSCAN.PUTAMEN_ANT_lat.HC<0.2);
+lateralization.PUTAMEN_ANT.HC.none.population = data_hc(lateralization.PUTAMEN_ANT.HC.none.index,:);
 
 
 %%%%%%%%%%%%%% Graphical comparison
@@ -319,7 +319,7 @@ hc_no_lat_putamen_ant = data_hc(lat_index.PUTAMEN_ANT.HC.none,:);
 % y_right = [-1.9600; 0; 0; -1.9600];
 % 
 % figure(4), hold on, axis tight
-% plot(DATSCAN_CAUDATE_lat, 'k')
+% plot(DATSCAN_CAUDATE_lat.PD, 'k')
 % title('Caudate DAT signal lateralization (right-left)')
 % ylabel('[adim]')
 % xlabel('Subjects')
@@ -329,7 +329,7 @@ hc_no_lat_putamen_ant = data_hc(lat_index.PUTAMEN_ANT.HC.none,:);
 % legend('DAT_{right} - DAT_{left}', 'Threshold', 'DAT_{right} bigger', 'DAT_{left} bigger')
 % 
 % figure(5), hold on, axis tight
-% plot(DATSCAN_PUTAMEN_lat, 'k')
+% plot(DATSCAN_PUTAMEN_lat.PD, 'k')
 % title('Putamen DAT signal lateralization (right-left)')
 % ylabel('[adim]')
 % xlabel('Subjects')
@@ -339,7 +339,7 @@ hc_no_lat_putamen_ant = data_hc(lat_index.PUTAMEN_ANT.HC.none,:);
 % legend('DAT_{right} - DAT_{left}', 'Threshold', 'DAT_{right} bigger', 'DAT_{left} bigger')
 % 
 % figure(6), hold on, axis tight
-% plot(DATSCAN_PUTAMEN_ANT_lat, 'k')
+% plot(DATSCAN_PUTAMEN_ANT_lat.PD, 'k')
 % title('Putamen ant. DAT signal lateralization (right-left)')
 % ylabel('[adim]')
 % xlabel('Subjects')
