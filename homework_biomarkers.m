@@ -85,6 +85,7 @@ np1p_norm_HC = np1p_HC./sum(np1p_HC);
 np2_norm_HC = np2_HC./sum(np2_HC);
 np3_norm_HC = np3_HC./sum(np3_HC);
 
+%%%%%%%%%%
 % figure(2), hold on
 % histogram(np1r_norm_HC, "FaceColor", 'r')
 % histogram(np1p_norm_HC, "FaceColor", 'b')
@@ -95,6 +96,7 @@ np3_norm_HC = np3_HC./sum(np3_HC);
 % title('Normalized sum of symptoms scores - HC')
 % xlabel('Normalized score')
 % ylabel('Subjects')
+%%%%%%%%%
 
 % PD PATIENTS ------------------------------------------------------
 np1r_PD = data.NP1RTOT([idx_Prodromal; idx_PD; idx_SWEDD],:);
@@ -129,6 +131,7 @@ np1p_norm_PD = np1p_PD./sum(np1p_PD);
 np2_norm_PD = np2_PD./sum(np2_PD);
 np3_norm_PD = np3_PD./sum(np3_PD);
 
+%%%%%%%%%%
 % figure(3), hold on
 % histogram(np1r_norm_PD, "FaceColor", 'r')
 % histogram(np1p_norm_PD, "FaceColor", 'b')
@@ -139,6 +142,7 @@ np3_norm_PD = np3_PD./sum(np3_PD);
 % title('Normalized sum of symptoms scores - PD')
 % xlabel('Normalized score')
 % ylabel('Subjects')
+%%%%%%%%%%
 
 %% - Check repetitions in PATNO - patients ID
 IDs = data.PATNO;
@@ -201,10 +205,25 @@ idx_left_hand_pd = find(hand_pd == "Left");
 idx_mixed_hand_pd = find(hand_pd == "Mixed");
 
 %% - Primary diagnosis
+% SWEDD patients exclusion
+ind_97_hc = find(data_hc.PRIMDIAG == 97);
+ind_97_pd = find(data_pd.PRIMDIAG == 97);
+for i = 1:length(ind_97_hc)
+    data_hc(ind_97_hc(i),:) = [];
+end
+for i = 1:length(ind_97_pd)
+    data_pd(ind_97_pd(i),:) = [];
+end
+
 prim_diag_hc = data_hc.PRIMDIAG;
 prim_diag_pd = data_pd.PRIMDIAG;
 
-
+if isempty(find(prim_diag_hc == 97))
+    disp('Successful SWEDD exclusion in HC')
+end
+if isempty(find(prim_diag_pd == 97))
+    disp('Successful SWEDD exclusion in PD')
+end
 
 %% MISSING VALUES MANAGING
 %% Analysis missing data ex family history
