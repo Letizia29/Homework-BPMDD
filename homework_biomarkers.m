@@ -236,41 +236,80 @@ percent_not_nan = (num_no_fam_pd + num_yes_fam_pd)/(num_no_fam_pd + num_yes_fam_
 % Left = |(right - left putamen SBR/right + left putamen SBR)| > 0.20
 % From: Ipsilateral deficits of dopaminergic neurotransmission in Parkinson s disease
 
-DATSCAN_CAUDATE_lat = (data_pd.DATSCAN_CAUDATE_R - data_pd.DATSCAN_CAUDATE_L)./(data_pd.DATSCAN_CAUDATE_R + data_pd.DATSCAN_CAUDATE_L);
-DATSCAN_PUTAMEN_lat = (data_pd.DATSCAN_PUTAMEN_R - data_pd.DATSCAN_PUTAMEN_L)./(data_pd.DATSCAN_PUTAMEN_R + data_pd.DATSCAN_PUTAMEN_L);
-DATSCAN_PUTAMEN_ANT_lat = (data_pd.DATSCAN_PUTAMEN_R_ANT - data_pd.DATSCAN_PUTAMEN_L_ANT)./(data_pd.DATSCAN_PUTAMEN_R_ANT + data_pd.DATSCAN_PUTAMEN_L_ANT);
+% DATSCAN lateralization PD ------------------------------------------
+DATSCAN_CAUDATE_lat_pd = (data_pd.DATSCAN_CAUDATE_R - data_pd.DATSCAN_CAUDATE_L)./(data_pd.DATSCAN_CAUDATE_R + data_pd.DATSCAN_CAUDATE_L);
+DATSCAN_PUTAMEN_lat_pd = (data_pd.DATSCAN_PUTAMEN_R - data_pd.DATSCAN_PUTAMEN_L)./(data_pd.DATSCAN_PUTAMEN_R + data_pd.DATSCAN_PUTAMEN_L);
+DATSCAN_PUTAMEN_ANT_lat_pd = (data_pd.DATSCAN_PUTAMEN_R_ANT - data_pd.DATSCAN_PUTAMEN_L_ANT)./(data_pd.DATSCAN_PUTAMEN_R_ANT + data_pd.DATSCAN_PUTAMEN_L_ANT);
 
 % If the difference right-left is >0, then the DAT signal from the right
 % side of the ROI is stronger than the left side.
 
 % With significant difference: 20%
 
-idx_right_lateralization_caudate = find(DATSCAN_CAUDATE_lat>0.2);
-patients_right_lat_caudate = data_pd(idx_right_lateralization_caudate,:);
+lat_index.CAUDATE.PD.right = find(DATSCAN_CAUDATE_lat_pd>0.2);
+pd_right_lat_caudate = data_pd(lat_index.CAUDATE.PD.right,:);
 
-idx_left_lateralization_caudate = find(DATSCAN_CAUDATE_lat<-0.2);
-patients_left_lat_caudate = data_pd(idx_left_lateralization_caudate,:);
+lat_index.CAUDATE.PD.left = find(DATSCAN_CAUDATE_lat_pd<-0.2);
+pd_left_lat_caudate = data_pd(lat_index.CAUDATE.PD.left,:);
 
-idx_no_lateralization_caudate = find(DATSCAN_CAUDATE_lat>-0.2 | DATSCAN_CAUDATE_lat<0.2);
-patients_no_lat_caudate = data_pd(idx_no_lateralization_caudate,:);
+lat_index.CAUDATE.PD.none = find(DATSCAN_CAUDATE_lat_pd>-0.2 | DATSCAN_CAUDATE_lat_pd<0.2);
+pd_no_lat_caudate = data_pd(lat_index.CAUDATE.PD.none,:);
 
-idx_right_lateralization_putamen = find(DATSCAN_PUTAMEN_lat>0.2);
-patients_right_lat_putamen = data_pd(idx_right_lateralization_putamen,:);
+lat_index.PUTAMEN.PD.right = find(DATSCAN_PUTAMEN_lat_pd>0.2);
+pd_right_lat_putamen = data_pd(lat_index.PUTAMEN.PD.right,:);
 
-idx_left_lateralization_putamen = find(DATSCAN_PUTAMEN_lat<-0.2);
-patients_left_lat_putamen = data_pd(idx_left_lateralization_putamen,:);
+lat_index.PUTAMEN.PD.left = find(DATSCAN_PUTAMEN_lat_pd<-0.2);
+pd_left_lat_putamen = data_pd(lat_index.PUTAMEN.PD.left,:);
 
-idx_no_lateralization_putamen = find(DATSCAN_PUTAMEN_lat<-0.2 | DATSCAN_PUTAMEN_lat<0.2);
-patients_no_lat_putamen = data_pd(idx_no_lateralization_putamen,:);
+lat_index.PUTAMEN.PD.none = find(DATSCAN_PUTAMEN_lat_pd<-0.2 | DATSCAN_PUTAMEN_lat_pd<0.2);
+pd_no_lat_putamen = data_pd(lat_index.PUTAMEN.PD.none,:);
 
-idx_right_lateralization_putamen_ant = find(DATSCAN_PUTAMEN_ANT_lat>0.2);
-patients_right_lat_putamen_ant = data_pd(idx_right_lateralization_putamen_ant,:);
+lat_index.PUTAMEN_ANT.PD.right = find(DATSCAN_PUTAMEN_ANT_lat_pd>0.2);
+pd_right_lat_putamen_ant = data_pd(lat_index.PUTAMEN_ANT.PD.right ,:);
 
-idx_left_lateralization_putamen_ant = find(DATSCAN_PUTAMEN_ANT_lat<-0.2);
-patients_left_lat_putamen_ant = data_pd(idx_left_lateralization_putamen_ant,:);
+lat_index.PUTAMEN_ANT.PD.left = find(DATSCAN_PUTAMEN_ANT_lat_pd<-0.2);
+pd_left_lat_putamen_ant = data_pd(lat_index.PUTAMEN_ANT.PD.left,:);
 
-idx_no_lateralization_putamen_ant = find(DATSCAN_PUTAMEN_ANT_lat<-0.2 | DATSCAN_PUTAMEN_ANT_lat<0.2);
-patients_no_lat_putamen_ant = data_pd(idx_no_lateralization_putamen_ant,:);
+lat_index.PUTAMEN_ANT.PD.none = find(DATSCAN_PUTAMEN_ANT_lat_pd<-0.2 | DATSCAN_PUTAMEN_ANT_lat_pd<0.2);
+pd_no_lat_putamen_ant = data_pd(lat_index.PUTAMEN_ANT.PD.none,:);
+
+% DATSCAN lateralization HC ------------------------------------------
+DATSCAN_CAUDATE_lat_hc = (data_hc.DATSCAN_CAUDATE_R - data_hc.DATSCAN_CAUDATE_L)./(data_hc.DATSCAN_CAUDATE_R + data_hc.DATSCAN_CAUDATE_L);
+DATSCAN_PUTAMEN_lat_hc = (data_hc.DATSCAN_PUTAMEN_R - data_hc.DATSCAN_PUTAMEN_L)./(data_hc.DATSCAN_PUTAMEN_R + data_hc.DATSCAN_PUTAMEN_L);
+DATSCAN_PUTAMEN_ANT_lat_hc = (data_hc.DATSCAN_PUTAMEN_R_ANT - data_hc.DATSCAN_PUTAMEN_L_ANT)./(data_hc.DATSCAN_PUTAMEN_R_ANT + data_hc.DATSCAN_PUTAMEN_L_ANT);
+
+% If the difference right-left is >0, then the DAT signal from the right
+% side of the ROI is stronger than the left side.
+
+% With significant difference: 20%
+
+lat_index.CAUDATE.HC.right = find(DATSCAN_CAUDATE_lat_hc>0.2);
+hc_right_lat_caudate = data_hc(lat_index.CAUDATE.HC.right,:);
+
+lat_index.CAUDATE.HC.left = find(DATSCAN_CAUDATE_lat_hc<-0.2);
+hc_left_lat_caudate = data_hc(lat_index.CAUDATE.HC.left,:);
+
+lat_index.CAUDATE.HC.none = find(DATSCAN_CAUDATE_lat_hc>-0.2 | DATSCAN_CAUDATE_lat_hc<0.2);
+hc_no_lat_caudate = data_hc(lat_index.CAUDATE.HC.none,:);
+
+lat_index.PUTAMEN.HC.right = find(DATSCAN_PUTAMEN_lat_hc>0.2);
+hc_right_lat_putamen = data_hc(lat_index.PUTAMEN.HC.right,:);
+
+lat_index.PUTAMEN.HC.left = find(DATSCAN_PUTAMEN_lat_hc<-0.2);
+hc_left_lat_putamen = data_hc(lat_index.PUTAMEN.HC.left,:);
+
+lat_index.PUTAMEN.HC.none = find(DATSCAN_PUTAMEN_lat_hc<-0.2 | DATSCAN_PUTAMEN_lat_hc<0.2);
+hc_no_lat_putamen = data_hc(lat_index.PUTAMEN.HC.none,:);
+
+lat_index.PUTAMEN_ANT.HC.right = find(DATSCAN_PUTAMEN_ANT_lat_hc>0.2);
+hc_right_lat_putamen_ant = data_hc(lat_index.PUTAMEN_ANT.HC.right ,:);
+
+lat_index.PUTAMEN_ANT.HC.left = find(DATSCAN_PUTAMEN_ANT_lat_hc<-0.2);
+hc_left_lat_putamen_ant = data_hc(lat_index.PUTAMEN_ANT.HC.left,:);
+
+lat_index.PUTAMEN_ANT.HC.none = find(DATSCAN_PUTAMEN_ANT_lat_hc<-0.2 | DATSCAN_PUTAMEN_ANT_lat_hc<0.2);
+hc_no_lat_putamen_ant = data_hc(lat_index.PUTAMEN_ANT.HC.none,:);
+
 
 %%%%%%%%%%%%%% Graphical comparison
 % graphical measures
