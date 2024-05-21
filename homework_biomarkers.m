@@ -5,28 +5,19 @@ clc
 %% load data
 data = readtable("Patient_Master.csv");
 
-DAT_SCAN_SPECT = [data.DATSCAN_CAUDATE_R data.DATSCAN_CAUDATE_L data.DATSCAN_PUTAMEN_R  data.DATSCAN_PUTAMEN_L data.DATSCAN_PUTAMEN_R_ANT data.DATSCAN_PUTAMEN_L_ANT];
+DATSCAN.TOT = [data.DATSCAN_CAUDATE_R data.DATSCAN_CAUDATE_L data.DATSCAN_PUTAMEN_R  data.DATSCAN_PUTAMEN_L data.DATSCAN_PUTAMEN_R_ANT data.DATSCAN_PUTAMEN_L_ANT];
 %DAT_SCAN_PET =  [data.AV133_RCAUD_S data.AV133_LCAUD_S data.AV133_RPUTANT_S data.AV133_RPUTPOST_S data.AV133_LPUTANT_S data.AV133_LPUTPOST_S];
 
 ROIs_labels = ["Right Caudate", "Left Caudate", "Right Putamen", "Left Putamen", "Left Anterior Putamen", "Right Anterior Putamen"];
+idx_variables.HC = find(string(data.COHORT)=='HC');
+idx_variables.PD = find(string(data.COHORT)=='PD');
+idx_variables.SWEDD = find(string(data.COHORT)=='SWEDD');
+idx_variables.Prodromal = find(string(data.COHORT)=='Prodromal');
 
-idx_HC = find(string(data.COHORT)=='HC');
-HC_DAT_SCAN_SPECT = DAT_SCAN_SPECT(idx_HC,:);
-
-idx_PD = find(string(data.COHORT)=='PD');
-PD_DAT_SCAN_SPECT = DAT_SCAN_SPECT(idx_PD,:);
-
-idx_SWEDD = find(string(data.COHORT)=='SWEDD');
-SWEDD_DAT_SCAN_SPECT = DAT_SCAN_SPECT(idx_SWEDD,:);
-
-idx_Prodromal = find(string(data.COHORT)=='Prodromal');
-Prodromal_DAT_SCAN_SPECT = DAT_SCAN_SPECT(idx_Prodromal,:);
-
-NON_HC_DAT_SCAN_SPECT = DAT_SCAN_SPECT([idx_Prodromal; idx_PD; idx_SWEDD],:);
 
 % division HC - PD
-data_pd = data([idx_Prodromal; idx_PD; idx_SWEDD],:);
-data_hc = data(idx_HC, :);
+data_pd = data([idx_variables.Prodromal; idx_variables.PD; idx_variables.SWEDD],:);
+data_hc = data(idx_variables.HC, :);
 
 %%%%%%%%%%% histograms
 % figure(1)
@@ -54,15 +45,15 @@ data_hc = data(idx_HC, :);
 
 % HEALTHY CONTROLS ------------------------------------------------------
 % Find missing data
-np_test.np1r.HC.idx_nan = find(isnan(data.NP1RTOT(idx_HC, :)));
-np_test.np1p.HC.idx_nan = find(isnan(data.NP1PTOT(idx_HC, :)));
-np_test.np2.HC.idx_nan = find(isnan(data.NP2PTOT(idx_HC, :)));
-np_test.np3.HC.idx_nan = find(isnan(data.NP3TOT(idx_HC, :)));
-np_test.np4.HC.idx_nan = find(string(data.NP4TOT(idx_HC, :)) =='NA'); 
+np_test.np1r.HC.idx_nan = find(isnan(data.NP1RTOT(idx_variables.HC, :)));
+np_test.np1p.HC.idx_nan = find(isnan(data.NP1PTOT(idx_variables.HC, :)));
+np_test.np2.HC.idx_nan = find(isnan(data.NP2PTOT(idx_variables.HC, :)));
+np_test.np3.HC.idx_nan = find(isnan(data.NP3TOT(idx_variables.HC, :)));
+np_test.np4.HC.idx_nan = find(string(data.NP4TOT(idx_variables.HC, :)) =='NA'); 
 
 np_test.idx_nan.HC = union(np_test.np1r.HC.idx_nan, union(np_test.np1p.HC.idx_nan,union(np_test.np2.HC.idx_nan,np_test.np3.HC.idx_nan)));
 
-data_without_nan_np = data(idx_HC,:);
+data_without_nan_np = data(idx_variables.HC,:);
 data_without_nan_np(np_test.idx_nan.HC,:) = [];
 
 np_test.np1r.HC.data = data_without_nan_np.NP1RTOT;
@@ -92,15 +83,15 @@ np_test.np3.HC.data_normalized = np_test.np3.HC.data./sum(np_test.np3.HC.data);
 
 % PD PATIENTS ------------------------------------------------------
 % Find missing data
-np_test.np1r.PD.idx_nan = find(isnan(data.NP1RTOT([idx_Prodromal; idx_PD; idx_SWEDD],:)));
-np_test.np1p.PD.idx_nan = find(isnan(data.NP1PTOT([idx_Prodromal; idx_PD; idx_SWEDD],:)));
-np_test.np2.PD.idx_nan = find(isnan(data.NP2PTOT([idx_Prodromal; idx_PD; idx_SWEDD],:)));
-np_test.np3.PD.idx_nan = find(isnan(data.NP3TOT([idx_Prodromal; idx_PD; idx_SWEDD],:)));
-np_test.np4.PD.idx_nan = find(string(data.NP4TOT([idx_Prodromal; idx_PD; idx_SWEDD],:)) =='NA'); 
+np_test.np1r.PD.idx_nan = find(isnan(data.NP1RTOT([idx_variables.Prodromal; idx_variables.PD; idx_variables.SWEDD],:)));
+np_test.np1p.PD.idx_nan = find(isnan(data.NP1PTOT([idx_variables.Prodromal; idx_variables.PD; idx_variables.SWEDD],:)));
+np_test.np2.PD.idx_nan = find(isnan(data.NP2PTOT([idx_variables.Prodromal; idx_variables.PD; idx_variables.SWEDD],:)));
+np_test.np3.PD.idx_nan = find(isnan(data.NP3TOT([idx_variables.Prodromal; idx_variables.PD; idx_variables.SWEDD],:)));
+np_test.np4.PD.idx_nan = find(string(data.NP4TOT([idx_variables.Prodromal; idx_variables.PD; idx_variables.SWEDD],:)) =='NA'); 
 
 np_test.idx_nan.PD = union(np_test.np1r.PD.idx_nan, union(np_test.np1p.PD.idx_nan, union(np_test.np2.PD.idx_nan,np_test.np3.PD.idx_nan)));
 
-data_without_nan_np = data([idx_Prodromal; idx_PD; idx_SWEDD],:);
+data_without_nan_np = data([idx_variables.Prodromal; idx_variables.PD; idx_variables.SWEDD],:);
 data_without_nan_np(np_test.idx_nan.PD,:) = [];
 
 np_test.np1r.PD.data = data_without_nan_np.NP1RTOT;
@@ -130,35 +121,35 @@ np_test.np3.PD.data_normalized = np_test.np3.PD.data./sum(np_test.np3.PD.data);
 
 %% - Check repetitions in PATNO - patients ID
 IDs = data.PATNO;
-unique_ids = unique(IDs);
-if length(IDs) == length(unique_ids)
+variables.unique_ids = unique(IDs);
+if length(IDs) == length(variables.unique_ids)
     disp('No repetitions')
 end
 
 %% - Genetic history
 % genetics_hc = data_hc.GENETICS; % tutti NA
-genetics_pd = data_pd.GENETICS;
+variables.genetics.pd = data_pd.GENETICS;
 
-familiarity_hc = data_hc.ANYFAMPD; % alcuni hanno familiarità
-familiarity_pd = data_pd.ANYFAMPD; % 47% NAN 
+variables.familiarity.hc = data_hc.ANYFAMPD; % alcuni hanno familiarità
+variables.familiarity.pd = data_pd.ANYFAMPD; % 47% NAN 
 
 %% - Demographics data
-ethnicity_hc = data_hc.ETHNICITY; % nessun NA 
+variables.ethnicity.hc = data_hc.ETHNICITY; % nessun NA 
 
 idx_nan.ethnicity = find(data_pd.ETHNICITY == "NA");
 data_pd(idx_nan.ethnicity,:) = [];
 
-ethnicity_pd = data_pd.ETHNICITY;
+variables.ethnicity.pd = data_pd.ETHNICITY;
 
-sex_hc = data_hc.SEX; % no NA
-sex_pd = data_pd.SEX; % no NA
+variables.sex.hc = data_hc.SEX; % no NA
+variables.sex.pd = data_pd.SEX; % no NA
 
-age_hc = data_hc.ENROLL_AGE; % già sistemati NA
-age_pd = data_pd.ENROLL_AGE;
+variables.age.hc = data_hc.ENROLL_AGE; % già sistemati NA
+variables.age.pd = data_pd.ENROLL_AGE;
 
 % computing missing age data
-idx_nan.age.HC = find(isnan(age_hc));
-idx_nan.age.PD = find(isnan(age_pd));
+idx_nan.age.HC = find(isnan(variables.age.hc));
+idx_nan.age.PD = find(isnan(variables.age.pd));
 
 % age at the time of the DAT SCAN ---- HC
 for i = 1:length(idx_nan.age.HC)
@@ -167,7 +158,7 @@ for i = 1:length(idx_nan.age.HC)
     birth_date = char(data_hc.BIRTHDT(idx_nan_temp));
     datscan_year = str2double(string(datscan_date(end-3:end)));
     birth_year = str2double(string(birth_date(end-3:end)));
-    age_hc(idx_nan_temp) = datscan_year - birth_year;
+    variables.age.hc(idx_nan_temp) = datscan_year - birth_year;
 end
 
 % age at the time of the DAT SCAN ---- PD
@@ -177,24 +168,24 @@ for i = 1:length(idx_nan.age.PD)
     birth_date = char(data_pd.BIRTHDT(idx_nan_temp));
     datscan_year = str2double(string(datscan_date(end-3:end)));
     birth_year = str2double(string(birth_date(end-3:end)));
-    age_pd(idx_nan_temp) = datscan_year - birth_year;
+    variables.age.pd(idx_nan_temp) = datscan_year - birth_year;
 end
 
 %% - Dominant hand
-hand_hc = data_hc.HANDED; % no NA
+variables.hand.hc = data_hc.HANDED; % no NA
 
 idx_nan.hand= find(data_pd.HANDED == "NA");
 data_pd(idx_nan.hand,:) = [];
 
-hand_pd = data_pd.HANDED; 
+variables.hand.pd = data_pd.HANDED; 
 
-idx_right_hand_hc = find(hand_hc == "Right");
-idx_left_hand_hc = find(hand_hc == "Left");
-idx_mixed_hand_hc = find(hand_hc == "Mixed");
+idx_variables.hand.right.hc = find(variables.hand.hc == "Right");
+idx_variables.hand.left.hc  = find(variables.hand.hc == "Left");
+idx_variables.hand.mixed.hc  = find(variables.hand.hc == "Mixed");
 
-idx_right_hand_pd = find(hand_pd == "Right");
-idx_left_hand_pd = find(hand_pd == "Left");
-idx_mixed_hand_pd = find(hand_pd == "Mixed");
+idx_variables.hand.right.pd = find(variables.hand.pd == "Right");
+idx_variables.hand.left.pd = find(variables.hand.pd == "Left");
+idx_variables.hand.mixed.pd = find(variables.hand.pd == "Mixed");
 
 %% - Primary diagnosis
 % SWEDD patients exclusion
@@ -207,26 +198,26 @@ for i = 1:length(ind_97_pd)
     data_pd(ind_97_pd(i),"PRIMDIAG") = {"NA"};
 end
 
-prim_diag_hc = data_hc.PRIMDIAG;
-prim_diag_pd = data_pd.PRIMDIAG;
+variables.prim_diag.hc = data_hc.PRIMDIAG;
+variables.prim_diag.pd = data_pd.PRIMDIAG;
 
-if isempty(find(prim_diag_hc == 97,1))
+if isempty(find(variables.prim_diag.hc == 97,1))
     disp('Successful SWEDD exclusion in HC')
 end
-if isempty(find(prim_diag_pd == 97,1))
+if isempty(find(variables.prim_diag.pd == 97,1))
     disp('Successful SWEDD exclusion in PD')
 end
 
 %% MISSING VALUES MANAGING
 %% Analysis missing data ex family history
 answers_fam_pd = data.ANYFAMPD;
-idx_yes_fam_pd = find(string(answers_fam_pd) =='1');
+idx_variables.familiarity.yes.pd = find(string(answers_fam_pd) =='1');
 %yes_fam_pd = answers_fam_pd
-num_yes_fam_pd = length(idx_yes_fam_pd);
-idx_no_fam_pd = find(string(answers_fam_pd) =='0');
-num_no_fam_pd = length(idx_no_fam_pd);
-idx_nan_fam_pd = find(string(answers_fam_pd) =='NA');
-num_nan_fam_pd = length(idx_nan_fam_pd);
+num_yes_fam_pd = length(idx_variables.familiarity.yes.pd);
+idx_variables.familiarity.no.pd = find(string(answers_fam_pd) =='0');
+num_no_fam_pd = length(idx_variables.familiarity.no.pd);
+idx_nan.familiarity.pd = find(string(answers_fam_pd) =='NA');
+num_nan_fam_pd = length(idx_nan.familiarity.pd);
 
 percent_not_nan = (num_no_fam_pd + num_yes_fam_pd)/(num_no_fam_pd + num_yes_fam_pd+num_nan_fam_pd);
 
