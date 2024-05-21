@@ -136,8 +136,8 @@ variables.familiarity.pd = data_pd.ANYFAMPD; % 47% NAN
 %% - Demographics data
 variables.ethnicity.hc = data_hc.ETHNICITY; % nessun NA 
 
-idx_nan.ethnicity = find(data_pd.ETHNICITY == "NA");
-data_pd(idx_nan.ethnicity,:) = [];
+% idx_nan.ethnicity = find(data_pd.ETHNICITY == "NA");
+% data_pd(idx_nan.ethnicity,:) = [];
 
 variables.ethnicity.pd = data_pd.ETHNICITY;
 
@@ -171,11 +171,20 @@ for i = 1:length(idx_nan.age.PD)
     variables.age.pd(idx_nan_temp) = datscan_year - birth_year;
 end
 
+% height
+height_hc = data_hc.HTCM;
+height_pd = data_pd.HTCM;
+
+% weight
+weight_hc = data_hc.WGTKG;
+weight_pd = data_pd.WGTKG;
+
+
 %% - Dominant hand
 variables.hand.hc = data_hc.HANDED; % no NA
 
-idx_nan.hand= find(data_pd.HANDED == "NA");
-data_pd(idx_nan.hand,:) = [];
+% idx_nan.hand= find(data_pd.HANDED == "NA");
+% data_pd(idx_nan.hand,:) = [];
 
 variables.hand.pd = data_pd.HANDED; 
 
@@ -351,10 +360,10 @@ lateralization.PUTAMEN_ANT.HC.none.population = data_hc(lateralization.PUTAMEN_A
 %% PATTERN MISSING VALUES
 
 % np1r, np1p, np2, np3, np4, genetics, familiarity, ethnicity, sex, age,
-% hand, prim_diag
+% height, weight, hand, primary diagnosis, 
 
-missing_values.pd = zeros(size(data_pd, 1), 12);
-missing_values.hc = zeros(size(data_hc, 1), 12);
+missing_values.pd = zeros(size(data_pd, 1), 14);
+missing_values.hc = zeros(size(data_hc, 1), 14);
 
 missing_values.pd(np_test.np1p.PD.idx_nan, 1) = 1;
 missing_values.hc(np_test.np1p.HC.idx_nan, 1) = 1;
@@ -386,11 +395,18 @@ missing_values.hc(find(data_hc.SEX == "NA"), 9) = 1;
 missing_values.pd(find(isnan(data_pd.ENROLL_AGE)), 10) = 1;
 missing_values.hc(find(isnan(data_hc.ENROLL_AGE)), 10) = 1;
 
-missing_values.pd(find(data_pd.HANDED == "NA"), 11) = 1;
-missing_values.hc(find(data_hc.HANDED == "NA"), 11) = 1;
+missing_values.pd(find(isnan(data_pd.HTCM)), 11) = 1;
+missing_values.hc(find(isnan(data_hc.HTCM)), 11) = 1;
 
-missing_values.pd(find(string(data_pd.PRIMDIAG) == "NA"), 12) = 1;
-missing_values.hc(find(string(data_hc.PRIMDIAG) == "NA"), 12) = 1;
+missing_values.pd(find(isnan(data_pd.WGTKG)), 12) = 1;
+missing_values.hc(find(isnan(data_hc.WGTKG)), 12) = 1;
+
+
+missing_values.pd(find(data_pd.HANDED == "NA"), 13) = 1;
+missing_values.hc(find(data_hc.HANDED == "NA"), 13) = 1;
+
+missing_values.pd(find(string(data_pd.PRIMDIAG) == "NA"), 14) = 1;
+missing_values.hc(find(string(data_hc.PRIMDIAG) == "NA"), 14) = 1;
 
 
 figure
@@ -402,8 +418,8 @@ hold on
 L = line(ones(2), ones(2), 'LineWidth', 2);
 set(L, {'color'}, mat2cell(cmap, ones(1, 2), 3));
 title('HC')
-xticks(1:12)
-xticklabels({'np1r', 'np1p', 'np2', 'np3', 'np4', 'genetics', 'familiarity', 'ethnicity', 'sex', 'age', 'hand', 'prim_diag'})
+xticks(1:14)
+xticklabels({'np1r', 'np1p', 'np2', 'np3', 'np4', 'genetics', 'familiarity', 'ethnicity', 'sex', 'age', 'height', 'weight', 'hand', 'primary diagnosis'})
 legend('Data', 'NaN')
 
 
@@ -415,8 +431,8 @@ colormap(cmap)
 hold on
 L = line(ones(2), ones(2), 'LineWidth', 2);
 set(L, {'color'}, mat2cell(cmap, ones(1, 2), 3));
-xticks(1:12)
-xticklabels({'np1r', 'np1p', 'np2', 'np3', 'np4', 'genetics', 'familiarity', 'ethnicity', 'sex', 'age', 'hand', 'prim_diag'})
+xticks(1:14)
+xticklabels({'np1r', 'np1p', 'np2', 'np3', 'np4', 'genetics', 'familiarity', 'ethnicity', 'sex', 'age', 'height', 'weight', 'hand', 'primary diagnosis'})
 legend('Data', 'NaN')
 
 
