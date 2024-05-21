@@ -217,6 +217,55 @@ if isempty(find(variables.prim_diag.pd == 97,1))
     disp('Successful SWEDD exclusion in PD')
 end
 
+% %% SAVE NEW DATASET
+% new_data_HC.NP1PTOT = np_test.np1p.HC.data;
+% new_data_PD.NP1PTOT = np_test.np1p.PD.data;
+% 
+% new_data_HC.NP1RTOT = np_test.np1r.HC.data;
+% new_data_PD.NP1RTOT = np_test.np1r.PD.data;
+% 
+% new_data_HC.NP2TOT = np_test.np2.HC.data;
+% new_data_PD.NP2TOT = np_test.np2.PD.data;
+% 
+% new_data_HC.NP3TOT = np_test.np3.HC.data;
+% new_data_PD.NP3TOT = np_test.np3.PD.data;
+% 
+% new_data_HC.NP4TOT = np_test.np4.HC.data;
+% new_data_PD.NP4TOT = np_test.np4.PD.data;
+% 
+% new_data_HC.GENETICS = data_hc.GENETICS;
+% new_data_PD.GENETICS = variables.genetics.pd;
+% 
+% new_data_HC.ETHNICITY = variables.ethnicity.hc;
+% new_data_PD.ETHNICITY = variables.ethnicity.pd;
+% 
+% new_data_HC.FAMILIARITY = variables.familiarity.hc;
+% new_data_PD.FAMILIARITY = variables.familiarity.pd;
+% 
+% new_data_HC.SEX = variables.sex.hc;
+% new_data_PD.SEX = variables.sex.pd;
+% 
+% new_data_HC.AGE = variables.age.hc;
+% new_data_PD.AGE = variables.age.pd;
+% 
+% new_data_HC.HT = variables.height.hc;
+% new_data_PD.HT = variables.height.pd;
+% 
+% new_data_HC.WT= variables.weight.hc;
+% new_data_PD.WT = variables.weight.pd;
+% 
+% new_data_HC.HAND = variables.hand.hc;
+% new_data_PD.HAND = variables.hand.pd;
+% 
+% new_data_HC.PRIM_DIAG = variables.prim_diag.hc;
+% new_data_PD.PRIM_DIAG = variables.prim_diag.pd;
+% 
+% 
+% json_data_hc = jsonencode(new_data_HC);
+% json_data_pd = jsonencode(new_data_PD);
+% writematrix(json_data_hc, 'new_data_hc.csv');
+% writematrix(json_data_pd, 'new_data_pd.csv');
+
 %% MISSING VALUES MANAGING
 %% Analysis missing data ex family history
 answers_fam_pd = data.ANYFAMPD;
@@ -436,6 +485,20 @@ legend('Data', 'NaN')
 
 
 nan_count_pd = zeros(1, 14);
+nan_count_hc = zeros(1, 14);
 for i = 1:14
     nan_count_pd(i) = sum(missing_values.pd(:,i));
+    nan_count_hc(i) = sum(missing_values.hc(:,i));
 end
+
+figure
+subplot(121)
+bar(nan_count_hc, '')
+title('HC')
+xticks(1:14)
+xticklabels({'np1r', 'np1p', 'np2', 'np3', 'np4', 'genetics', 'familiarity', 'ethnicity', 'sex', 'age', 'height', 'weight', 'hand', 'primary diagnosis'})
+subplot(122)
+bar(nan_count_pd)
+title('PD')
+xticks(1:14)
+xticklabels({'np1r', 'np1p', 'np2', 'np3', 'np4', 'genetics', 'familiarity', 'ethnicity', 'sex', 'age', 'height', 'weight', 'hand', 'primary diagnosis'})
