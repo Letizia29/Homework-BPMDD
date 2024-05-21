@@ -434,13 +434,8 @@ xticks(1:14)
 xticklabels({'np1r', 'np1p', 'np2', 'np3', 'np4', 'genetics', 'familiarity', 'ethnicity', 'sex', 'age', 'height', 'weight', 'hand', 'primary diagnosis'})
 legend('Data', 'NaN')
 
-<<<<<<< Updated upstream
-writematrix(missing_values.hc,'missing_values_hc.csv')
-writematrix(missing_values.pd,'missing_values_pd.csv')
 
-=======
-nan_count = zeros(1, 14);
+nan_count_pd = zeros(1, 14);
 for i = 1:14
-    nan_count(i) = sum(missing_values.pd)
+    nan_count_pd(i) = sum(missing_values.pd(:,i));
 end
->>>>>>> Stashed changes
