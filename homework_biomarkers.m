@@ -435,4 +435,6 @@ xticks(1:14)
 xticklabels({'np1r', 'np1p', 'np2', 'np3', 'np4', 'genetics', 'familiarity', 'ethnicity', 'sex', 'age', 'height', 'weight', 'hand', 'primary diagnosis'})
 legend('Data', 'NaN')
 
+writematrix(missing_values.hc,'missing_values_hc.csv')
+writematrix(missing_values.pd,'missing_values_pd.csv')
 
