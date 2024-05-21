@@ -172,12 +172,12 @@ for i = 1:length(idx_nan.age.PD)
 end
 
 % height
-height_hc = data_hc.HTCM;
-height_pd = data_pd.HTCM;
+variables.height.hc = data_hc.HTCM;
+variables.height.pd = data_pd.HTCM;
 
 % weight
-weight_hc = data_hc.WGTKG;
-weight_pd = data_pd.WGTKG;
+variables.weight.hc = data_hc.WGTKG;
+variables.weight.pd = data_pd.WGTKG;
 
 
 %% - Dominant hand
@@ -422,7 +422,6 @@ xticks(1:14)
 xticklabels({'np1r', 'np1p', 'np2', 'np3', 'np4', 'genetics', 'familiarity', 'ethnicity', 'sex', 'age', 'height', 'weight', 'hand', 'primary diagnosis'})
 legend('Data', 'NaN')
 
-
 subplot(122)
 imagesc(missing_values.pd)
 title('PD')
@@ -435,6 +434,13 @@ xticks(1:14)
 xticklabels({'np1r', 'np1p', 'np2', 'np3', 'np4', 'genetics', 'familiarity', 'ethnicity', 'sex', 'age', 'height', 'weight', 'hand', 'primary diagnosis'})
 legend('Data', 'NaN')
 
+<<<<<<< Updated upstream
 writematrix(missing_values.hc,'missing_values_hc.csv')
 writematrix(missing_values.pd,'missing_values_pd.csv')
 
+=======
+nan_count = zeros(1, 14);
+for i = 1:14
+    nan_count(i) = sum(missing_values.pd)
+end
+>>>>>>> Stashed changes
