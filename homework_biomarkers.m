@@ -362,49 +362,49 @@ lateralization.PUTAMEN_ANT.HC.none.population = data_hc(lateralization.PUTAMEN_A
 % np1r, np1p, np2, np3, np4, genetics, familiarity, ethnicity, sex, age,
 % hand, prim_diag
 
-missing_values_pd = zeros(size(data_pd, 1), 12);
-missing_values_hc = zeros(size(data_hc, 1), 12);
+missing_values.pd = zeros(size(data_pd, 1), 12);
+missing_values.hc = zeros(size(data_hc, 1), 12);
 
-missing_values_pd(np_test.np1p.PD.idx_nan, 1) = 1;
-missing_values_hc(np_test.np1p.HC.idx_nan, 1) = 1;
+missing_values.pd(np_test.np1p.PD.idx_nan, 1) = 1;
+missing_values.hc(np_test.np1p.HC.idx_nan, 1) = 1;
 
-missing_values_pd(np_test.np1r.PD.idx_nan, 2) = 1;
-missing_values_hc(np_test.np1r.HC.idx_nan, 2) = 1;
+missing_values.pd(np_test.np1r.PD.idx_nan, 2) = 1;
+missing_values.hc(np_test.np1r.HC.idx_nan, 2) = 1;
 
-missing_values_pd(np_test.np2.PD.idx_nan, 3) = 1;
-missing_values_hc(np_test.np2.HC.idx_nan, 3) = 1;
+missing_values.pd(np_test.np2.PD.idx_nan, 3) = 1;
+missing_values.hc(np_test.np2.HC.idx_nan, 3) = 1;
 
-missing_values_pd(np_test.np3.PD.idx_nan, 4) = 1;
-missing_values_hc(np_test.np3.HC.idx_nan, 4) = 1;
+missing_values.pd(np_test.np3.PD.idx_nan, 4) = 1;
+missing_values.hc(np_test.np3.HC.idx_nan, 4) = 1;
 
-missing_values_pd(np_test.np4.PD.idx_nan, 5) = 1;
-missing_values_hc(np_test.np4.HC.idx_nan, 5) = 1;
+missing_values.pd(np_test.np4.PD.idx_nan, 5) = 1;
+missing_values.hc(np_test.np4.HC.idx_nan, 5) = 1;
 
-missing_values_pd(find(data_pd.GENETICS == "NA"), 6) = 1;
-missing_values_hc(find(data_hc.GENETICS == "NA"), 6) = 1;
+missing_values.pd(find(data_pd.GENETICS == "NA"), 6) = 1;
+missing_values.hc(find(data_hc.GENETICS == "NA"), 6) = 1;
 
-missing_values_pd(find(data_pd.ANYFAMPD == "NA"), 7) = 1;
-missing_values_hc(find(data_hc.ANYFAMPD == "NA"), 7) = 1;
+missing_values.pd(find(data_pd.ANYFAMPD == "NA"), 7) = 1;
+missing_values.hc(find(data_hc.ANYFAMPD == "NA"), 7) = 1;
 
-missing_values_pd(find(data_pd.ETHNICITY == "NA"), 8) = 1;
-missing_values_hc(find(data_hc.ETHNICITY == "NA"), 8) = 1;
+missing_values.pd(find(data_pd.ETHNICITY == "NA"), 8) = 1;
+missing_values.hc(find(data_hc.ETHNICITY == "NA"), 8) = 1;
 
-missing_values_pd(find(data_pd.SEX == "NA"), 9) = 1;
-missing_values_hc(find(data_hc.SEX == "NA"), 9) = 1;
+missing_values.pd(find(data_pd.SEX == "NA"), 9) = 1;
+missing_values.hc(find(data_hc.SEX == "NA"), 9) = 1;
 
-missing_values_pd(find(isnan(data_pd.ENROLL_AGE)), 10) = 1;
-missing_values_hc(find(isnan(data_hc.ENROLL_AGE)), 10) = 1;
+missing_values.pd(find(isnan(data_pd.ENROLL_AGE)), 10) = 1;
+missing_values.hc(find(isnan(data_hc.ENROLL_AGE)), 10) = 1;
 
-missing_values_pd(find(data_pd.HANDED == "NA"), 11) = 1;
-missing_values_hc(find(data_hc.HANDED == "NA"), 11) = 1;
+missing_values.pd(find(data_pd.HANDED == "NA"), 11) = 1;
+missing_values.hc(find(data_hc.HANDED == "NA"), 11) = 1;
 
-missing_values_pd(find(string(data_pd.PRIMDIAG) == "NA"), 12) = 1;
-missing_values_hc(find(string(data_hc.PRIMDIAG) == "NA"), 12) = 1;
+missing_values.pd(find(string(data_pd.PRIMDIAG) == "NA"), 12) = 1;
+missing_values.hc(find(string(data_hc.PRIMDIAG) == "NA"), 12) = 1;
 
 
 figure
 subplot(121)
-imagesc(missing_values_hc)
+imagesc(missing_values.hc)
 cmap = jet(2);
 colormap(cmap)
 hold on
@@ -417,7 +417,7 @@ legend('Data', 'NaN')
 
 
 subplot(122)
-imagesc(missing_values_pd)
+imagesc(missing_values.pd)
 title('PD')
 cmap = jet(2);
 colormap(cmap)
