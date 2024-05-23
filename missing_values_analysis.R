@@ -1,23 +1,22 @@
 library(VIM)
-missing_values_pd <- read.csv("missing_values_pd.csv", header = FALSE)
-missing_values_hc <- read.csv("missing_values_hc.csv", header = FALSE)
 
-missing_values_hc = t(missing_values_hc)
-missing_values_pd = t(missing_values_pd)
-
-matrixplot(missing_values_hc)
-matrixplot(missing_values_pd)
-
-barMiss(missing_values_hc)
-barMiss(missing_values_pd)
-
-aggr(missing_values_hc, numbers=TRUE, prop=FALSE)
-
-
-## load data
-data = read.csv("Patient_Master.csv")
-
-aggr(data)
-
-
+# Load data
 new_data_hc = read.csv("new_data_hc.csv")
+new_data_pd = read.csv("new_data_pd.csv")
+
+# immagine di
+matrixplot(new_data_hc)
+matrixplot(new_data_pd)
+
+# immagine di
+barMiss(new_data_hc)
+barMiss(new_data_pd)
+
+# labels
+names = list("NP1PTOT", "NP1RTOT", "NP2TOT", "NP3TOT", "NP4TOT", "GENETICS", "FAMILIARITY", "ETHNICITY", "SEX", "AGE", "HEIGHT", "WEIGHT", "HAND", "PRIM_DIAG")
+
+
+# combinazioni di missing values
+aggr(new_data_hc, labels=names, cex.axis=0.8)
+aggr(new_data_pd, labels=names, cex.axis=0.8)
+
