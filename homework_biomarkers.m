@@ -502,3 +502,23 @@ bar(nan_count_pd)
 title('PD')
 xticks(1:14)
 xticklabels({'np1r', 'np1p', 'np2', 'np3', 'np4', 'genetics', 'familiarity', 'ethnicity', 'sex', 'age', 'height', 'weight', 'hand', 'primary diagnosis'})
+
+%% STATISTICAL ANALYSIS
+%% ONE WAY ANOVA
+% Caudate
+y = [DATSCAN.CAUDATE_lat.PD' DATSCAN.CAUDATE_lat.HC']';
+group = [repmat("PD",length(DATSCAN.CAUDATE_lat.PD),1);repmat("HC",length(DATSCAN.CAUDATE_lat.HC),1)];
+[p,tbl,stats]  = anova1(y,group);
+
+% Putamen
+y = [DATSCAN.PUTAMEN_lat.PD' DATSCAN.PUTAMEN_lat.HC']';
+group = [repmat("PD",length(DATSCAN.PUTAMEN_lat.PD),1);repmat("HC",length(DATSCAN.PUTAMEN_lat.HC),1)];
+[p,tbl,stats]  = anova1(y,group);
+
+% Putamen ANT
+y = [DATSCAN.PUTAMEN_ANT_lat.PD' DATSCAN.PUTAMEN_ANT_lat.HC']';
+group = [repmat("PD",length(DATSCAN.PUTAMEN_ANT_lat.PD),1);repmat("HC",length(DATSCAN.PUTAMEN_ANT_lat.HC),1)];
+[p,tbl,stats]  = anova1(y,group);
+
+
+
