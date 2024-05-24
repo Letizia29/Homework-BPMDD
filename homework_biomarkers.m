@@ -106,6 +106,10 @@ np_test.np1p.PD.data_normalized = np_test.np1p.PD.data./sum(np_test.np1p.PD.data
 np_test.np2.PD.data_normalized = np_test.np2.PD.data./sum(np_test.np2.PD.data);
 np_test.np3.PD.data_normalized = np_test.np3.PD.data./sum(np_test.np3.PD.data);
 
+% save in variables
+variables.np_test = np_test;
+
+
 %%%%%%%%%%
 % figure(3), hold on
 % histogram(np1r_norm_PD, "FaceColor", 'r')
@@ -543,5 +547,32 @@ group3 = [repmat("PD_putamen_ant",length(DATSCAN.PUTAMEN_ANT_lat.PD),1);repmat("
 % y = [DATSCAN.CAUDATE_lat.PD(lateralization.CAUDATE.PD.left.index)' DATSCAN.CAUDATE_lat.HC(lateralization.CAUDATE.HC.left.index)']';
 % group5 = [repmat("PD_caudate_LEFT",length(lateralization.CAUDATE.PD.left.index),1);repmat("HC_caudate_LEFT",length(lateralization.CAUDATE.HC.left.index),1)];
 % [p,tbl,stats]  = anova1(y,group5);
+
+%% CORRELATION MATRIX
+new_data_hc = readtable('new_data_hc.csv');
+new_data_pd = readtable('new_data_pd.csv');
+
+col_to_keep = [1, 2, 3, 4, 10, 11, 12, 14];
+
+new_data_hc = new_data_hc(:,col_to_keep);
+new_data_pd = new_data_pd(:,col_to_keep);
+
+new_data_hc(:, "CAUDATE_LAT") = table(DATSCAN.CAUDATE_lat.HC(:));
+new_data_hc(:, "PUTAMEN_LAT") = table(DATSCAN.PUTAMEN_lat.HC(:));
+new_data_hc(:, "PUTAMEN_ANT_LAT") = table(DATSCAN.PUTAMEN_ANT_lat.HC(:));
+
+new_data_pd(:, "CAUDATE_LAT") = table(DATSCAN.CAUDATE_lat.PD(:));
+new_data_pd(:, "PUTAMEN_LAT") = table(DATSCAN.PUTAMEN_lat.PD(:));
+new_data_pd(:, "PUTAMEN_ANT_LAT") = table(DATSCAN.PUTAMEN_ANT_lat.PD(:));
+
+% CORRELATION MATRIX
+R_HC = corrcoef(table2array(new_data_hc), 'Rows', 'complete');
+R_PD = corrcoef(table2array(new_data_pd), 'Rows', 'complete');
+
+figure
+imagesc(R_HC)
+figure
+imagesc(R_PD)
+
 
 
