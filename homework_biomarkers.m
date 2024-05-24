@@ -505,6 +505,17 @@ xticklabels({'np1r', 'np1p', 'np2', 'np3', 'np4', 'genetics', 'familiarity', 'et
 
 %% STATISTICAL ANALYSIS
 %% ONE WAY ANOVA
+% Control gauss
+rois_names = fieldnames(DATSCAN);
+for i=2:length(rois_names)
+    rois_names_diag = fieldnames(DATSCAN.(rois_names{i,1}));
+    for j =1:length(rois_names_diag)
+        lil = lillietest(DATSCAN.(rois_names{i}).(rois_names_diag{j}));
+        if lil == 1
+            disp([rois_names{i}; rois_names_diag{j}; "not guassian"])
+        end
+    end
+end
 %%Absulte value
 % Caudate
 % y = [DATSCAN.CAUDATE_lat.PD' DATSCAN.CAUDATE_lat.HC']';
@@ -517,9 +528,9 @@ xticklabels({'np1r', 'np1p', 'np2', 'np3', 'np4', 'genetics', 'familiarity', 'et
 % % [p,tbl,stats]  = anova1(y,group2);
 % 
 % % Putamen ANT
-% y = [DATSCAN.PUTAMEN_ANT_lat.PD' DATSCAN.PUTAMEN_ANT_lat.HC']';
-% group3 = [repmat("PD_putamen_ant",length(DATSCAN.PUTAMEN_ANT_lat.PD),1);repmat("HC_putamen_ant",length(DATSCAN.PUTAMEN_ANT_lat.HC),1)];
-% % [p,tbl,stats]  = anova1(y,group3);
+y = [DATSCAN.PUTAMEN_ANT_lat.PD' DATSCAN.PUTAMEN_ANT_lat.HC']';
+group3 = [repmat("PD_putamen_ant",length(DATSCAN.PUTAMEN_ANT_lat.PD),1);repmat("HC_putamen_ant",length(DATSCAN.PUTAMEN_ANT_lat.HC),1)];
+[p,tbl,stats]  = anova1(y,group3);
 % 
 % y = [abs(DATSCAN.CAUDATE_lat.PD)' abs(DATSCAN.CAUDATE_lat.HC)' abs(DATSCAN.PUTAMEN_lat.PD)' abs(DATSCAN.PUTAMEN_lat.HC)' abs(DATSCAN.PUTAMEN_ANT_lat.PD)'  abs(DATSCAN.PUTAMEN_ANT_lat.HC)']';
 % group4 = [group1; group2; group3];
@@ -528,9 +539,9 @@ xticklabels({'np1r', 'np1p', 'np2', 'np3', 'np4', 'genetics', 'familiarity', 'et
 
 %multcompare(stats)
 %%Left
-%abs(DATSCAN.PUTAMEN_lat.PD)' abs(DATSCAN.PUTAMEN_lat.HC)' abs(DATSCAN.PUTAMEN_ANT_lat.PD)'  abs(DATSCAN.PUTAMEN_ANT_lat.HC)'
-y = [DATSCAN.CAUDATE_lat.PD(lateralization.CAUDATE.PD.left.index)' DATSCAN.CAUDATE_lat.HC(lateralization.CAUDATE.HC.left.index)']';
-group5 = [repmat("PD_caudate_LEFT",length(lateralization.CAUDATE.PD.left.index),1);repmat("HC_caudate_LEFT",length(lateralization.CAUDATE.HC.left.index),1)];
-[p,tbl,stats]  = anova1(y,group5);
+% %abs(DATSCAN.PUTAMEN_lat.PD)' abs(DATSCAN.PUTAMEN_lat.HC)' abs(DATSCAN.PUTAMEN_ANT_lat.PD)'  abs(DATSCAN.PUTAMEN_ANT_lat.HC)'
+% y = [DATSCAN.CAUDATE_lat.PD(lateralization.CAUDATE.PD.left.index)' DATSCAN.CAUDATE_lat.HC(lateralization.CAUDATE.HC.left.index)']';
+% group5 = [repmat("PD_caudate_LEFT",length(lateralization.CAUDATE.PD.left.index),1);repmat("HC_caudate_LEFT",length(lateralization.CAUDATE.HC.left.index),1)];
+% [p,tbl,stats]  = anova1(y,group5);
 
 
