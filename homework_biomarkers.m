@@ -395,6 +395,7 @@ lateralization.PUTAMEN_ANT.HC.none.population = data_hc(lateralization.PUTAMEN_A
 
 % np1r, np1p, np2, np3, np4, genetics, familiarity, ethnicity, sex, age,
 % height, weight, hand, primary diagnosis, 
+<<<<<<< Updated upstream
 
 missing_values.pd = zeros(size(data_pd, 1), 14);
 missing_values.hc = zeros(size(data_hc, 1), 14);
@@ -487,6 +488,101 @@ title('PD')
 xticks(1:14)
 xticklabels({'np1r', 'np1p', 'np2', 'np3', 'np4', 'genetics', 'familiarity', 'ethnicity', 'sex', 'age', 'height', 'weight', 'hand', 'primary diagnosis'})
 
+=======
+% 
+% missing_values.pd = zeros(size(data_pd, 1), 14);
+% missing_values.hc = zeros(size(data_hc, 1), 14);
+% 
+% missing_values.pd(np_test.np1p.PD.idx_nan, 1) = 1;
+% missing_values.hc(np_test.np1p.HC.idx_nan, 1) = 1;
+% 
+% missing_values.pd(np_test.np1r.PD.idx_nan, 2) = 1;
+% missing_values.hc(np_test.np1r.HC.idx_nan, 2) = 1;
+% 
+% missing_values.pd(np_test.np2.PD.idx_nan, 3) = 1;
+% missing_values.hc(np_test.np2.HC.idx_nan, 3) = 1;
+% 
+% missing_values.pd(np_test.np3.PD.idx_nan, 4) = 1;
+% missing_values.hc(np_test.np3.HC.idx_nan, 4) = 1;
+% 
+% missing_values.pd(np_test.np4.PD.idx_nan, 5) = 1;
+% missing_values.hc(np_test.np4.HC.idx_nan, 5) = 1;
+% 
+% missing_values.pd(find(data_pd.GENETICS == "NA"), 6) = 1;
+% missing_values.hc(find(data_hc.GENETICS == "NA"), 6) = 1;
+% 
+% missing_values.pd(find(data_pd.ANYFAMPD == "NA"), 7) = 1;
+% missing_values.hc(find(data_hc.ANYFAMPD == "NA"), 7) = 1;
+% 
+% missing_values.pd(find(data_pd.ETHNICITY == "NA"), 8) = 1;
+% missing_values.hc(find(data_hc.ETHNICITY == "NA"), 8) = 1;
+% 
+% missing_values.pd(find(data_pd.SEX == "NA"), 9) = 1;
+% missing_values.hc(find(data_hc.SEX == "NA"), 9) = 1;
+% 
+% missing_values.pd(find(isnan(data_pd.ENROLL_AGE)), 10) = 1;
+% missing_values.hc(find(isnan(data_hc.ENROLL_AGE)), 10) = 1;
+% 
+% missing_values.pd(find(isnan(data_pd.HTCM)), 11) = 1;
+% missing_values.hc(find(isnan(data_hc.HTCM)), 11) = 1;
+% 
+% missing_values.pd(find(isnan(data_pd.WGTKG)), 12) = 1;
+% missing_values.hc(find(isnan(data_hc.WGTKG)), 12) = 1;
+% 
+% 
+% missing_values.pd(find(data_pd.HANDED == "NA"), 13) = 1;
+% missing_values.hc(find(data_hc.HANDED == "NA"), 13) = 1;
+% 
+% missing_values.pd(find(string(data_pd.PRIMDIAG) == "NA"), 14) = 1;
+% missing_values.hc(find(string(data_hc.PRIMDIAG) == "NA"), 14) = 1;
+% 
+% 
+% figure
+% subplot(121)
+% imagesc(missing_values.hc)
+% cmap = jet(2);
+% colormap(cmap)
+% hold on
+% L = line(ones(2), ones(2), 'LineWidth', 2);
+% set(L, {'color'}, mat2cell(cmap, ones(1, 2), 3));
+% title('HC')
+% xticks(1:14)
+% xticklabels({'np1r', 'np1p', 'np2', 'np3', 'np4', 'genetics', 'familiarity', 'ethnicity', 'sex', 'age', 'height', 'weight', 'hand', 'primary diagnosis'})
+% legend('Data', 'NaN')
+% 
+% subplot(122)
+% imagesc(missing_values.pd)
+% title('PD')
+% cmap = jet(2);
+% colormap(cmap)
+% hold on
+% L = line(ones(2), ones(2), 'LineWidth', 2);
+% set(L, {'color'}, mat2cell(cmap, ones(1, 2), 3));
+% xticks(1:14)
+% xticklabels({'np1r', 'np1p', 'np2', 'np3', 'np4', 'genetics', 'familiarity', 'ethnicity', 'sex', 'age', 'height', 'weight', 'hand', 'primary diagnosis'})
+% legend('Data', 'NaN')
+% 
+% 
+% nan_count_pd = zeros(1, 14);
+% nan_count_hc = zeros(1, 14);
+% for i = 1:14
+%     nan_count_pd(i) = sum(missing_values.pd(:,i));
+%     nan_count_hc(i) = sum(missing_values.hc(:,i));
+% end
+% 
+% figure
+% subplot(121)
+% bar(nan_count_hc, '')
+% title('HC')
+% xticks(1:14)
+% xticklabels({'np1r', 'np1p', 'np2', 'np3', 'np4', 'genetics', 'familiarity', 'ethnicity', 'sex', 'age', 'height', 'weight', 'hand', 'primary diagnosis'})
+% subplot(122)
+% bar(nan_count_pd)
+% title('PD')
+% xticks(1:14)
+% xticklabels({'np1r', 'np1p', 'np2', 'np3', 'np4', 'genetics', 'familiarity', 'ethnicity', 'sex', 'age', 'height', 'weight', 'hand', 'primary diagnosis'})
+% 
+>>>>>>> Stashed changes
 %% STATISTICAL ANALYSIS
 %% ONE WAY ANOVA
 % Control gauss
@@ -502,31 +598,31 @@ for i=2:length(rois_names)
 end
 %%Absulte value
 % Caudate
-% y = [DATSCAN.CAUDATE_lat.PD' DATSCAN.CAUDATE_lat.HC']';
-% group1 = [repmat("PD_caudate",length(DATSCAN.CAUDATE_lat.PD),1);repmat("HC_caudate",length(DATSCAN.CAUDATE_lat.HC),1)];
-% % [p,tbl,stats]  = anova1(y,group1);
+y = [DATSCAN.CAUDATE_lat.PD' DATSCAN.CAUDATE_lat.HC']';
+group1 = [repmat("PD_caudate",length(DATSCAN.CAUDATE_lat.PD),1);repmat("HC_caudate",length(DATSCAN.CAUDATE_lat.HC),1)];
+% [p,tbl,stats]  = anova1(y,group1);
 % 
 % % Putamen
-% y = [DATSCAN.PUTAMEN_lat.PD' DATSCAN.PUTAMEN_lat.HC']';
-% group2 = [repmat("PD_putamen",length(DATSCAN.PUTAMEN_lat.PD),1);repmat("HC_putamen",length(DATSCAN.PUTAMEN_lat.HC),1)];
-% % [p,tbl,stats]  = anova1(y,group2);
+y = [DATSCAN.PUTAMEN_lat.PD' DATSCAN.PUTAMEN_lat.HC']';
+group2 = [repmat("PD_putamen",length(DATSCAN.PUTAMEN_lat.PD),1);repmat("HC_putamen",length(DATSCAN.PUTAMEN_lat.HC),1)];
+[p,tbl,stats]  = anova1(y,group2);
 % 
 % % Putamen ANT
 y = [DATSCAN.PUTAMEN_ANT_lat.PD' DATSCAN.PUTAMEN_ANT_lat.HC']';
 group3 = [repmat("PD_putamen_ant",length(DATSCAN.PUTAMEN_ANT_lat.PD),1);repmat("HC_putamen_ant",length(DATSCAN.PUTAMEN_ANT_lat.HC),1)];
 [p,tbl,stats]  = anova1(y,group3);
 % 
-% y = [abs(DATSCAN.CAUDATE_lat.PD)' abs(DATSCAN.CAUDATE_lat.HC)' abs(DATSCAN.PUTAMEN_lat.PD)' abs(DATSCAN.PUTAMEN_lat.HC)' abs(DATSCAN.PUTAMEN_ANT_lat.PD)'  abs(DATSCAN.PUTAMEN_ANT_lat.HC)']';
-% group4 = [group1; group2; group3];
-% [p,tbl,stats]  = anova1(y,group4);
+y = [abs(DATSCAN.CAUDATE_lat.PD)' abs(DATSCAN.CAUDATE_lat.HC)' abs(DATSCAN.PUTAMEN_lat.PD)' abs(DATSCAN.PUTAMEN_lat.HC)' abs(DATSCAN.PUTAMEN_ANT_lat.PD)'  abs(DATSCAN.PUTAMEN_ANT_lat.HC)']';
+group4 = [group1; group2; group3];
+[p,tbl,stats]  = anova1(y,group4);
 % 
 
 %multcompare(stats)
 %%Left
-% %abs(DATSCAN.PUTAMEN_lat.PD)' abs(DATSCAN.PUTAMEN_lat.HC)' abs(DATSCAN.PUTAMEN_ANT_lat.PD)'  abs(DATSCAN.PUTAMEN_ANT_lat.HC)'
-% y = [DATSCAN.CAUDATE_lat.PD(lateralization.CAUDATE.PD.left.index)' DATSCAN.CAUDATE_lat.HC(lateralization.CAUDATE.HC.left.index)']';
-% group5 = [repmat("PD_caudate_LEFT",length(lateralization.CAUDATE.PD.left.index),1);repmat("HC_caudate_LEFT",length(lateralization.CAUDATE.HC.left.index),1)];
-% [p,tbl,stats]  = anova1(y,group5);
+%abs(DATSCAN.PUTAMEN_lat.PD)' abs(DATSCAN.PUTAMEN_lat.HC)' abs(DATSCAN.PUTAMEN_ANT_lat.PD)'  abs(DATSCAN.PUTAMEN_ANT_lat.HC)'
+y = [DATSCAN.CAUDATE_lat.PD(lateralization.CAUDATE.PD.left.index)' DATSCAN.CAUDATE_lat.HC(lateralization.CAUDATE.HC.left.index)']';
+group5 = [repmat("PD_caudate_LEFT",length(lateralization.CAUDATE.PD.left.index),1);repmat("HC_caudate_LEFT",length(lateralization.CAUDATE.HC.left.index),1)];
+[p,tbl,stats]  = anova1(y,group5);
 
 %% CORRELATION MATRIX
 
@@ -550,6 +646,7 @@ R_PD = corrcoef(table2array(new_data_pd), 'Rows', 'complete');
 
 figure
 imagesc(R_HC)
+<<<<<<< Updated upstream
 colormap parula 
 colorbar
 xticks(1:70)
@@ -575,6 +672,33 @@ new_data_pd_np3 = new_data_pd(:, [1:3, 33:end]);
 % CORRELATION MATRIX
 R_np3_HC = corrcoef(table2array(new_data_hc_np3), 'Rows', 'complete');
 R_np3_PD = corrcoef(table2array(new_data_pd_np3), 'Rows', 'complete');
+=======
+title('HC')
+figure
+imagesc(R_PD)
+title('PD')
+
+%% SCATTERPLOT
+for j=1:3
+    figure
+    for i=1:4
+        subplot(2,2,i)
+        scatter(table2array(new_data_pd(:,8+j)),table2array(new_data_pd(:,i)))
+        hold on
+        scatter(table2array(new_data_hc(:,8+j)),table2array(new_data_hc(:,i)))
+        xlabel('Lateralization')
+        ylabel('Symptoms')
+        legend('PD','HC')
+        hold off
+        title( new_data_pd.Properties.VariableNames{i}, new_data_pd.Properties.VariableNames{8+j})
+    end
+end
+
+%% LINEAR REGRESSION of variables of interest
+symptoms = [data_pd.NP3RIGN,data_pd.NP3RIGRU,data_pd.NP3RIGRL,data_pd.NP3PTRMR,data_pd.NP3KTRMR];
+model = fitlm(symptoms,DATSCAN.CAUDATE_lat.PD);
+plot(model)
+>>>>>>> Stashed changes
 
 figure
 imagesc(R_np3_HC)
