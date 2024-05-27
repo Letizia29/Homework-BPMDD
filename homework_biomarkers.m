@@ -597,6 +597,239 @@ yticks(1:width(new_data_hc_np3))
 yticklabels(new_data_hc_np3.Properties.VariableNames)
 title("Correlation for PD - NP3 TEST")
 
+%% correlation between CAUDATE RIGHT lateralization and np3 test RIGHT
+% non ha senso per HC che non ha lateralizzazione, quindi solo PD
+
+np3_right = [1, 7, 9, 11, 13, 15, 17, 19, 27, 29, 31, 33];
+caudate_new_data_pd_np3_rr = new_data_pd_np3(lateralization.CAUDATE.PD.right.index,np3_right);
+
+% CORRELATION MATRIX
+R_caudate_np3_PD_rr = corrcoef(table2array(caudate_new_data_pd_np3_rr), 'Rows', 'complete');
+
+figure
+imagesc(R_caudate_np3_PD_rr)
+colormap parula
+colorbar
+xticks(1:width(caudate_new_data_pd_np3_rr))
+xticklabels(caudate_new_data_pd_np3_rr.Properties.VariableNames)
+yticks(1:width(caudate_new_data_pd_np3_rr))
+yticklabels(caudate_new_data_pd_np3_rr.Properties.VariableNames)
+title("Correlation PD CAUDATE lat RIGHT - NP3 TEST RIGHT")
+
+%% correlation between CAUDATE RIGHT lateralization and np3 test LEFT
+% non ha senso per HC che non ha lateralizzazione, quindi solo PD
+
+np3_left = [1, 8, 10, 12, 14, 16, 18, 20, 28, 30, 32, 34];
+caudate_new_data_pd_np3_rl = new_data_pd_np3(lateralization.CAUDATE.PD.right.index,np3_left);
+
+% CORRELATION MATRIX
+R_caudate_np3_PD_rl = corrcoef(table2array(caudate_new_data_pd_np3_rl), 'Rows', 'complete');
+
+figure
+imagesc(R_caudate_np3_PD_rl)
+colormap parula
+colorbar
+xticks(1:width(caudate_new_data_pd_np3_rl))
+xticklabels(caudate_new_data_pd_np3_rl.Properties.VariableNames)
+yticks(1:width(caudate_new_data_pd_np3_rl))
+yticklabels(caudate_new_data_pd_np3_rl.Properties.VariableNames)
+title("Correlation PD CAUDATE lat RIGHT - NP3 TEST LEFT")
+
+%% correlation between CAUDATE LEFT lateralization and np3 test RIGHT
+% non ha senso per HC che non ha lateralizzazione, quindi solo PD
+
+np3_right = [1, 7, 9, 11, 13, 15, 17, 19, 27, 29, 31, 33];
+caudate_new_data_pd_np3_lr = new_data_pd_np3(lateralization.CAUDATE.PD.left.index,np3_right);
+
+% CORRELATION MATRIX
+R_caudate_np3_PD_lr = corrcoef(table2array(caudate_new_data_pd_np3_lr), 'Rows', 'complete');
+
+figure
+imagesc(R_caudate_np3_PD_lr)
+colormap parula
+colorbar
+xticks(1:width(caudate_new_data_pd_np3_lr))
+xticklabels(caudate_new_data_pd_np3_lr.Properties.VariableNames)
+yticks(1:width(caudate_new_data_pd_np3_lr))
+yticklabels(caudate_new_data_pd_np3_lr.Properties.VariableNames)
+title("Correlation PD CAUDATE lat LEFT - NP3 TEST RIGHT")
+
+%% correlation between CAUDATE LEFT lateralization and np3 test LEFT
+% non ha senso per HC che non ha lateralizzazione, quindi solo PD
+
+np3_left = [1, 8, 10, 12, 14, 16, 18, 20, 28, 30, 32, 34];
+caudate_new_data_pd_np3_ll = new_data_pd_np3(lateralization.CAUDATE.PD.left.index,np3_left);
+
+% CORRELATION MATRIX
+R_caudate_np3_PD_ll = corrcoef(table2array(caudate_new_data_pd_np3_ll), 'Rows', 'complete');
+
+figure
+imagesc(R_caudate_np3_PD_ll)
+colormap parula
+colorbar
+xticks(1:width(caudate_new_data_pd_np3_ll))
+xticklabels(caudate_new_data_pd_np3_ll.Properties.VariableNames)
+yticks(1:width(caudate_new_data_pd_np3_ll))
+yticklabels(caudate_new_data_pd_np3_ll.Properties.VariableNames)
+title("Correlation PD CAUDATE lat LEFT - NP3 TEST LEFT")
+
+%% correlation between PUTAMEN RIGHT lateralization and np3 test RIGHT
+% non ha senso per HC che non ha lateralizzazione, quindi solo PD
+
+np3_right = [2, 7, 9, 11, 13, 15, 17, 19, 27, 29, 31, 33];
+putamen_new_data_pd_np3_rr = new_data_pd_np3(lateralization.PUTAMEN.PD.right.index,np3_right);
+
+% CORRELATION MATRIX
+R_putamen_np3_PD_rr = corrcoef(table2array(putamen_new_data_pd_np3_rr), 'Rows', 'complete');
+
+figure
+imagesc(R_putamen_np3_PD_rr)
+colormap parula
+colorbar
+xticks(1:width(putamen_new_data_pd_np3_rr))
+xticklabels(putamen_new_data_pd_np3_rr.Properties.VariableNames)
+yticks(1:width(putamen_new_data_pd_np3_rr))
+yticklabels(putamen_new_data_pd_np3_rr.Properties.VariableNames)
+title("Correlation PD PUTAMEN lat RIGHT - NP3 TEST RIGHT")
+
+%% correlation between PUTAMEN RIGHT lateralization and np3 test LEFT
+% non ha senso per HC che non ha lateralizzazione, quindi solo PD
+
+np3_left = [2, 8, 10, 12, 14, 16, 18, 20, 28, 30, 32, 34];
+putamen_new_data_pd_np3_rl = new_data_pd_np3(lateralization.PUTAMEN.PD.right.index,np3_left);
+
+% CORRELATION MATRIX
+R_putamen_np3_PD_rl = corrcoef(table2array(putamen_new_data_pd_np3_rl), 'Rows', 'complete');
+
+figure
+imagesc(R_putamen_np3_PD_rl)
+colormap parula
+colorbar
+xticks(1:width(putamen_new_data_pd_np3_rl))
+xticklabels(putamen_new_data_pd_np3_rl.Properties.VariableNames)
+yticks(1:width(putamen_new_data_pd_np3_rl))
+yticklabels(putamen_new_data_pd_np3_rl.Properties.VariableNames)
+title("Correlation PD PUTAMEN lat RIGHT - NP3 TEST LEFT")
+
+%% correlation between PUTAMEN LEFT lateralization and np3 test RIGHT
+% non ha senso per HC che non ha lateralizzazione, quindi solo PD
+
+np3_right = [2, 7, 9, 11, 13, 15, 17, 19, 27, 29, 31, 33];
+putamen_new_data_pd_np3_lr = new_data_pd_np3(lateralization.PUTAMEN.PD.left.index,np3_right);
+
+% CORRELATION MATRIX
+R_putamen_np3_PD_lr = corrcoef(table2array(putamen_new_data_pd_np3_lr), 'Rows', 'complete');
+
+figure
+imagesc(R_putamen_np3_PD_lr)
+colormap parula
+colorbar
+xticks(1:width(putamen_new_data_pd_np3_lr))
+xticklabels(putamen_new_data_pd_np3_lr.Properties.VariableNames)
+yticks(1:width(putamen_new_data_pd_np3_lr))
+yticklabels(putamen_new_data_pd_np3_lr.Properties.VariableNames)
+title("Correlation PD PUTAMEN lat LEFT - NP3 TEST RIGHT")
+
+%% correlation between PUTAMEN LEFT lateralization and np3 test LEFT
+% non ha senso per HC che non ha lateralizzazione, quindi solo PD
+
+np3_left = [2, 8, 10, 12, 14, 16, 18, 20, 28, 30, 32, 34];
+putamen_new_data_pd_np3_ll = new_data_pd_np3(lateralization.PUTAMEN.PD.left.index,np3_left);
+
+% CORRELATION MATRIX
+R_putamen_np3_PD_ll = corrcoef(table2array(putamen_new_data_pd_np3_ll), 'Rows', 'complete');
+
+figure
+imagesc(R_putamen_np3_PD_ll)
+colormap parula
+colorbar
+xticks(1:width(putamen_new_data_pd_np3_ll))
+xticklabels(putamen_new_data_pd_np3_ll.Properties.VariableNames)
+yticks(1:width(putamen_new_data_pd_np3_ll))
+yticklabels(putamen_new_data_pd_np3_ll.Properties.VariableNames)
+title("Correlation PD PUTAMEN lat LEFT - NP3 TEST LEFT")
+
+%% correlation between PUTAMEN ANT RIGHT lateralization and np3 test RIGHT
+% non ha senso per HC che non ha lateralizzazione, quindi solo PD
+
+np3_right = [3, 7, 9, 11, 13, 15, 17, 19, 27, 29, 31, 33];
+putamen_ant_new_data_pd_np3_rr = new_data_pd_np3(lateralization.PUTAMEN_ANT.PD.right.index,np3_right);
+
+% CORRELATION MATRIX
+R_putamen_ant_np3_PD_rr = corrcoef(table2array(putamen_ant_new_data_pd_np3_rr), 'Rows', 'complete');
+
+figure
+imagesc(R_putamen_ant_np3_PD_rr)
+colormap parula
+colorbar
+xticks(1:width(putamen_ant_new_data_pd_np3_rr))
+xticklabels(putamen_ant_new_data_pd_np3_rr.Properties.VariableNames)
+yticks(1:width(putamen_ant_new_data_pd_np3_rr))
+yticklabels(putamen_ant_new_data_pd_np3_rr.Properties.VariableNames)
+title("Correlation PD PUTAMEN ANT lat RIGHT - NP3 TEST RIGHT")
+
+%% correlation between PUTAMEN RIGHT lateralization and np3 test LEFT
+% non ha senso per HC che non ha lateralizzazione, quindi solo PD
+
+np3_left = [3, 8, 10, 12, 14, 16, 18, 20, 28, 30, 32, 34];
+putamen_ant_new_data_pd_np3_rl = new_data_pd_np3(lateralization.PUTAMEN_ANT.PD.right.index,np3_left);
+
+% CORRELATION MATRIX
+R_putamen_ant_np3_PD_rl = corrcoef(table2array(putamen_ant_new_data_pd_np3_rl), 'Rows', 'complete');
+
+figure
+imagesc(R_putamen_ant_np3_PD_rl)
+colormap parula
+colorbar
+xticks(1:width(putamen_ant_new_data_pd_np3_rl))
+xticklabels(putamen_ant_new_data_pd_np3_rl.Properties.VariableNames)
+yticks(1:width(putamen_ant_new_data_pd_np3_rl))
+yticklabels(putamen_ant_new_data_pd_np3_rl.Properties.VariableNames)
+title("Correlation PD PUTAMEN ANT lat RIGHT - NP3 TEST LEFT")
+
+%% correlation between PUTAMEN LEFT lateralization and np3 test RIGHT
+% non ha senso per HC che non ha lateralizzazione, quindi solo PD
+
+np3_right = [3, 7, 9, 11, 13, 15, 17, 19, 27, 29, 31, 33];
+putamen_ant_new_data_pd_np3_lr = new_data_pd_np3(lateralization.PUTAMEN_ANT.PD.left.index,np3_right);
+
+% CORRELATION MATRIX
+R_putamen_ant_np3_PD_lr = corrcoef(table2array(putamen_ant_new_data_pd_np3_lr), 'Rows', 'complete');
+
+figure
+imagesc(R_putamen_ant_np3_PD_lr)
+colormap parula
+colorbar
+xticks(1:width(putamen_ant_new_data_pd_np3_lr))
+xticklabels(putamen_ant_new_data_pd_np3_lr.Properties.VariableNames)
+yticks(1:width(putamen_ant_new_data_pd_np3_lr))
+yticklabels(putamen_ant_new_data_pd_np3_lr.Properties.VariableNames)
+title("Correlation PD PUTAMEN ANT lat LEFT - NP3 TEST RIGHT")
+
+%% correlation between PUTAMEN ANT LEFT lateralization and np3 test LEFT
+% non ha senso per HC che non ha lateralizzazione, quindi solo PD
+
+np3_left = [3, 8, 10, 12, 14, 16, 18, 20, 28, 30, 32, 34];
+putamen_ant_new_data_pd_np3_ll = new_data_pd_np3(lateralization.PUTAMEN_ANT.PD.left.index,np3_left);
+
+% CORRELATION MATRIX
+R_putamen_ant_np3_PD_ll = corrcoef(table2array(putamen_ant_new_data_pd_np3_ll), 'Rows', 'complete');
+
+figure
+imagesc(R_putamen_ant_np3_PD_ll)
+colormap parula
+colorbar
+xticks(1:width(putamen_ant_new_data_pd_np3_ll))
+xticklabels(putamen_ant_new_data_pd_np3_ll.Properties.VariableNames)
+yticks(1:width(putamen_ant_new_data_pd_np3_ll))
+yticklabels(putamen_ant_new_data_pd_np3_ll.Properties.VariableNames)
+title("Correlation PD PUTAMEN ANT lat LEFT - NP3 TEST LEFT")
+
+%% LATERALIZATION AND DOMINANT HAND
+% count_pd_latR_handR = length()
+
+
+
 
 %% SCATTERPLOT
 for j=1:3
