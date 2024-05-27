@@ -19,6 +19,28 @@ idx_variables.Prodromal = find(string(data.COHORT)=='Prodromal');
 data_pd = data([idx_variables.Prodromal; idx_variables.PD; idx_variables.SWEDD],:);
 data_hc = data(idx_variables.HC, :);
 
+%% SAVE NEW DATASET WITH NANs for plotting in R
+new_data_hc = table();
+new_data_pd = table();
+
+important_var = [34, 41, 55, 94, 104, 5, 11, 7, 8, 4, 153, 154, 9, 12];
+names = data_hc.Properties.VariableNames;
+% np1ptot, np1rtot, np2tot, np3tot, np4tot, genetics, familiarity, ethnicity, sex, age,
+% height, weight, hand, primary diagnosis, 
+
+for i = 1:length(important_var)
+    new_data_hc(:,i) = data_hc(:,names(important_var(i)));
+    new_data_pd(:,i) = data_pd(:,names(important_var(i)));
+end
+
+new_data_hc.Properties.VariableNames = names(1, important_var);
+new_data_pd.Properties.VariableNames = names(1, important_var);
+
+writetable(new_data_hc, 'new_data_hc.csv');
+writetable(new_data_pd, 'new_data_pd.csv');
+
+clear new_data_pd new_data_hc
+
 %%%%%%%%%%% histograms
 % figure(1)
 % for i=1:6
@@ -109,7 +131,6 @@ np_test.np3.PD.data_normalized = np_test.np3.PD.data./sum(np_test.np3.PD.data);
 % save in variables
 variables.np_test = np_test;
 
-
 %%%%%%%%%%
 % figure(3), hold on
 % histogram(np1r_norm_PD, "FaceColor", 'r')
@@ -122,6 +143,13 @@ variables.np_test = np_test;
 % xlabel('Normalized score')
 % ylabel('Subjects')
 %%%%%%%%%%
+
+%% Remove patients with missing symptoms data
+data_hc(np_test.idx_nan.HC, :) = [];
+data_pd(np_test.idx_nan.PD, :) = [];
+
+
+
 
 %% - Check repetitions in PATNO - patients ID
 IDs = data.PATNO;
@@ -221,54 +249,7 @@ if isempty(find(variables.prim_diag.pd == 97,1))
     disp('Successful SWEDD exclusion in PD')
 end
 
-% %% SAVE NEW DATASET
-% new_data_HC.NP1PTOT = np_test.np1p.HC.data;
-% new_data_PD.NP1PTOT = np_test.np1p.PD.data;
-% 
-% new_data_HC.NP1RTOT = np_test.np1r.HC.data;
-% new_data_PD.NP1RTOT = np_test.np1r.PD.data;
-% 
-% new_data_HC.NP2TOT = np_test.np2.HC.data;
-% new_data_PD.NP2TOT = np_test.np2.PD.data;
-% 
-% new_data_HC.NP3TOT = np_test.np3.HC.data;
-% new_data_PD.NP3TOT = np_test.np3.PD.data;
-% 
-% new_data_HC.NP4TOT = np_test.np4.HC.data;
-% new_data_PD.NP4TOT = np_test.np4.PD.data;
-% 
-% new_data_HC.GENETICS = data_hc.GENETICS;
-% new_data_PD.GENETICS = variables.genetics.pd;
-% 
-% new_data_HC.ETHNICITY = variables.ethnicity.hc;
-% new_data_PD.ETHNICITY = variables.ethnicity.pd;
-% 
-% new_data_HC.FAMILIARITY = variables.familiarity.hc;
-% new_data_PD.FAMILIARITY = variables.familiarity.pd;
-% 
-% new_data_HC.SEX = variables.sex.hc;
-% new_data_PD.SEX = variables.sex.pd;
-% 
-% new_data_HC.AGE = variables.age.hc;
-% new_data_PD.AGE = variables.age.pd;
-% 
-% new_data_HC.HT = variables.height.hc;
-% new_data_PD.HT = variables.height.pd;
-% 
-% new_data_HC.WT= variables.weight.hc;
-% new_data_PD.WT = variables.weight.pd;
-% 
-% new_data_HC.HAND = variables.hand.hc;
-% new_data_PD.HAND = variables.hand.pd;
-% 
-% new_data_HC.PRIM_DIAG = variables.prim_diag.hc;
-% new_data_PD.PRIM_DIAG = variables.prim_diag.pd;
-% 
-% 
-% json_data_hc = jsonencode(new_data_HC);
-% json_data_pd = jsonencode(new_data_PD);
-% writematrix(json_data_hc, 'new_data_hc.csv');
-% writematrix(json_data_pd, 'new_data_pd.csv');
+
 
 %% MISSING VALUES MANAGING
 %% Analysis missing data ex family history
@@ -487,7 +468,6 @@ xticks(1:14)
 xticklabels({'np1r', 'np1p', 'np2', 'np3', 'np4', 'genetics', 'familiarity', 'ethnicity', 'sex', 'age', 'height', 'weight', 'hand', 'primary diagnosis'})
 legend('Data', 'NaN')
 
-
 nan_count_pd = zeros(1, 14);
 nan_count_hc = zeros(1, 14);
 for i = 1:14
@@ -549,21 +529,20 @@ group3 = [repmat("PD_putamen_ant",length(DATSCAN.PUTAMEN_ANT_lat.PD),1);repmat("
 % [p,tbl,stats]  = anova1(y,group5);
 
 %% CORRELATION MATRIX
-new_data_hc = readtable('new_data_hc.csv');
-new_data_pd = readtable('new_data_pd.csv');
 
-col_to_keep = [1, 2, 3, 4, 10, 11, 12, 14];
+%% all important variables ---------------------------------------------
+new_data_hc(:, "CAUDATE LAT") = table(DATSCAN.CAUDATE_lat.HC(:));
+new_data_hc(:, "PUTAMEN LAT") = table(DATSCAN.PUTAMEN_lat.HC(:));
+new_data_hc(:, "PUTAMEN ANT LAT") = table(DATSCAN.PUTAMEN_ANT_lat.HC(:));
 
-new_data_hc = new_data_hc(:,col_to_keep);
-new_data_pd = new_data_pd(:,col_to_keep);
+new_data_pd(:, "CAUDATE LAT") = table(DATSCAN.CAUDATE_lat.PD(:));
+new_data_pd(:, "PUTAMEN LAT") = table(DATSCAN.PUTAMEN_lat.PD(:));
+new_data_pd(:, "PUTAMEN ANT LAT") = table(DATSCAN.PUTAMEN_ANT_lat.PD(:));
 
-new_data_hc(:, "CAUDATE_LAT") = table(DATSCAN.CAUDATE_lat.HC(:));
-new_data_hc(:, "PUTAMEN_LAT") = table(DATSCAN.PUTAMEN_lat.HC(:));
-new_data_hc(:, "PUTAMEN_ANT_LAT") = table(DATSCAN.PUTAMEN_ANT_lat.HC(:));
+col_to_keep = [27:55, 61:94];
 
-new_data_pd(:, "CAUDATE_LAT") = table(DATSCAN.CAUDATE_lat.PD(:));
-new_data_pd(:, "PUTAMEN_LAT") = table(DATSCAN.PUTAMEN_lat.PD(:));
-new_data_pd(:, "PUTAMEN_ANT_LAT") = table(DATSCAN.PUTAMEN_ANT_lat.PD(:));
+new_data_hc = [new_data_hc data_hc(:, col_to_keep)];
+new_data_pd = [new_data_pd data_pd(:, col_to_keep)];
 
 % CORRELATION MATRIX
 R_HC = corrcoef(table2array(new_data_hc), 'Rows', 'complete');
@@ -571,8 +550,50 @@ R_PD = corrcoef(table2array(new_data_pd), 'Rows', 'complete');
 
 figure
 imagesc(R_HC)
+colormap parula 
+colorbar
+xticks(1:70)
+xticklabels(new_data_hc.Properties.VariableNames)
+yticks(1:70)
+yticklabels(new_data_hc.Properties.VariableNames)
+title("Correlation for HC")
+
 figure
 imagesc(R_PD)
+colormap parula
+colorbar
+xticks(1:70)
+xticklabels(new_data_hc.Properties.VariableNames)
+yticks(1:70)
+yticklabels(new_data_hc.Properties.VariableNames)
+title("Correlation for PD")
 
+%% correlation between lateralization and np3 test -----------------------
+new_data_hc_np3 = new_data_hc(:, [1:3, 33:end]);
+new_data_pd_np3 = new_data_pd(:, [1:3, 33:end]);
 
+% CORRELATION MATRIX
+R_np3_HC = corrcoef(table2array(new_data_hc_np3), 'Rows', 'complete');
+R_np3_PD = corrcoef(table2array(new_data_pd_np3), 'Rows', 'complete');
 
+figure
+imagesc(R_np3_HC)
+colormap parula 
+colorbar
+xticks(1:width(new_data_hc_np3))
+xticklabels(new_data_hc_np3.Properties.VariableNames)
+yticks(1:width(new_data_hc_np3))
+yticklabels(new_data_hc_np3.Properties.VariableNames)
+title("Correlation for HC - NP3 TEST")
+
+figure
+imagesc(R_np3_PD)
+colormap parula
+colorbar
+xticks(1:width(new_data_hc_np3))
+xticklabels(new_data_hc_np3.Properties.VariableNames)
+yticks(1:width(new_data_hc_np3))
+yticklabels(new_data_hc_np3.Properties.VariableNames)
+title("Correlation for PD - NP3 TEST")
+
+%% correlation 
