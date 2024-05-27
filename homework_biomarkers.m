@@ -488,7 +488,6 @@ lateralization.PUTAMEN_ANT.HC.none.population = data_hc(lateralization.PUTAMEN_A
 % xticks(1:14)
 % xticklabels({'np1r', 'np1p', 'np2', 'np3', 'np4', 'genetics', 'familiarity', 'ethnicity', 'sex', 'age', 'height', 'weight', 'hand', 'primary diagnosis'})
 % 
->>>>>>> Stashed changes
 %% STATISTICAL ANALYSIS
 %% ONE WAY ANOVA
 % Control gauss
