@@ -615,9 +615,69 @@ for j=1:3
 end
 
 %% LINEAR REGRESSION of variables of interest
-symptoms = [data_pd.NP3RIGN,data_pd.NP3RIGRU,data_pd.NP3RIGRL,data_pd.NP3PTRMR,data_pd.NP3KTRMR];
-model = fitlm(symptoms,DATSCAN.CAUDATE_lat.PD);
-plot(model)
+%% right
+figure
+subplot(131)
+symptoms_r = [data_pd.NP3RIGN,data_pd.NP3RIGRU,data_pd.NP3RIGRL,data_pd.NP3PTRMR,data_pd.NP3KTRMR];
+model_caud_r = fitlm(symptoms_r,DATSCAN.CAUDATE_lat.PD);
+plot(model_caud_r)
+subplot(132)
 
+symptoms_r = [data_pd.NP3RIGN,data_pd.NP3RIGRU,data_pd.NP3RIGRL,data_pd.NP3PTRMR,data_pd.NP3KTRMR];
+model_put_ant_r = fitlm(symptoms_r,DATSCAN.PUTAMEN_ANT_lat.PD);
+plot(model_put_ant_r)
+subplot(133)
 
-%% correlation 
+symptoms_r = [data_pd.NP3RIGN,data_pd.NP3RIGRU,data_pd.NP3RIGRL,data_pd.NP3PTRMR,data_pd.NP3KTRMR];
+model_put_r = fitlm(symptoms_r,DATSCAN.PUTAMEN_lat.PD);
+plot(model_put_r)
+
+% Statistics
+%caudate
+% anova
+anova_caud = anova(model_caud_r);
+% coef test
+coed_test_caud = coefTest(model_caud_r);
+% [pdep_caud,x,y] = partialDependence(model_caud,{'x1','x3'});
+% figure
+% imagesc(x,y,pdep_caud)
+% putamen
+% anova
+anova_put = anova(model_put_r);
+% coef test
+% coed_test_caud = coefTest(model_put);
+% [pdep_put,x,y] = partialDependence(model_put,{'x1','x3'});
+% figure
+% imagesc(x,y,pdep_put)
+%% left
+figure
+subplot(131)
+symptoms_l = [data_pd.NP3RIGN,data_pd.NP3RIGLU,data_pd.NP3RIGLL,data_pd.NP3PTRML,data_pd.NP3KTRML];
+model_caud_l = fitlm(symptoms_l,DATSCAN.CAUDATE_lat.PD);
+plot(model_caud_l)
+
+subplot(132)
+model_put_ant_l = fitlm(symptoms_l,DATSCAN.PUTAMEN_ANT_lat.PD);
+plot(model_put_ant_l)
+
+subplot(133)
+model_put_l = fitlm(symptoms_l,DATSCAN.PUTAMEN_lat.PD);
+plot(model_put_l)
+
+% Statistics
+%caudate
+% anova
+anova_caud = anova(model_caud_l);
+% coef test
+coed_test_caud = coefTest(model_caud_l);
+% [pdep_caud,x,y] = partialDependence(model_caud,{'x1','x3'});
+% figure
+% imagesc(x,y,pdep_caud)
+% putamen
+% anova
+anova_put = anova(model_put_l);
+% coef test
+% coed_test_caud = coefTest(model_put);
+% [pdep_put,x,y] = partialDependence(model_put,{'x1','x3'});
+% figure
+% imagesc(x,y,pdep_put)
