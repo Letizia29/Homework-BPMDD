@@ -503,17 +503,17 @@ for i=2:length(rois_names)
 end
 %%Absulte value
 % Caudate
-y = [DATSCAN.CAUDATE_lat.PD' DATSCAN.CAUDATE_lat.HC']';
+y = [abs(DATSCAN.CAUDATE_lat.PD)' abs(DATSCAN.CAUDATE_lat.HC)']';
 group1 = [repmat("PD_caudate",length(DATSCAN.CAUDATE_lat.PD),1);repmat("HC_caudate",length(DATSCAN.CAUDATE_lat.HC),1)];
 % [p,tbl,stats]  = anova1(y,group1);
 % 
 % % Putamen
-y = [DATSCAN.PUTAMEN_lat.PD' DATSCAN.PUTAMEN_lat.HC']';
+y = [abs(DATSCAN.PUTAMEN_lat.PD)' abs(DATSCAN.PUTAMEN_lat.HC)']';
 group2 = [repmat("PD_putamen",length(DATSCAN.PUTAMEN_lat.PD),1);repmat("HC_putamen",length(DATSCAN.PUTAMEN_lat.HC),1)];
 [p,tbl,stats]  = anova1(y,group2);
 % 
 % % Putamen ANT
-y = [DATSCAN.PUTAMEN_ANT_lat.PD' DATSCAN.PUTAMEN_ANT_lat.HC']';
+y = [abs(DATSCAN.PUTAMEN_ANT_lat.PD)' abs(DATSCAN.PUTAMEN_ANT_lat.HC)']';
 group3 = [repmat("PD_putamen_ant",length(DATSCAN.PUTAMEN_ANT_lat.PD),1);repmat("HC_putamen_ant",length(DATSCAN.PUTAMEN_ANT_lat.HC),1)];
 [p,tbl,stats]  = anova1(y,group3);
 % 
@@ -525,9 +525,9 @@ group4 = [group1; group2; group3];
 %multcompare(stats)
 %%Left
 %abs(DATSCAN.PUTAMEN_lat.PD)' abs(DATSCAN.PUTAMEN_lat.HC)' abs(DATSCAN.PUTAMEN_ANT_lat.PD)'  abs(DATSCAN.PUTAMEN_ANT_lat.HC)'
-y = [DATSCAN.CAUDATE_lat.PD(lateralization.CAUDATE.PD.left.index)' DATSCAN.CAUDATE_lat.HC(lateralization.CAUDATE.HC.left.index)']';
-group5 = [repmat("PD_caudate_LEFT",length(lateralization.CAUDATE.PD.left.index),1);repmat("HC_caudate_LEFT",length(lateralization.CAUDATE.HC.left.index),1)];
-[p,tbl,stats]  = anova1(y,group5);
+% y = [DATSCAN.CAUDATE_lat.PD(lateralization.CAUDATE.PD.left.index)' DATSCAN.CAUDATE_lat.HC(lateralization.CAUDATE.HC.left.index)']';
+% group5 = [repmat("PD_caudate_LEFT",length(lateralization.CAUDATE.PD.left.index),1);repmat("HC_caudate_LEFT",length(lateralization.CAUDATE.HC.left.index),1)];
+% [p,tbl,stats]  = anova1(y,group5);
 
 %% CORRELATION MATRIX
 
@@ -827,23 +827,24 @@ title("Correlation PD PUTAMEN ANT lat LEFT - NP3 TEST LEFT")
 
 %% LATERALIZATION AND DOMINANT HAND
 % count_pd_latR_handR = length()
-
+%data_pd_lat_dx_mano_dx
 
 
 
 %% SCATTERPLOT
-for j=1:3
+j = [11,18,32,66];
+for j=j
     figure
-    for i=1:4
-        subplot(2,2,i)
-        scatter(table2array(new_data_pd(:,8+j)),table2array(new_data_pd(:,i)))
+    for i=1:3
+        subplot(1,3,i)
+        scatter(table2array(new_data_pd(:,i)),table2array(new_data_pd(:,j)))
         hold on
-        scatter(table2array(new_data_hc(:,8+j)),table2array(new_data_hc(:,i)))
+        scatter(table2array(new_data_hc(:,i)), table2array(new_data_hc(:,j)))
         xlabel('Lateralization')
         ylabel('Symptoms')
         legend('PD','HC')
         hold off
-        title( new_data_pd.Properties.VariableNames{i}, new_data_pd.Properties.VariableNames{8+j})
+        title(new_data_pd.Properties.VariableNames{j}, new_data_pd.Properties.VariableNames{i})
     end
 end
 
