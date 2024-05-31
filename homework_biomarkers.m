@@ -340,7 +340,7 @@ lateralization.PUTAMEN.HC.right.population = data_hc(lateralization.PUTAMEN.HC.r
 lateralization.PUTAMEN.HC.left.index = find(DATSCAN.PUTAMEN_lat.HC<-0.2);
 lateralization.PUTAMEN.HC.left.population = data_hc(lateralization.PUTAMEN.HC.left.index,:);
 
-lateralization.PUTAMEN.HC.none.index = find(DATSCAN.PUTAMEN_lat.HC<=-0.2 & DATSCAN.PUTAMEN_lat.HC<=0.2);
+lateralization.PUTAMEN.HC.none.index = find(DATSCAN.PUTAMEN_lat.HC>=-0.2 & DATSCAN.PUTAMEN_lat.HC<=0.2);
 lateralization.PUTAMEN.HC.none.population = data_hc(lateralization.PUTAMEN.HC.none.index,:);
 
 lateralization.PUTAMEN_ANT.HC.right.index = find(DATSCAN.PUTAMEN_ANT_lat.HC>0.2);
@@ -349,7 +349,7 @@ lateralization.PUTAMEN_ANT.HC.right.population = data_hc(lateralization.PUTAMEN_
 lateralization.PUTAMEN_ANT.HC.left.index = find(DATSCAN.PUTAMEN_ANT_lat.HC<-0.2);
 lateralization.PUTAMEN_ANT.HC.left.population = data_hc(lateralization.PUTAMEN_ANT.HC.left.index,:);
 
-lateralization.PUTAMEN_ANT.HC.none.index = find(DATSCAN.PUTAMEN_ANT_lat.HC<=-0.2 & DATSCAN.PUTAMEN_ANT_lat.HC<=0.2);
+lateralization.PUTAMEN_ANT.HC.none.index = find(DATSCAN.PUTAMEN_ANT_lat.HC>=-0.2 & DATSCAN.PUTAMEN_ANT_lat.HC<=0.2);
 lateralization.PUTAMEN_ANT.HC.none.population = data_hc(lateralization.PUTAMEN_ANT.HC.none.index,:);
 
 
@@ -916,79 +916,153 @@ anova_put = anova(model_put_l);
 % figure
 % imagesc(x,y,pdep_put)
 %% Control if lateralization in one direction is constant in all ROIs
-patient_id_right_lat_caudate = lateralization.CAUDATE.PD.right.population.Var1;
-patient_id_right_lat_putamen = lateralization.PUTAMEN.PD.right.population.Var1;
-patient_id_right_lat_putamen_ant = lateralization.PUTAMEN_ANT.PD.right.population.Var1;
+%%PD
+pd_patient_id_right_lat_caudate = lateralization.CAUDATE.PD.right.population.Var1;
+pd_patient_id_right_lat_putamen = lateralization.PUTAMEN.PD.right.population.Var1;
+pd_patient_id_right_lat_putamen_ant = lateralization.PUTAMEN_ANT.PD.right.population.Var1;
 
-patient_id_left_lat_caudate = lateralization.CAUDATE.PD.left.population.Var1;
-patient_id_left_lat_putamen = lateralization.PUTAMEN.PD.left.population.Var1;
-patient_id_left_lat_putamen_ant = lateralization.PUTAMEN_ANT.PD.left.population.Var1;
+pd_patient_id_left_lat_caudate = lateralization.CAUDATE.PD.left.population.Var1;
+pd_patient_id_left_lat_putamen = lateralization.PUTAMEN.PD.left.population.Var1;
+pd_patient_id_left_lat_putamen_ant = lateralization.PUTAMEN_ANT.PD.left.population.Var1;
 
-patient_id_none_lat_caudate = lateralization.CAUDATE.PD.none.population.Var1;
-patient_id_none_lat_putamen = lateralization.PUTAMEN.PD.none.population.Var1;
-patient_id_none_lat_putamen_ant = lateralization.PUTAMEN_ANT.PD.none.population.Var1;
+pd_patient_id_none_lat_caudate = lateralization.CAUDATE.PD.none.population.Var1;
+pd_patient_id_none_lat_putamen = lateralization.PUTAMEN.PD.none.population.Var1;
+pd_patient_id_none_lat_putamen_ant = lateralization.PUTAMEN_ANT.PD.none.population.Var1;
 
 
 % Right lat
-caudate_putamen_right = intersect(patient_id_right_lat_caudate,patient_id_right_lat_putamen);
-caudate_putamen_ant_right = intersect(patient_id_right_lat_caudate,patient_id_right_lat_putamen_ant);
-putamen_putamen_ant_right = intersect(patient_id_right_lat_putamen,patient_id_right_lat_putamen_ant);
-caudate_putamen_putamen_ant_right = intersect(caudate_putamen_right,caudate_putamen_ant_right);
+pd_caudate_putamen_right = intersect(pd_patient_id_right_lat_caudate,pd_patient_id_right_lat_putamen);
+pd_caudate_putamen_ant_right = intersect(pd_patient_id_right_lat_caudate,pd_patient_id_right_lat_putamen_ant);
+pd_putamen_putamen_ant_right = intersect(pd_patient_id_right_lat_putamen,pd_patient_id_right_lat_putamen_ant);
+pd_caudate_putamen_putamen_ant_right = intersect(pd_caudate_putamen_right,pd_caudate_putamen_ant_right);
 
-caudate_only_right = setdiff(setdiff(patient_id_right_lat_caudate,caudate_putamen_ant_right),caudate_putamen_right);
-putamen_only_right = setdiff(setdiff(patient_id_right_lat_putamen,caudate_putamen_ant_right),putamen_putamen_ant_right);
-putamen_ant_only_right = setdiff(setdiff(patient_id_right_lat_putamen_ant,caudate_putamen_ant_right),putamen_putamen_ant_right);
+pd_caudate_only_right = setdiff(setdiff(pd_patient_id_right_lat_caudate,pd_caudate_putamen_ant_right),pd_caudate_putamen_right);
+pd_putamen_only_right = setdiff(setdiff(pd_patient_id_right_lat_putamen,pd_caudate_putamen_ant_right),pd_putamen_putamen_ant_right);
+pd_putamen_ant_only_right = setdiff(setdiff(pd_patient_id_right_lat_putamen_ant,pd_caudate_putamen_ant_right),pd_putamen_putamen_ant_right);
 
-caudate_right_putamen_ant_none = intersect(patient_id_right_lat_caudate,patient_id_none_lat_putamen_ant);
-caudate_right_putamen_none = intersect(patient_id_right_lat_caudate,patient_id_none_lat_putamen);
-caudate_right_others_none = intersect(caudate_right_putamen_ant_none,caudate_right_putamen_none);
+pd_caudate_right_putamen_ant_none = intersect(pd_patient_id_right_lat_caudate,pd_patient_id_none_lat_putamen_ant);
+pd_caudate_right_putamen_none = intersect(pd_patient_id_right_lat_caudate,pd_patient_id_none_lat_putamen);
+pd_caudate_right_others_none = intersect(pd_caudate_right_putamen_ant_none,pd_caudate_right_putamen_none);
 
-putamen_right_putamen_ant_none = intersect(patient_id_right_lat_putamen,patient_id_none_lat_putamen_ant);
-putamen_right_caudate_none = intersect(patient_id_right_lat_putamen,patient_id_none_lat_caudate);
-putamen_right_others_none = intersect(putamen_right_caudate_none,putamen_right_putamen_ant_none);
+pd_putamen_right_putamen_ant_none = intersect(pd_patient_id_right_lat_putamen,pd_patient_id_none_lat_putamen_ant);
+pd_putamen_right_caudate_none = intersect(pd_patient_id_right_lat_putamen,pd_patient_id_none_lat_caudate);
+pd_putamen_right_others_none = intersect(pd_putamen_right_caudate_none,pd_putamen_right_putamen_ant_none);
 
-putamen_ant_right_putamen_none = intersect(patient_id_right_lat_putamen_ant,patient_id_none_lat_putamen);
-putamen_ant_right_caudate_none = intersect(patient_id_right_lat_putamen_ant,patient_id_none_lat_caudate);
-putamen_ant_right_others_none = intersect(putamen_ant_right_putamen_none,putamen_ant_right_caudate_none);
+pd_putamen_ant_right_putamen_none = intersect(pd_patient_id_right_lat_putamen_ant,pd_patient_id_none_lat_putamen);
+pd_putamen_ant_right_caudate_none = intersect(pd_patient_id_right_lat_putamen_ant,pd_patient_id_none_lat_caudate);
+pd_putamen_ant_right_others_none = intersect(pd_putamen_ant_right_putamen_none,pd_putamen_ant_right_caudate_none);
 
 
-% % left
-caudate_putamen_left = intersect(patient_id_left_lat_caudate,patient_id_left_lat_putamen);
-caudate_putamen_ant_left = intersect(patient_id_left_lat_caudate,patient_id_left_lat_putamen_ant);
-putamen_putamen_ant_left = intersect(patient_id_left_lat_putamen,patient_id_left_lat_putamen_ant);
-caudate_putamen_putamen_ant_left = intersect(caudate_putamen_left,caudate_putamen_ant_left);
+% Left
+pd_caudate_putamen_left = intersect(pd_patient_id_left_lat_caudate,pd_patient_id_left_lat_putamen);
+pd_caudate_putamen_ant_left = intersect(pd_patient_id_left_lat_caudate,pd_patient_id_left_lat_putamen_ant);
+pd_putamen_putamen_ant_left = intersect(pd_patient_id_left_lat_putamen,pd_patient_id_left_lat_putamen_ant);
+pd_caudate_putamen_putamen_ant_left = intersect(pd_caudate_putamen_left,pd_caudate_putamen_ant_left);
 
-caudate_only_left = setdiff(setdiff(patient_id_left_lat_caudate,caudate_putamen_ant_left),caudate_putamen_left);
-putamen_only_left = setdiff(setdiff(patient_id_left_lat_putamen,caudate_putamen_ant_left),putamen_putamen_ant_left);
-putamen_ant_only_left = setdiff(setdiff(patient_id_left_lat_putamen_ant,caudate_putamen_ant_left),putamen_putamen_ant_left);
+pd_caudate_only_left = setdiff(setdiff(pd_patient_id_left_lat_caudate,pd_caudate_putamen_ant_left),pd_caudate_putamen_left);
+pd_putamen_only_left = setdiff(setdiff(pd_patient_id_left_lat_putamen,pd_caudate_putamen_ant_left),pd_putamen_putamen_ant_left);
+pd_putamen_ant_only_left = setdiff(setdiff(pd_patient_id_left_lat_putamen_ant,pd_caudate_putamen_ant_left),pd_putamen_putamen_ant_left);
 
-caudate_left_putamen_none = intersect(patient_id_left_lat_caudate,patient_id_none_lat_putamen);
-caudate_left_putamen_ant_none = intersect(patient_id_left_lat_caudate,patient_id_none_lat_putamen_ant);
-caudate_left_others_none = intersect(caudate_left_putamen_none,caudate_left_putamen_ant_none);
+pd_caudate_left_putamen_none = intersect(pd_patient_id_left_lat_caudate,pd_patient_id_none_lat_putamen);
+pd_caudate_left_putamen_ant_none = intersect(pd_patient_id_left_lat_caudate,pd_patient_id_none_lat_putamen_ant);
+pd_caudate_left_others_none = intersect(pd_caudate_left_putamen_none,pd_caudate_left_putamen_ant_none);
 
-putamen_left_putamen_ant_none = intersect(patient_id_left_lat_putamen,patient_id_none_lat_putamen_ant);
-putamen_left_caudate_none = intersect(patient_id_left_lat_putamen,patient_id_none_lat_caudate);
-putamen_left_others_none = intersect(putamen_left_putamen_ant_none,putamen_left_caudate_none);
+pd_putamen_left_putamen_ant_none = intersect(pd_patient_id_left_lat_putamen,pd_patient_id_none_lat_putamen_ant);
+pd_putamen_left_caudate_none = intersect(pd_patient_id_left_lat_putamen,pd_patient_id_none_lat_caudate);
+pd_putamen_left_others_none = intersect(pd_putamen_left_putamen_ant_none,pd_putamen_left_caudate_none);
 
-putamen_ant_left_putamen_none = intersect(patient_id_left_lat_putamen_ant,patient_id_none_lat_putamen);
-putamen_ant_left_caudate_none = intersect(patient_id_left_lat_putamen_ant,patient_id_none_lat_caudate);
-putamen_ant_left_others_none = intersect(putamen_ant_left_putamen_none,putamen_ant_left_caudate_none);
+pd_putamen_ant_left_putamen_none = intersect(pd_patient_id_left_lat_putamen_ant,pd_patient_id_none_lat_putamen);
+pd_putamen_ant_left_caudate_none = intersect(pd_patient_id_left_lat_putamen_ant,pd_patient_id_none_lat_caudate);
+pd_putamen_ant_left_others_none = intersect(pd_putamen_ant_left_putamen_none,pd_putamen_ant_left_caudate_none);
 
 
 % Right and left
-caudate_right_putamen_ant_left = intersect(patient_id_right_lat_caudate,patient_id_left_lat_putamen_ant);
-caudate_right_putamen_left = intersect(patient_id_right_lat_caudate,patient_id_left_lat_putamen);
-caudate_right_others_left = intersect(caudate_right_putamen_ant_left,caudate_right_putamen_left);
+pd_caudate_right_putamen_ant_left = intersect(pd_patient_id_right_lat_caudate,pd_patient_id_left_lat_putamen_ant);
+pd_caudate_right_putamen_left = intersect(pd_patient_id_right_lat_caudate,pd_patient_id_left_lat_putamen);
+pd_caudate_right_others_left = intersect(pd_caudate_right_putamen_ant_left,pd_caudate_right_putamen_left);
 
-putamen_right_putamen_ant_left = intersect(patient_id_right_lat_putamen,patient_id_left_lat_putamen_ant);
-putamen_right_caudate_left = intersect(patient_id_right_lat_putamen,patient_id_left_lat_caudate);
-putamen_right_others_left = intersect(putamen_right_putamen_ant_left,putamen_right_caudate_left);
+pd_putamen_right_putamen_ant_left = intersect(pd_patient_id_right_lat_putamen,pd_patient_id_left_lat_putamen_ant);
+pd_putamen_right_caudate_left = intersect(pd_patient_id_right_lat_putamen,pd_patient_id_left_lat_caudate);
+pd_putamen_right_others_left = intersect(pd_putamen_right_putamen_ant_left,pd_putamen_right_caudate_left);
 
-putamen_ant_right_putamen_left = intersect(patient_id_right_lat_putamen_ant,patient_id_left_lat_putamen);
-putamen_ant_right_caudate_left = intersect(patient_id_right_lat_putamen_ant,patient_id_left_lat_caudate);
-putamen_ant_right_others_left = intersect(putamen_ant_right_putamen_left,putamen_ant_right_caudate_left);
+pd_putamen_ant_right_putamen_left = intersect(pd_patient_id_right_lat_putamen_ant,pd_patient_id_left_lat_putamen);
+pd_putamen_ant_right_caudate_left = intersect(pd_patient_id_right_lat_putamen_ant,pd_patient_id_left_lat_caudate);
+pd_putamen_ant_right_others_left = intersect(pd_putamen_ant_right_putamen_left,pd_putamen_ant_right_caudate_left);
 
+% %%HC
+% hc_patient_id_right_lat_caudate = lateralization.CAUDATE.HC.right.population.Var1;
+% hc_patient_id_right_lat_putamen = lateralization.PUTAMEN.HC.right.population.Var1;
+% hc_patient_id_right_lat_putamen_ant = lateralization.PUTAMEN_ANT.HC.right.population.Var1;
+% 
+% hc_patient_id_left_lat_caudate = lateralization.CAUDATE.HC.left.population.Var1;
+% hc_patient_id_left_lat_putamen = lateralization.PUTAMEN.HC.left.population.Var1;
+% hc_patient_id_left_lat_putamen_ant = lateralization.PUTAMEN_ANT.HC.left.population.Var1;
+% 
+% hc_patient_id_none_lat_caudate = lateralization.CAUDATE.HC.none.population.Var1;
+% hc_patient_id_none_lat_putamen = lateralization.PUTAMEN.HC.none.population.Var1;
+% hc_patient_id_none_lat_putamen_ant = lateralization.PUTAMEN_ANT.HC.none.population.Var1;
+% 
+% 
+% % Right 
+% hc_caudate_putamen_right = intersect(hc_patient_id_right_lat_caudate,hc_patient_id_right_lat_putamen);
+% hc_caudate_putamen_ant_right = intersect(hc_patient_id_right_lat_caudate,hc_patient_id_right_lat_putamen_ant);
+% hc_putamen_putamen_ant_right = intersect(hc_patient_id_right_lat_putamen,hc_patient_id_right_lat_putamen_ant);
+% hc_caudate_putamen_putamen_ant_right = intersect(hc_caudate_putamen_right,hc_caudate_putamen_ant_right);
+% 
+% hc_caudate_only_right = setdiff(setdiff(hc_patient_id_right_lat_caudate,hc_caudate_putamen_ant_right),hc_caudate_putamen_right);
+% hc_putamen_only_right = setdiff(setdiff(hc_patient_id_right_lat_putamen,hc_caudate_putamen_ant_right),hc_putamen_putamen_ant_right);
+% hc_putamen_ant_only_right = setdiff(setdiff(hc_patient_id_right_lat_putamen_ant,hc_caudate_putamen_ant_right),hc_putamen_putamen_ant_right);
+% 
+% hc_caudate_right_putamen_ant_none = intersect(hc_patient_id_right_lat_caudate,hc_patient_id_none_lat_putamen_ant);
+% hc_caudate_right_putamen_none = intersect(hc_patient_id_right_lat_caudate,hc_patient_id_none_lat_putamen);
+% hc_caudate_right_others_none = intersect(hc_caudate_right_putamen_ant_none,hc_caudate_right_putamen_none);
+% 
+% hc_putamen_right_putamen_ant_none = intersect(hc_patient_id_right_lat_putamen,hc_patient_id_none_lat_putamen_ant);
+% hc_putamen_right_caudate_none = intersect(hc_patient_id_right_lat_putamen,hc_patient_id_none_lat_caudate);
+% hc_putamen_right_others_none = intersect(hc_putamen_right_caudate_none,hc_putamen_right_putamen_ant_none);
+% 
+% hc_putamen_ant_right_putamen_none = intersect(hc_patient_id_right_lat_putamen_ant,hc_patient_id_none_lat_putamen);
+% hc_putamen_ant_right_caudate_none = intersect(hc_patient_id_right_lat_putamen_ant,hc_patient_id_none_lat_caudate);
+% hc_putamen_ant_right_others_none = intersect(hc_putamen_ant_right_putamen_none,hc_putamen_ant_right_caudate_none);
+% 
+% 
+% % Left
+% hc_caudate_putamen_left = intersect(hc_patient_id_left_lat_caudate,hc_patient_id_left_lat_putamen);
+% hc_caudate_putamen_ant_left = intersect(hc_patient_id_left_lat_caudate,hc_patient_id_left_lat_putamen_ant);
+% hc_putamen_putamen_ant_left = intersect(hc_patient_id_left_lat_putamen,hc_patient_id_left_lat_putamen_ant);
+% hc_caudate_putamen_putamen_ant_left = intersect(hc_caudate_putamen_left,hc_caudate_putamen_ant_left);
+% 
+% hc_caudate_only_left = setdiff(setdiff(hc_patient_id_left_lat_caudate,hc_caudate_putamen_ant_left),hc_caudate_putamen_left);
+% hc_putamen_only_left = setdiff(setdiff(hc_patient_id_left_lat_putamen,hc_caudate_putamen_ant_left),hc_putamen_putamen_ant_left);
+% hc_putamen_ant_only_left = setdiff(setdiff(hc_patient_id_left_lat_putamen_ant,hc_caudate_putamen_ant_left),hc_putamen_putamen_ant_left);
+% 
+% hc_caudate_left_putamen_none = intersect(hc_patient_id_left_lat_caudate,hc_patient_id_none_lat_putamen);
+% hc_caudate_left_putamen_ant_none = intersect(pd_patient_id_left_lat_caudate,hc_patient_id_none_lat_putamen_ant);
+% hc_caudate_left_others_none = intersect(hc_caudate_left_putamen_none,hc_caudate_left_putamen_ant_none);
+% 
+% hc_putamen_left_putamen_ant_none = intersect(hc_patient_id_left_lat_putamen,hc_patient_id_none_lat_putamen_ant);
+% hc_putamen_left_caudate_none = intersect(hc_patient_id_left_lat_putamen,hc_patient_id_none_lat_caudate);
+% hc_putamen_left_others_none = intersect(hc_putamen_left_putamen_ant_none,hc_putamen_left_caudate_none);
+% 
+% hc_putamen_ant_left_putamen_none = intersect(hc_patient_id_left_lat_putamen_ant,hc_patient_id_none_lat_putamen);
+% hc_putamen_ant_left_caudate_none = intersect(hc_patient_id_left_lat_putamen_ant,hc_patient_id_none_lat_caudate);
+% hc_putamen_ant_left_others_none = intersect(hc_putamen_ant_left_putamen_none,hc_putamen_ant_left_caudate_none);
+% 
+% 
+% % Right and left
+% hc_caudate_right_putamen_ant_left = intersect(hc_patient_id_right_lat_caudate,hc_patient_id_left_lat_putamen_ant);
+% hc_caudate_right_putamen_left = intersect(hc_patient_id_right_lat_caudate,hc_patient_id_left_lat_putamen);
+% hc_caudate_right_others_left = intersect(hc_caudate_right_putamen_ant_left,hc_caudate_right_putamen_left);
+% 
+% hc_putamen_right_putamen_ant_left = intersect(hc_patient_id_right_lat_putamen,hc_patient_id_left_lat_putamen_ant);
+% hc_putamen_right_caudate_left = intersect(hc_patient_id_right_lat_putamen,pd_patient_id_left_lat_caudate);
+% hc_putamen_right_others_left = intersect(hc_putamen_right_putamen_ant_left,hc_putamen_right_caudate_left);
+% 
+% hc_putamen_ant_right_putamen_left = intersect(hc_patient_id_right_lat_putamen_ant,hc_patient_id_left_lat_putamen);
+% hc_putamen_ant_right_caudate_left = intersect(hc_patient_id_right_lat_putamen_ant,pd_patient_id_left_lat_caudate);
+% hc_putamen_ant_right_others_left = intersect(hc_putamen_ant_right_putamen_left,hc_putamen_ant_right_caudate_left);
 
+% per HC solo due outliers con lat sx in putamen
 %% LASSO FEATURE SELECTION
 
 
