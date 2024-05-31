@@ -488,6 +488,245 @@ lateralization.PUTAMEN_ANT.HC.none.population = data_hc(lateralization.PUTAMEN_A
 % xticks(1:14)
 % xticklabels({'np1r', 'np1p', 'np2', 'np3', 'np4', 'genetics', 'familiarity', 'ethnicity', 'sex', 'age', 'height', 'weight', 'hand', 'primary diagnosis'})
 % 
+
+%% ANALYSIS OF DEMOGRAPHICS DATA
+
+%% CONTINUOUS VARIABLES
+
+% age: already filled up the NaN with the date of the dat scan and the
+% birth date
+% height: PD: 23 NaN HC: 1 (find(isnan(variables.height.pd)))
+% weight: PD: 21 NaN HC: 1(find(isnan(variables.weight.pd)))
+
+% AGE --------------------------------------------------------------------
+% Check gaussianity of AGE
+[gaussianity.pd.age.h, gaussianity.pd.age.p] = lillietest(variables.age.pd);
+if gaussianity.pd.age.h == 1
+    disp('AGE in PD is NOT normally distributed')
+else 
+    disp('AGE in PD is normally distributed')
+end
+
+[gaussianity.hc.age.h, gaussianity.hc.age.p] = lillietest(variables.age.hc);
+if gaussianity.hc.age.h == 1
+    disp('AGE in HC is NOT normally distributed')
+else
+    disp('AGE in HC is normally distributed')
+end
+
+% Anova test AGE between PD and HC
+y = [variables.age.pd; variables.age.hc]';
+groups = [ones(1,size(variables.age.pd,1)), 2*ones(1,size(variables.age.hc,1))];
+[anova_test.age.p,tbl,stats] = anova1(y, groups);
+if anova_test.age.p > 0.05
+    disp('AGE: Accepted null hyp (same mean)')
+else 
+    disp('AGE: Rejected null hyp (different mean)')
+end
+
+% HEIGHT -----------------------------------------------------------------
+% Check gaussianity of HEIGHT
+[gaussianity.pd.height.h, gaussianity.pd.height.p] = lillietest(variables.height.pd);
+if gaussianity.pd.height.h == 1
+    disp('HEIGHT in PD is NOT normally distributed')
+else 
+    disp('HEIGHT in PD is normally distributed')
+end
+
+[gaussianity.hc.height.h, gaussianity.hc.height.p] = lillietest(variables.height.hc);
+if gaussianity.hc.height.h == 1
+    disp('HEIGHT in HC is NOT normally distributed')
+else
+    disp('HEIGHT in HC is normally distributed')
+end
+
+% Anova test HEIGHT between PD and HC
+y = [variables.height.pd; variables.height.hc]';
+groups = [ones(1,size(variables.height.pd,1)), 2*ones(1,size(variables.height.hc,1))];
+[anova_test.height.p,tbl,stats] = anova1(y, groups);
+if anova_test.height.p > 0.05
+    disp('HEIGHT: Accepted null hyp (same mean)')
+else 
+    disp('HEIGHT: Rejected null hyp (different mean)')
+end
+
+% WEIGHT -----------------------------------------------------------------
+% Check gaussianity of WEIGHT
+[gaussianity.pd.weight.h, gaussianity.pd.weight.p] = lillietest(variables.weight.pd);
+if gaussianity.pd.weight.h == 1
+    disp('WEIGHT in PD is NOT normally distributed')
+else 
+    disp('WEIGHT in PD is normally distributed')
+end
+
+[gaussianity.hc.weight.h, gaussianity.hc.weight.p] = lillietest(variables.weight.hc);
+if gaussianity.hc.weight.h == 1
+    disp('WEIGHT in HC is NOT normally distributed')
+else
+    disp('WEIGHT in HC is normally distributed')
+end
+
+% Anova test WEIGHT between PD and HC
+y = [variables.weight.pd; variables.weight.hc]';
+groups = [ones(1,size(variables.weight.pd,1)), 2*ones(1,size(variables.weight.hc,1))];
+[anova_test.weight.p,tbl,stats] = anova1(y, groups);
+if anova_test.weight.p > 0.05
+    disp('WEIGHT: Accepted null hyp (same mean)')
+else 
+    disp('WEIGHT: Rejected null hyp (different mean)')
+end
+
+%% DISCRETE VARIABLES
+% familiarity, ethnicity, sex, hand, genetics (solo PD)
+% The Wilcoxon test function already removes the nan from the data
+
+% FAMILIARITY -----------------------------------------------------------
+% transform in numerical indeces
+temp_pd = zeros(length(variables.familiarity.pd),1);
+for i = 1:length(variables.familiarity.pd)
+    if cell2mat(variables.familiarity.pd(i)) == 'NA'
+        temp_pd(i) = NaN;
+    elseif cell2mat(variables.familiarity.pd(i)) == '1'
+        temp_pd(i) = 1;
+    elseif cell2mat(variables.familiarity.pd(i)) == '0'
+        temp_pd(i) = 0;
+    end
+end
+temp_hc = zeros(length(variables.familiarity.hc),1);
+for i = 1:length(variables.familiarity.hc)
+    if cell2mat(variables.familiarity.hc(i)) == 'NA'
+        temp_hc(i) = NaN;
+    elseif cell2mat(variables.familiarity.hc(i)) == '1'
+        temp_hc(i) = 1;
+    elseif cell2mat(variables.familiarity.hc(i)) == '0'
+        temp_hc(i) = 0;
+    end
+end
+% save back in variables struct
+variables.familiarity.pd = temp_pd;
+variables.familiarity.hc = temp_hc;
+
+% Perfom Wilcoxon test
+[wilcoxon.familiarity.p,wilcoxon.familiarity.h,stats] = ranksum(variables.familiarity.pd,variables.familiarity.hc);
+if wilcoxon.familiarity.h == 1
+    disp('FAMILIARITY: Rejected null hyp (different mean)')
+else
+    disp('FAMILIARITY: Accepted null hyp (same mean)') 
+end
+
+clear temp_pd temp_hc
+
+% ETHNICITY -----------------------------------------------------------
+% transform in numerical indeces
+values_ethnicity = unique(variables.ethnicity.pd);
+temp_pd = zeros(length(variables.ethnicity.pd),1);
+for i = 1:length(variables.ethnicity.pd)
+    for j = 1:length(values_ethnicity)
+        if string(cell2mat(variables.ethnicity.pd(i))) == string(cell2mat(values_ethnicity(j)))
+            temp_pd(i) = j;
+        end
+    end
+end
+temp_hc = zeros(length(variables.ethnicity.hc),1);
+for i = 1:length(variables.ethnicity.hc)
+    for j = 1:length(values_ethnicity)
+        if string(cell2mat(variables.ethnicity.hc(i))) == string(cell2mat(values_ethnicity(j)))
+            temp_hc(i) = j;
+        end
+    end
+end
+% save back in variables struct
+variables.ethnicity.pd = temp_pd;
+variables.ethnicity.hc = temp_hc;
+
+% Perfom Wilcoxon test
+[wilcoxon.ethnicity.p,wilcoxon.ethnicity.h,stats] = ranksum(variables.ethnicity.pd,variables.ethnicity.hc);
+if wilcoxon.ethnicity.h == 1
+    disp('ETHNICITY: Rejected null hyp (different mean)')
+else
+    disp('ETHNICITY: Accepted null hyp (same mean)') 
+end
+
+clear temp_pd temp_hc
+
+% SEX -----------------------------------------------------------
+% transform in numerical indeces
+values_sex = unique(variables.sex.pd);
+temp_pd = zeros(length(variables.sex.pd),1);
+for i = 1:length(variables.sex.pd)
+    for j = 1:length(values_sex)
+        if string(cell2mat(variables.sex.pd(i))) == string(cell2mat(values_sex(j)))
+            temp_pd(i) = j;
+        end
+    end
+end
+temp_hc = zeros(length(variables.sex.hc),1);
+for i = 1:length(variables.sex.hc)
+    for j = 1:length(values_sex)
+        if string(cell2mat(variables.sex.hc(i))) == string(cell2mat(values_sex(j)))
+            temp_hc(i) = j;
+        end
+    end
+end
+% save back in variables struct
+variables.sex.pd = temp_pd;
+variables.sex.hc = temp_hc;
+
+% Perfom Wilcoxon test
+[wilcoxon.sex.p,wilcoxon.sex.h,stats] = ranksum(variables.sex.pd,variables.sex.hc);
+if wilcoxon.sex.h == 1
+    disp('SEX: Rejected null hyp (different mean)')
+else
+    disp('SEX: Accepted null hyp (same mean)') 
+end
+
+clear temp_pd temp_hc
+
+% HAND -----------------------------------------------------------
+% transform in numerical indeces
+values_hand = unique(variables.hand.pd);
+temp_pd = zeros(length(variables.hand.pd),1);
+for i = 1:length(variables.hand.pd)
+    for j = 1:length(values_hand)
+        if string(cell2mat(variables.hand.pd(i))) == string(cell2mat(values_hand(j)))
+            temp_pd(i) = j;
+        end
+        if string(cell2mat(values_hand(j))) == 'NA'
+            temp_pd(i) = NaN;
+        end
+    end
+end
+temp_hc = zeros(length(variables.hand.hc),1);
+for i = 1:length(variables.hand.hc)
+    for j = 1:length(values_hand)
+        if string(cell2mat(variables.hand.hc(i))) == string(cell2mat(values_hand(j)))
+            temp_hc(i) = j;
+        end
+        if string(cell2mat(values_hand(j))) == 'NA'
+            temp_hc(i) = NaN;
+        end
+    end
+end
+% save back in variables struct
+variables.hand.pd = temp_pd;
+variables.hand.hc = temp_hc;
+
+% Perfom Wilcoxon test
+[wilcoxon.hand.p,wilcoxon.hand.h,stats] = ranksum(variables.hand.pd,variables.hand.hc);
+if wilcoxon.hand.h == 1
+    disp('HAND: Rejected null hyp (different mean)')
+else
+    disp('HAND: Accepted null hyp (same mean)') 
+end
+
+clear temp_pd temp_hc
+
+
+
+
+
+
+
 %% STATISTICAL ANALYSIS
 %% ONE WAY ANOVA
 % Control gauss
