@@ -426,39 +426,106 @@ clear y p tbl stats group4 group3 group2 group1
 
 %% COVARIATES ANALYSIS
 % HC
+% Comparison lateralization white - asians, indals, black in HC
+% TROPPO POCHI SOGGETTI
+% CAUDATE ----------------------------------------------------------------
 for i = 1:length(discr_variables)-1
-    
+
     % groups LAT CAUDATE
     for j = 1:length(legend_hc.(variables{discr_variables(i)}))
         groups.HC.CAUDATE.(legend_hc.(variables{discr_variables(i)}){j}) = LATERALIZATION_coeff.CAUDATE.HC(find(data_hc.(variables{discr_variables(i)}) == j));
-        
+
         % not consider groups with less than 4 elements
-        if length(group_CAUDATE) > 4
+        if length(groups.HC.CAUDATE.(legend_hc.(variables{discr_variables(i)}){j})) > 4
             % check for gaussianity
             [gaussianity.HC.LAT_CAUDATE.(variables{discr_variables(i)}).(legend_hc.(variables{discr_variables(i)}){j}).h, ...
                 gaussianity.HC.LAT_CAUDATE.(variables{discr_variables(i)}).(legend_hc.(variables{discr_variables(i)}){j}).p] = ...
-                lillietest(group_CAUDATE);
+                lillietest(groups.HC.CAUDATE.(legend_hc.(variables{discr_variables(i)}){j}));
         end
     end
 end
 
-for i = 1:length(fieldnames(groups.HC.CAUDATE))
-    
-    % Anova test between the subgroups of HC
-    y = [data_pd.(variables{cont_variables(i)}); data_hc.(variables{cont_variables(i)})]';
-    groups = [ones(1,size(data_pd.(variables{cont_variables(i)}),1)), 2*ones(1,size(data_hc.(variables{cont_variables(i)}),1))];
-    anova_test.(variables{cont_variables(i)}).p = anova1(y, groups);
-    
-    if anova_test.(variables{cont_variables(i)}).p > 0.05
-        disp(strcat(string(variables{cont_variables(i)}), ': Accepted null hyp (same mean)'))
-    else 
-        disp(strcat(string(variables{cont_variables(i)}), ': Rejected null hyp (different mean)'))
+clear i j 
+
+% Comparison CAUDATE lateralization female - male in HC
+% Anova test
+y = [groups.HC.CAUDATE.Female; groups.HC.CAUDATE.Male]';
+groups_anova = [ones(1,length(groups.HC.CAUDATE.Female)), 2*ones(1,length(groups.HC.CAUDATE.Male))];
+anova_test.LAT_CAUDATE.(variables{discr_variables(2)}).p = anova1(y, groups_anova);
+
+if anova_test.LAT_CAUDATE.(variables{discr_variables(2)}).p > 0.05
+    disp(strcat(string(variables{discr_variables(2)}), ': LAT CAUDATE Accepted null hyp (same mean)'))
+else 
+    disp(strcat(string(variables{discr_variables(2)}), ': LAT CAUDATE Rejected null hyp (different mean)'))
+end
+
+clear y groups_anova
+
+% PUTAMEN ----------------------------------------------------------------
+for i = 1:length(discr_variables)-1
+
+    % groups LAT PUTAMEN
+    for j = 1:length(legend_hc.(variables{discr_variables(i)}))
+        groups.HC.PUTAMEN.(legend_hc.(variables{discr_variables(i)}){j}) = LATERALIZATION_coeff.PUTAMEN.HC(find(data_hc.(variables{discr_variables(i)}) == j));
+
+        % not consider groups with less than 4 elements
+        if length(groups.HC.PUTAMEN.(legend_hc.(variables{discr_variables(i)}){j})) > 4
+            % check for gaussianity
+            [gaussianity.HC.LAT_PUTAMEN.(variables{discr_variables(i)}).(legend_hc.(variables{discr_variables(i)}){j}).h, ...
+                gaussianity.HC.LAT_PUTAMEN.(variables{discr_variables(i)}).(legend_hc.(variables{discr_variables(i)}){j}).p] = ...
+                lillietest(groups.HC.PUTAMEN.(legend_hc.(variables{discr_variables(i)}){j}));
+        end
     end
 end
 
+clear i j 
 
+% Comparison PUTAMEN lateralization female - male in HC
+% Anova test
+y = [groups.HC.PUTAMEN.Female; groups.HC.PUTAMEN.Male]';
+groups_anova = [ones(1,length(groups.HC.PUTAMEN.Female)), 2*ones(1,length(groups.HC.PUTAMEN.Male))];
+anova_test.LAT_PUTAMEN.(variables{discr_variables(2)}).p = anova1(y, groups_anova);
 
+if anova_test.LAT_PUTAMEN.(variables{discr_variables(2)}).p > 0.05
+    disp(strcat(string(variables{discr_variables(2)}), ': LAT PUTAMEN Accepted null hyp (same mean)'))
+else 
+    disp(strcat(string(variables{discr_variables(2)}), ': LAT PUTAMEN Rejected null hyp (different mean)'))
+end
 
+clear y groups_anova
+
+% PUTAMEN ANT----------------------------------------------------------------
+for i = 1:length(discr_variables)-1
+
+    % groups LAT PUTAMEN ANT
+    for j = 1:length(legend_hc.(variables{discr_variables(i)}))
+        groups.HC.PUTAMEN_ANT.(legend_hc.(variables{discr_variables(i)}){j}) = LATERALIZATION_coeff.PUTAMEN_ANT.HC(find(data_hc.(variables{discr_variables(i)}) == j));
+
+        % not consider groups with less than 4 elements
+        if length(groups.HC.PUTAMEN_ANT.(legend_hc.(variables{discr_variables(i)}){j})) > 4
+            % check for gaussianity
+            [gaussianity.HC.LAT_PUTAMEN_ANT.(variables{discr_variables(i)}).(legend_hc.(variables{discr_variables(i)}){j}).h, ...
+                gaussianity.HC.LAT_PUTAMEN_ANT.(variables{discr_variables(i)}).(legend_hc.(variables{discr_variables(i)}){j}).p] = ...
+                lillietest(groups.HC.PUTAMEN_ANT.(legend_hc.(variables{discr_variables(i)}){j}));
+        end
+    end
+end
+
+clear i j 
+
+% Comparison PUTAMEN ANT lateralization female - male in HC
+% Anova test
+y = [groups.HC.PUTAMEN_ANT.Female; groups.HC.PUTAMEN_ANT.Male]';
+groups_anova = [ones(1,length(groups.HC.PUTAMEN_ANT.Female)), 2*ones(1,length(groups.HC.PUTAMEN_ANT.Male))];
+anova_test.LAT_PUTAMEN_ANT.(variables{discr_variables(2)}).p = anova1(y, groups_anova);
+
+if anova_test.LAT_PUTAMEN_ANT.(variables{discr_variables(2)}).p > 0.05
+    disp(strcat(string(variables{discr_variables(2)}), ': LAT PUTAMEN ANT Accepted null hyp (same mean)'))
+else 
+    disp(strcat(string(variables{discr_variables(2)}), ': LAT PUTAMEN ANT Rejected null hyp (different mean)'))
+end
+
+clear y groups_anova
 %% LINEAR REGRESSION of variables of interest
 
 %% - HC
