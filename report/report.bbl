@@ -1,0 +1,112 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{nty/global//global/global}
+  \entry{van_der_hoorn_handedness_2012}{article}{}
+    \name{author}{4}{}{%
+      {{hash=VDHA}{%
+         family={Van Der\bibnamedelima Hoorn},
+         familyi={V\bibinitperiod\bibinitdelim D\bibinitperiod\bibinitdelim
+  H\bibinitperiod},
+         given={Anouk},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=BH}{%
+         family={Burger},
+         familyi={B\bibinitperiod},
+         given={Huibert},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=LKL}{%
+         family={Leenders},
+         familyi={L\bibinitperiod},
+         given={Klaus\bibnamedelima L.},
+         giveni={K\bibinitperiod\bibinitdelim L\bibinitperiod},
+      }}%
+      {{hash=DJBM}{%
+         family={De\bibnamedelima Jong},
+         familyi={D\bibinitperiod\bibinitdelim J\bibinitperiod},
+         given={Bauke\bibnamedelima M.},
+         giveni={B\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+    }
+    \list{language}{1}{%
+      {en}%
+    }
+    \strng{namehash}{VDHA+1}
+    \strng{fullhash}{VDHABHLKLDJBM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{sortinit}{V}
+    \field{sortinithash}{V}
+    \field{abstract}{%
+    Abstract Parkinson's disease (PD) characteristically presents with
+  asymmetrical symptoms, contralateral to the side of the most extensive
+  cerebral affection. This intriguing asymmetry, even included in the
+  definition for diagnosing PD, however, is still part of a mystery. The
+  relation with handedness as a common indicator of cerebral asymmetry might
+  provide a clue in the search for causal factors of asymmetrical symptom onset
+  in PD. This possible relationship, however, is still under debate. The
+  objective of this study was to establish whether a relation between
+  handedness and dominant PD side exists. We searched for cross‐sectional or
+  cohort studies that registered handedness and onset side in PD patients in
+  PubMed, EMBASE, and Web of Science from their first record until 14 February
+  2011. Data about handedness and dominant PD side was extracted. Authors who
+  registered both but not described their relation were contacted for further
+  information. Odds ratios (ORs) were analyzed with a fixed effect
+  Mantel‐Haenszel model. Heterogeneity and indications of publication bias
+  were limited. Our electronic search identified 10 studies involving 4405
+  asymmetric PD patients. Of the right‐handed patients, 2413 (59.5\%) had
+  right‐dominant and 1644 (40.5\%) had left‐dominant PD symptoms. For the
+  left‐handed patients this relation was reversed, with 142 (40.8\%)
+  right‐dominant and 206 (59.2\%) left‐dominant PD symptoms. Overall OR was
+  2.13 (95\% confidence interval [CI], 1.71–2.66). Handedness and symptom
+  dominance in PD are firmly related with each other in such a way that the PD
+  symptoms emerge more often on the dominant hand‐side. Possible causal
+  factors are discussed. © 2011 Movement Disorder Society%
+    }
+    \verb{doi}
+    \verb 10.1002/mds.24007
+    \endverb
+    \field{issn}{0885-3185, 1531-8257}
+    \field{number}{2}
+    \field{pages}{206\bibrangedash 210}
+    \field{shorttitle}{Handedness correlates with the dominant {Parkinson}
+  side}
+    \field{title}{Handedness correlates with the dominant {Parkinson} side: {A}
+  systematic review and meta‐analysis}
+    \verb{url}
+    \verb https://movementdisorders.onlinelibrary.wiley.com/doi/10.1002/mds.240
+    \verb 07
+    \endverb
+    \field{volume}{27}
+    \verb{file}
+    \verb Van Der Hoorn et al. - 2012 - Handedness correlates with the dominant
+    \verb  Parkinson .pdf:C\:\\Users\\bened\\Zotero\\storage\\MBEYFQKC\\Van Der
+    \verb  Hoorn et al. - 2012 - Handedness correlates with the dominant Parkin
+    \verb son .pdf:application/pdf
+    \endverb
+    \field{journaltitle}{Movement Disorders}
+    \field{month}{02}
+    \field{year}{2012}
+    \field{urlday}{31}
+    \field{urlmonth}{05}
+    \field{urlyear}{2024}
+  \endentry
+\enddatalist
+\endinput
