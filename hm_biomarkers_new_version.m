@@ -252,7 +252,7 @@ clear i y groups
 %% DISCRETE VARIABLES
 discr_variables = [7, 8, 9, 11]; % ethnicity, sex, hand, familiarity
 
-% Conversion to numerical levels
+% Conversion to numerical levels - PD
 for i = 1:length(discr_variables)-1 % no need for familiarity
     legend_pd.(variables{discr_variables(i)}) = unique(data_pd.(variables{discr_variables(i)}));
     for j = 1:length(legend_pd.(variables{discr_variables(i)}))
@@ -264,7 +264,7 @@ for i = 1:length(discr_variables)-1 % no need for familiarity
     data_pd.(variables{discr_variables(i)}) = cellfun(@double, (data_pd.(variables{discr_variables(i)})));
 end
 
-% Conversion to numerical levels
+% Conversion to numerical levels - HC
 for i = 1:length(discr_variables)-1 % no need for familiarity
     legend_hc.(variables{discr_variables(i)}) = unique(data_hc.(variables{discr_variables(i)}));
     for j = 1:length(legend_hc.(variables{discr_variables(i)}))
@@ -287,6 +287,10 @@ for i = 1:length(discr_variables)
 end
 
 clear i j k ind_temp
+
+% save legend_hc also for familiarity (ANYFAMPD)
+legend_hc.(variables{discr_variables(4)}) = unique(data_hc.(variables{discr_variables(4)}));
+legend_hc.(variables{discr_variables(4)}) = legend_hc.(variables{discr_variables(4)})(1:3);
 
 %% MANAGING OUTLIERS (Box plots)
 
@@ -419,6 +423,42 @@ clear y p tbl stats group4 group3 group2 group1
 %     end
 % end
 % 
+
+%% COVARIATES ANALYSIS
+% HC
+for i = 1:length(discr_variables)-1
+    
+    % groups LAT CAUDATE
+    for j = 1:length(legend_hc.(variables{discr_variables(i)}))
+        groups.HC.CAUDATE.(legend_hc.(variables{discr_variables(i)}){j}) = LATERALIZATION_coeff.CAUDATE.HC(find(data_hc.(variables{discr_variables(i)}) == j));
+        
+        % not consider groups with less than 4 elements
+        if length(group_CAUDATE) > 4
+            % check for gaussianity
+            [gaussianity.HC.LAT_CAUDATE.(variables{discr_variables(i)}).(legend_hc.(variables{discr_variables(i)}){j}).h, ...
+                gaussianity.HC.LAT_CAUDATE.(variables{discr_variables(i)}).(legend_hc.(variables{discr_variables(i)}){j}).p] = ...
+                lillietest(group_CAUDATE);
+        end
+    end
+end
+
+for i = 1:length(fieldnames(groups.HC.CAUDATE))
+    
+    % Anova test between the subgroups of HC
+    y = [data_pd.(variables{cont_variables(i)}); data_hc.(variables{cont_variables(i)})]';
+    groups = [ones(1,size(data_pd.(variables{cont_variables(i)}),1)), 2*ones(1,size(data_hc.(variables{cont_variables(i)}),1))];
+    anova_test.(variables{cont_variables(i)}).p = anova1(y, groups);
+    
+    if anova_test.(variables{cont_variables(i)}).p > 0.05
+        disp(strcat(string(variables{cont_variables(i)}), ': Accepted null hyp (same mean)'))
+    else 
+        disp(strcat(string(variables{cont_variables(i)}), ': Rejected null hyp (different mean)'))
+    end
+end
+
+
+
+
 %% LINEAR REGRESSION of variables of interest
 
 %% - HC
