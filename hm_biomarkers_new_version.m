@@ -422,9 +422,35 @@ clear y p tbl stats group4 group3 group2 group1
 %% LINEAR REGRESSION of variables of interest
 
 %% - HC
-idx_covariates = [4,153,154, 26:54, 60:93, 97:103, 158];
+idx_covariates = [4,153,154,34, 41, 55, 94, 104, 158];
 covariates_hc = data_hc(:, idx_covariates); % age, weight, height,  np test + mcatot
-corrcoef(table2array(covariates_hc), 'Rows', 'complete');
+covariates_hc.('Caudate lat coeff') = LATERALIZATION_coeff.CAUDATE.HC;
+covariates_hc.('Putamen lat coeff') = LATERALIZATION_coeff.PUTAMEN.HC;
+covariates_hc.('Putamen ant lat coeff') = LATERALIZATION_coeff.PUTAMEN_ANT.HC;
+
+[p_corr_hc, R_corr_matrix_hc] = corrcoef(table2array(covariates_hc), 'Rows', 'pairwise');
+
+figure
+imagesc(R_corr_matrix_hc)
+colormap parula
+colorbar
+xticks(1:width(covariates_hc))
+xticklabels(covariates_hc.Properties.VariableNames)
+yticks(1:width(covariates_hc))
+yticklabels(covariates_hc.Properties.VariableNames)
+title("Correlation HC age, weight, height,  np test + mcatot")
+
+covariates_to_save = [];
+for i =1:size(R_corr_matrix_hc,1)
+    for j = 1:size(R_corr_matrix_hc,2)
+        if p_corr_hc(i,j) < 0.05 && R_corr_matrix_hc(i,j) > 0.5
+            disp([covariates_hc.Properties.VariableNames{i}, ' correlated with ', covariates_hc.Properties.VariableNames{j}])
+                if i < 10 && j >=10
+                    covariates_to_save = [covariates_to_save,  convertCharsToStrings(covariates_hc.Properties.VariableNames{i})];
+                end
+       end
+    end
+end
 
 
 % %% right
