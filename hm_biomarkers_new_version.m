@@ -58,7 +58,7 @@ clear i ind_to_convert
 % toglierlo definitivamente dal dataset
 %%%%%%%
 
-%%   Extraction of NaNs indeces
+%%   Extraction of NaNs indexes
 % PD --------------------------------------------------------------------
 for i = [2:121, 153:158]
     if strcmp(class(data_pd.(variables{i})), 'double')
@@ -164,6 +164,16 @@ data_hc(idx_nan_tests_no_np4,:) = [];
 data_pd(idx_nan.PD.HANDED, :) = [];
 % HC don't have nan in hand
 
+%% - Remove patients with low QUALITY RATING
+data_pd(find(data_pd.DATSCAN_QUALITY_RATING==3),:) = [];
+data_hc(find(data_pd.DATSCAN_QUALITY_RATING==3),:) = [];
+% Anche per visual interpretation?
+
+%% - Remove patients with not COMPLETED DATSCAN
+data_pd(find(data_pd.DATSCAN==0),:) = [];
+data_hc(find(data_pd.DATSCAN==0),:) = [];
+
+% Non ce ne sono
 %% IMPORTANT VARIABLES EXTRACTION
 
 %%   Dominant hand division
@@ -287,27 +297,20 @@ clear i j k ind_temp
 
 
 %% LATERALIZATION DATA
-% Remove not completed DAT SCANS ( DATSCAN == 0 ) % è da fare prima?????
-idx_samples.PD.DATSCAN_incomplete = find(data_pd.DATSCAN == 0); % 11
-data_pd(idx_samples.PD.DATSCAN_incomplete,:) = [];
-
-idx_samples.HC.DATSCAN_incomplete  = find(data_hc.DATSCAN == 0);
-data_hc(idx_samples.HC.DATSCAN_incomplete ,:) = [];
-
 % Extraction of lateralization index
 % Right = |(right - left)/(right + left)| > 0.20
 % Left = |(left - right)/(right + left)| > 0.20
 % From: Ipsilateral deficits of dopaminergic neurotransmission in Parkinson s disease
 
 % DATSCAN lateralization PD ------------------------------------------
-LATERALIZATION_index.CAUDATE.PD = (data_pd.DATSCAN_CAUDATE_R - data_pd.DATSCAN_CAUDATE_L)./(data_pd.DATSCAN_CAUDATE_R + data_pd.DATSCAN_CAUDATE_L);
-LATERALIZATION_index.PUTAMEN.PD = (data_pd.DATSCAN_PUTAMEN_R - data_pd.DATSCAN_PUTAMEN_L)./(data_pd.DATSCAN_PUTAMEN_R + data_pd.DATSCAN_PUTAMEN_L);
-LATERALIZATION_index.PUTAMEN_ANT.PD = (data_pd.DATSCAN_PUTAMEN_R_ANT - data_pd.DATSCAN_PUTAMEN_L_ANT)./(data_pd.DATSCAN_PUTAMEN_R_ANT + data_pd.DATSCAN_PUTAMEN_L_ANT);
+LATERALIZATION_coeff.CAUDATE.PD = (data_pd.DATSCAN_CAUDATE_R - data_pd.DATSCAN_CAUDATE_L)./(data_pd.DATSCAN_CAUDATE_R + data_pd.DATSCAN_CAUDATE_L);
+LATERALIZATION_coeff.PUTAMEN.PD = (data_pd.DATSCAN_PUTAMEN_R - data_pd.DATSCAN_PUTAMEN_L)./(data_pd.DATSCAN_PUTAMEN_R + data_pd.DATSCAN_PUTAMEN_L);
+LATERALIZATION_coeff.PUTAMEN_ANT.PD = (data_pd.DATSCAN_PUTAMEN_R_ANT - data_pd.DATSCAN_PUTAMEN_L_ANT)./(data_pd.DATSCAN_PUTAMEN_R_ANT + data_pd.DATSCAN_PUTAMEN_L_ANT);
 
 % DATSCAN lateralization HC ------------------------------------------
-LATERALIZATION_index.CAUDATE.HC = (data_hc.DATSCAN_CAUDATE_R - data_hc.DATSCAN_CAUDATE_L)./(data_hc.DATSCAN_CAUDATE_R + data_hc.DATSCAN_CAUDATE_L);
-LATERALIZATION_index.PUTAMEN.HC = (data_hc.DATSCAN_PUTAMEN_R - data_hc.DATSCAN_PUTAMEN_L)./(data_hc.DATSCAN_PUTAMEN_R + data_hc.DATSCAN_PUTAMEN_L);
-LATERALIZATION_index.PUTAMEN_ANT.HC = (data_hc.DATSCAN_PUTAMEN_R_ANT - data_hc.DATSCAN_PUTAMEN_L_ANT)./(data_hc.DATSCAN_PUTAMEN_R_ANT + data_hc.DATSCAN_PUTAMEN_L_ANT);
+LATERALIZATION_coeff.CAUDATE.HC = (data_hc.DATSCAN_CAUDATE_R - data_hc.DATSCAN_CAUDATE_L)./(data_hc.DATSCAN_CAUDATE_R + data_hc.DATSCAN_CAUDATE_L);
+LATERALIZATION_coeff.PUTAMEN.HC = (data_hc.DATSCAN_PUTAMEN_R - data_hc.DATSCAN_PUTAMEN_L)./(data_hc.DATSCAN_PUTAMEN_R + data_hc.DATSCAN_PUTAMEN_L);
+LATERALIZATION_coeff.PUTAMEN_ANT.HC = (data_hc.DATSCAN_PUTAMEN_R_ANT - data_hc.DATSCAN_PUTAMEN_L_ANT)./(data_hc.DATSCAN_PUTAMEN_R_ANT + data_hc.DATSCAN_PUTAMEN_L_ANT);
 
 % Grafici distribuzioni lateralizzazione?
 
@@ -316,19 +319,30 @@ LATERALIZATION_index.PUTAMEN_ANT.HC = (data_hc.DATSCAN_PUTAMEN_R_ANT - data_hc.D
 
 % With significant difference: 20%
 
-% save indeces of relevant lateralizations - PD
+% save indexes of relevant lateralizations - PD
 for i = 1:length(ROIs_labels)
-    idx_samples.LATERALIZATION.PD.(ROIs_labels(i)).right = find(LATERALIZATION_index.(ROIs_labels(i)).PD > 0.2);
-    idx_samples.LATERALIZATION.PD.(ROIs_labels(i)).left = find(LATERALIZATION_index.(ROIs_labels(i)).PD < -0.2);
-    idx_samples.LATERALIZATION.PD.(ROIs_labels(i)).none = find(LATERALIZATION_index.(ROIs_labels(i)).PD < 0.2 & LATERALIZATION_index.(ROIs_labels(i)).PD > -0.2 );
+    idx_samples.LATERALIZATION.PD.(ROIs_labels(i)).right = find(LATERALIZATION_coeff.(ROIs_labels(i)).PD > 0.2);
+    idx_samples.LATERALIZATION.PD.(ROIs_labels(i)).left = find(LATERALIZATION_coeff.(ROIs_labels(i)).PD < -0.2);
+    idx_samples.LATERALIZATION.PD.(ROIs_labels(i)).none = find(LATERALIZATION_coeff.(ROIs_labels(i)).PD < 0.2 & LATERALIZATION_coeff.(ROIs_labels(i)).PD > -0.2 );
 end
 
-% save indeces of relevant lateralizations - HC
+% save indexes of relevant lateralizations - HC
 for i = 1:length(ROIs_labels)
-    idx_samples.LATERALIZATION.HC.(ROIs_labels(i)).right = find(LATERALIZATION_index.(ROIs_labels(i)).HC > 0.2);
-    idx_samples.LATERALIZATION.HC.(ROIs_labels(i)).left = find(LATERALIZATION_index.(ROIs_labels(i)).HC < -0.2);
-    idx_samples.LATERALIZATION.HC.(ROIs_labels(i)).none = find(LATERALIZATION_index.(ROIs_labels(i)).HC < 0.2 & LATERALIZATION_index.(ROIs_labels(i)).HC > -0.2 );
+    idx_samples.LATERALIZATION.HC.(ROIs_labels(i)).right = find(LATERALIZATION_coeff.(ROIs_labels(i)).HC > 0.2);
+    idx_samples.LATERALIZATION.HC.(ROIs_labels(i)).left = find(LATERALIZATION_coeff.(ROIs_labels(i)).HC < -0.2);
+    idx_samples.LATERALIZATION.HC.(ROIs_labels(i)).none = find(LATERALIZATION_coeff.(ROIs_labels(i)).HC < 0.2 & LATERALIZATION_coeff.(ROIs_labels(i)).HC > -0.2 );
 end
+
+% Absolute value lateralization
+LATERALIZATION_coeff.CAUDATE.PD = abs(LATERALIZATION_coeff.CAUDATE.PD);
+LATERALIZATION_coeff.PUTAMEN.PD = abs(LATERALIZATION_coeff.PUTAMEN.PD);
+LATERALIZATION_coeff.PUTAMEN_ANT.PD = abs(LATERALIZATION_coeff.PUTAMEN_ANT.PD);
+
+
+% DATSCAN lateralization HC ------------------------------------------
+LATERALIZATION_coeff.CAUDATE.HC = abs(LATERALIZATION_coeff.CAUDATE.HC);
+LATERALIZATION_coeff.PUTAMEN.HC = abs(LATERALIZATION_coeff.PUTAMEN.HC);
+LATERALIZATION_coeff.PUTAMEN_ANT.HC = abs(LATERALIZATION_coeff.PUTAMEN_ANT.HC);
 
 
 %% STATISTICAL ANALYSIS ------------- DA SISTEMARE
@@ -338,44 +352,45 @@ end
 
 
 %% One-way Anova
-% % Control gaussianity
-% rois_names = fieldnames(DATSCAN);
-% for i=2:length(rois_names)
-%     rois_names_diag = fieldnames(DATSCAN.(rois_names{i,1}));
-%     for j =1:length(rois_names_diag)
-%         lil = lillietest(DATSCAN.(rois_names{i}).(rois_names_diag{j}));
-%         if lil == 1
-%             disp([rois_names{i}; rois_names_diag{j}; "not guassian"])
-%         end
-%     end
-% end
-% %%Absulte value
-% % Caudate
-% y = [abs(DATSCAN.CAUDATE_lat.PD)' abs(DATSCAN.CAUDATE_lat.HC)']';
-% group1 = [repmat("PD_caudate",length(DATSCAN.CAUDATE_lat.PD),1);repmat("HC_caudate",length(DATSCAN.CAUDATE_lat.HC),1)];
-% % [p,tbl,stats]  = anova1(y,group1);
-% % 
-% % % Putamen
-% y = [abs(DATSCAN.PUTAMEN_lat.PD)' abs(DATSCAN.PUTAMEN_lat.HC)']';
-% group2 = [repmat("PD_putamen",length(DATSCAN.PUTAMEN_lat.PD),1);repmat("HC_putamen",length(DATSCAN.PUTAMEN_lat.HC),1)];
-% [p,tbl,stats]  = anova1(y,group2);
-% % 
-% % % Putamen ANT
-% y = [abs(DATSCAN.PUTAMEN_ANT_lat.PD)' abs(DATSCAN.PUTAMEN_ANT_lat.HC)']';
-% group3 = [repmat("PD_putamen_ant",length(DATSCAN.PUTAMEN_ANT_lat.PD),1);repmat("HC_putamen_ant",length(DATSCAN.PUTAMEN_ANT_lat.HC),1)];
-% [p,tbl,stats]  = anova1(y,group3);
-% % 
-% y = [abs(DATSCAN.CAUDATE_lat.PD)' abs(DATSCAN.CAUDATE_lat.HC)' abs(DATSCAN.PUTAMEN_lat.PD)' abs(DATSCAN.PUTAMEN_lat.HC)' abs(DATSCAN.PUTAMEN_ANT_lat.PD)'  abs(DATSCAN.PUTAMEN_ANT_lat.HC)']';
-% group4 = [group1; group2; group3];
-% [p,tbl,stats]  = anova1(y,group4);
-% % 
+% Control gaussianity
+rois_names = fieldnames(LATERALIZATION_coeff);
+for i=2:length(rois_names)
+    rois_names_diag = fieldnames(LATERALIZATION_coeff.(rois_names{i,1}));
+    for j =1:length(rois_names_diag)
+        lil = lillietest(LATERALIZATION_coeff.(rois_names{i}).(rois_names_diag{j}));
+        if lil == 1
+            disp([rois_names{i}; rois_names_diag{j}; "not gaussian"])
+        end
+    end
+end
+clear rois_names rois_names_diag i lil j
+%%Absulte value
+% Caudate
+y = [LATERALIZATION_coeff.CAUDATE.PD' LATERALIZATION_coeff.CAUDATE.HC']';
+group1 = [repmat("PD_caudate",length(LATERALIZATION_coeff.CAUDATE.PD),1);repmat("HC_caudate",length(LATERALIZATION_coeff.CAUDATE.HC),1)];
+[p,tbl,stats]  = anova1(y,group1);
+
+% % Putamen
+y = [LATERALIZATION_coeff.PUTAMEN.PD' LATERALIZATION_coeff.PUTAMEN.HC']';
+group2 = [repmat("PD_putamen",length(LATERALIZATION_coeff.PUTAMEN.PD),1);repmat("HC_putamen",length(LATERALIZATION_coeff.PUTAMEN.HC),1)];
+[p,tbl,stats]  = anova1(y,group2);
+
+% % Putamen ANT
+y = [LATERALIZATION_coeff.PUTAMEN_ANT.PD' LATERALIZATION_coeff.PUTAMEN_ANT.HC']';
+group3 = [repmat("PD_putamen_ant",length(LATERALIZATION_coeff.PUTAMEN_ANT.PD),1);repmat("HC_putamen_ant",length(LATERALIZATION_coeff.PUTAMEN_ANT.HC),1)];
+[p,tbl,stats]  = anova1(y,group3);
+
+y = [LATERALIZATION_coeff.CAUDATE.PD' LATERALIZATION_coeff.CAUDATE.HC' LATERALIZATION_coeff.PUTAMEN.PD' LATERALIZATION_coeff.PUTAMEN.HC' LATERALIZATION_coeff.PUTAMEN_ANT.PD' LATERALIZATION_coeff.PUTAMEN_ANT.HC' ]';
+group4 = [group1; group2; group3];
+[p,tbl,stats]  = anova1(y,group4);
 % 
-% %multcompare(stats)
-% %%Left
-% %abs(DATSCAN.PUTAMEN_lat.PD)' abs(DATSCAN.PUTAMEN_lat.HC)' abs(DATSCAN.PUTAMEN_ANT_lat.PD)'  abs(DATSCAN.PUTAMEN_ANT_lat.HC)'
-% % y = [DATSCAN.CAUDATE_lat.PD(lateralization.CAUDATE.PD.left.index)' DATSCAN.CAUDATE_lat.HC(lateralization.CAUDATE.HC.left.index)']';
-% % group5 = [repmat("PD_caudate_LEFT",length(lateralization.CAUDATE.PD.left.index),1);repmat("HC_caudate_LEFT",length(lateralization.CAUDATE.HC.left.index),1)];
-% % [p,tbl,stats]  = anova1(y,group5);
+
+%multcompare(stats)
+%%Left
+%abs(DATSCAN.PUTAMEN_lat.PD)' abs(DATSCAN.PUTAMEN_lat.HC)' abs(DATSCAN.PUTAMEN_ANT_lat.PD)'  abs(DATSCAN.PUTAMEN_ANT_lat.HC)'
+% y = [DATSCAN.CAUDATE_lat.PD(lateralization.CAUDATE.PD.left.index)' DATSCAN.CAUDATE_lat.HC(lateralization.CAUDATE.HC.left.index)']';
+% group5 = [repmat("PD_caudate_LEFT",length(lateralization.CAUDATE.PD.left.index),1);repmat("HC_caudate_LEFT",length(lateralization.CAUDATE.HC.left.index),1)];
+% [p,tbl,stats]  = anova1(y,group5);
 % 
 %% Scatterplot
 % j = [11,18,32,66];
