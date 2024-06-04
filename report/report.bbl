@@ -1,5 +1,5 @@
 % $ biblatex auxiliary file $
-% $ biblatex bbl format version 3.2 $
+% $ biblatex bbl format version 3.3 $
 % Do not modify the above lines!
 %
 % This is an auxiliary file used by the 'biblatex' package.
@@ -16,94 +16,151 @@
   {}
 \endgroup
 
-\datalist[entry]{nty/global//global/global}
-  \entry{van_der_hoorn_handedness_2012}{article}{}
-    \name{author}{4}{}{%
-      {{hash=VDHA}{%
-         family={Van Der\bibnamedelima Hoorn},
-         familyi={V\bibinitperiod\bibinitdelim D\bibinitperiod\bibinitdelim
-  H\bibinitperiod},
-         given={Anouk},
-         giveni={A\bibinitperiod},
-      }}%
-      {{hash=BH}{%
-         family={Burger},
+\datalist[entry]{nty/global//global/global/global}
+  \entry{beitz_parkinsons_2014}{article}{}{}
+    \name{author}{1}{}{%
+      {{hash=BJM}{%
+         family={Beitz},
          familyi={B\bibinitperiod},
-         given={Huibert},
-         giveni={H\bibinitperiod},
+         given={Janice\bibnamedelima M.},
+         giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod},
       }}%
-      {{hash=LKL}{%
-         family={Leenders},
-         familyi={L\bibinitperiod},
-         given={Klaus\bibnamedelima L.},
-         giveni={K\bibinitperiod\bibinitdelim L\bibinitperiod},
+    }
+    \list{language}{1}{%
+      {eng}%
+    }
+    \keyw{Age Factors, Humans, Parkinson Disease/diagnosis/*pathology/*therapy}
+    \strng{namehash}{BJM1}
+    \strng{fullhash}{BJM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{abstract}{%
+    Parkinson's Disease is the second most common progressive neurodegenerative
+  disorder affecting older American adults and is predicted to increase in
+  prevalence as the United States population ages. Resulting from a
+  pathophysiologic loss or degeneration of dopaminergic neurons in the
+  substantia nigra of the midbrain and the development of neuronal Lewy Bodies,
+  idiopathic Parkinson's Disease is associated with risk factors including
+  aging, family history, pesticide exposure and environmental chemicals (e.g.,
+  synthetic heroin use). Its ultimate cause(s) is (are) unknown. Characterized
+  by both motor and non-motor symptoms, PD patients classically display rest
+  tremor, rigidity, bradykinesia, and stooping posture. PD can also be
+  associated with neurobehavioral disorders (depression, anxiety), cognitive
+  impairment (dementia), and autonomic dysfunction (e.g., orthostasis and
+  hyperhidrosis). Recent decades have witnessed a proliferation of medical
+  pharmacologic therapies and innovative surgical interventions like deep brain
+  stimulation (DBS). However, definitive disease-modifying therapy is still
+  lacking. Experimental therapies are being developed and tested with limited
+  results. Knowledge of strategies to promote optimal quality of life for PD
+  patients is of paramount importance for caregivers, health providers and
+  patients themselves.%
+    }
+    \verb{doi}
+    \verb 10.2741/s415
+    \endverb
+    \field{issn}{1945-0524 1945-0516}
+    \field{note}{Place: Singapore}
+    \field{number}{1}
+    \field{pages}{65\bibrangedash 74}
+    \field{title}{Parkinson's disease: a review.}
+    \field{volume}{6}
+    \verb{file}
+    \verb Parkinson’s disease a review.pdf:C\:\\Users\\bened\\Zotero\\storage
+    \verb \\R2XNQKA9\\Parkinson’s disease a review.pdf:application/pdf
+    \endverb
+    \field{journaltitle}{Frontiers in bioscience (Scholar edition)}
+    \field{month}{01}
+    \field{year}{2014}
+  \endentry
+
+  \entry{riederer_lateralisation_2018}{article}{}{}
+    \name{author}{6}{}{%
+      {{hash=RP}{%
+         family={Riederer},
+         familyi={R\bibinitperiod},
+         given={P.},
+         giveni={P\bibinitperiod},
       }}%
-      {{hash=DJBM}{%
-         family={De\bibnamedelima Jong},
-         familyi={D\bibinitperiod\bibinitdelim J\bibinitperiod},
-         given={Bauke\bibnamedelima M.},
-         giveni={B\bibinitperiod\bibinitdelim M\bibinitperiod},
+      {{hash=JKA}{%
+         family={Jellinger},
+         familyi={J\bibinitperiod},
+         given={K.\bibnamedelima A.},
+         giveni={K\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=KP}{%
+         family={Kolber},
+         familyi={K\bibinitperiod},
+         given={P.},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=HG}{%
+         family={Hipp},
+         familyi={H\bibinitperiod},
+         given={G.},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=SHJ}{%
+         family={Sian-Hülsmann},
+         familyi={S\bibinithyphendelim H\bibinitperiod},
+         given={J.},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=KR}{%
+         family={Krüger},
+         familyi={K\bibinitperiod},
+         given={R.},
+         giveni={R\bibinitperiod},
       }}%
     }
     \list{language}{1}{%
       {en}%
     }
-    \strng{namehash}{VDHA+1}
-    \strng{fullhash}{VDHABHLKLDJBM1}
+    \strng{namehash}{RP+1}
+    \strng{fullhash}{RPJKAKPHGSHJKR1}
     \field{labelnamesource}{author}
-    \field{labeltitlesource}{shorttitle}
-    \field{sortinit}{V}
-    \field{sortinithash}{V}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
     \field{abstract}{%
-    Abstract Parkinson's disease (PD) characteristically presents with
-  asymmetrical symptoms, contralateral to the side of the most extensive
-  cerebral affection. This intriguing asymmetry, even included in the
-  definition for diagnosing PD, however, is still part of a mystery. The
-  relation with handedness as a common indicator of cerebral asymmetry might
-  provide a clue in the search for causal factors of asymmetrical symptom onset
-  in PD. This possible relationship, however, is still under debate. The
-  objective of this study was to establish whether a relation between
-  handedness and dominant PD side exists. We searched for cross‐sectional or
-  cohort studies that registered handedness and onset side in PD patients in
-  PubMed, EMBASE, and Web of Science from their first record until 14 February
-  2011. Data about handedness and dominant PD side was extracted. Authors who
-  registered both but not described their relation were contacted for further
-  information. Odds ratios (ORs) were analyzed with a fixed effect
-  Mantel‐Haenszel model. Heterogeneity and indications of publication bias
-  were limited. Our electronic search identified 10 studies involving 4405
-  asymmetric PD patients. Of the right‐handed patients, 2413 (59.5\%) had
-  right‐dominant and 1644 (40.5\%) had left‐dominant PD symptoms. For the
-  left‐handed patients this relation was reversed, with 142 (40.8\%)
-  right‐dominant and 206 (59.2\%) left‐dominant PD symptoms. Overall OR was
-  2.13 (95\% confidence interval [CI], 1.71–2.66). Handedness and symptom
-  dominance in PD are firmly related with each other in such a way that the PD
-  symptoms emerge more often on the dominant hand‐side. Possible causal
-  factors are discussed. © 2011 Movement Disorder Society%
+    Asymmetry of dopaminergic neurodegeneration and subsequent lateralisation
+  of motor symptoms are distinctive features of Parkinson’s disease compared
+  to other forms of neurodegenerative or symptomatic parkinsonism. Even 200
+  years after the first description of the disease, the underlying causes for
+  this striking clinicopathological feature are not yet fully understood. There
+  is increasing evidence that lateralisation of disease is due to a complex
+  interplay of hereditary and environmental factors that are reflected not only
+  in the concept of dominant hemispheres and handedness but also in specific
+  susceptibilities of neuronal subpopulations within the substantia nigra. As a
+  consequence, not only the obvious lateralisation of motor symptoms occurs but
+  also patterns of associated non-motor signs are defined, which include
+  cognitive functions, sleep behaviour or olfaction. Better understanding of
+  the mechanisms contributing to lateralisation of neurodegeneration and the
+  resulting patterns of clinical phenotypes based on bilateral post-mortem
+  brain analyses and clinical studies focusing on right/left hemispheric
+  symptom origin will help to develop more targeted therapeutic approaches,
+  taking into account subtypes of PD as a heterogeneous disorder.%
     }
     \verb{doi}
-    \verb 10.1002/mds.24007
+    \verb 10.1007/s00441-018-2832-z
     \endverb
-    \field{issn}{0885-3185, 1531-8257}
-    \field{number}{2}
-    \field{pages}{206\bibrangedash 210}
-    \field{shorttitle}{Handedness correlates with the dominant {Parkinson}
-  side}
-    \field{title}{Handedness correlates with the dominant {Parkinson} side: {A}
-  systematic review and meta‐analysis}
+    \field{issn}{0302-766X, 1432-0878}
+    \field{number}{1}
+    \field{pages}{297\bibrangedash 312}
+    \field{title}{Lateralisation in {Parkinson} disease}
     \verb{url}
-    \verb https://movementdisorders.onlinelibrary.wiley.com/doi/10.1002/mds.240
-    \verb 07
+    \verb http://link.springer.com/10.1007/s00441-018-2832-z
     \endverb
-    \field{volume}{27}
+    \field{volume}{373}
     \verb{file}
-    \verb Van Der Hoorn et al. - 2012 - Handedness correlates with the dominant
-    \verb  Parkinson .pdf:C\:\\Users\\bened\\Zotero\\storage\\MBEYFQKC\\Van Der
-    \verb  Hoorn et al. - 2012 - Handedness correlates with the dominant Parkin
-    \verb son .pdf:application/pdf
+    \verb Riederer et al. - 2018 - Lateralisation in Parkinson disease.pdf:C\:\
+    \verb \Users\\bened\\Zotero\\storage\\DV33IQ2P\\Riederer et al. - 2018 - La
+    \verb teralisation in Parkinson disease.pdf:application/pdf
     \endverb
-    \field{journaltitle}{Movement Disorders}
-    \field{month}{02}
-    \field{year}{2012}
+    \field{journaltitle}{Cell and Tissue Research}
+    \field{month}{07}
+    \field{year}{2018}
     \field{urlday}{31}
     \field{urlmonth}{05}
     \field{urlyear}{2024}
