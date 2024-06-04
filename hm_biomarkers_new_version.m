@@ -370,28 +370,38 @@ y = [LATERALIZATION_coeff.CAUDATE.PD' LATERALIZATION_coeff.CAUDATE.HC']';
 group1 = [repmat("PD_caudate",length(LATERALIZATION_coeff.CAUDATE.PD),1);repmat("HC_caudate",length(LATERALIZATION_coeff.CAUDATE.HC),1)];
 [p,tbl,stats]  = anova1(y,group1);
 
+if p > 0.05
+    disp("There isn't significant difference between the means of the DATSCAN of HC and PD in the CAUDATE region")
+else
+    disp("There is significant difference between the means of the DATSCAN of HC and PD in the CAUDATE region")
+end
 % % Putamen
 y = [LATERALIZATION_coeff.PUTAMEN.PD' LATERALIZATION_coeff.PUTAMEN.HC']';
 group2 = [repmat("PD_putamen",length(LATERALIZATION_coeff.PUTAMEN.PD),1);repmat("HC_putamen",length(LATERALIZATION_coeff.PUTAMEN.HC),1)];
 [p,tbl,stats]  = anova1(y,group2);
 
+if p > 0.05
+    disp("There isn't significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN region")
+else
+    disp("There is significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN region")
+end
+
 % % Putamen ANT
 y = [LATERALIZATION_coeff.PUTAMEN_ANT.PD' LATERALIZATION_coeff.PUTAMEN_ANT.HC']';
 group3 = [repmat("PD_putamen_ant",length(LATERALIZATION_coeff.PUTAMEN_ANT.PD),1);repmat("HC_putamen_ant",length(LATERALIZATION_coeff.PUTAMEN_ANT.HC),1)];
 [p,tbl,stats]  = anova1(y,group3);
-
+if p > 0.05
+    disp("There isn't significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN ANT region")
+else
+    disp("There is significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN ANT region")
+end
 y = [LATERALIZATION_coeff.CAUDATE.PD' LATERALIZATION_coeff.CAUDATE.HC' LATERALIZATION_coeff.PUTAMEN.PD' LATERALIZATION_coeff.PUTAMEN.HC' LATERALIZATION_coeff.PUTAMEN_ANT.PD' LATERALIZATION_coeff.PUTAMEN_ANT.HC' ]';
 group4 = [group1; group2; group3];
 [p,tbl,stats]  = anova1(y,group4);
-% 
+ 
+clear y p tbl stats group4 group3 group2 group1 
 
-%multcompare(stats)
-%%Left
-%abs(DATSCAN.PUTAMEN_lat.PD)' abs(DATSCAN.PUTAMEN_lat.HC)' abs(DATSCAN.PUTAMEN_ANT_lat.PD)'  abs(DATSCAN.PUTAMEN_ANT_lat.HC)'
-% y = [DATSCAN.CAUDATE_lat.PD(lateralization.CAUDATE.PD.left.index)' DATSCAN.CAUDATE_lat.HC(lateralization.CAUDATE.HC.left.index)']';
-% group5 = [repmat("PD_caudate_LEFT",length(lateralization.CAUDATE.PD.left.index),1);repmat("HC_caudate_LEFT",length(lateralization.CAUDATE.HC.left.index),1)];
-% [p,tbl,stats]  = anova1(y,group5);
-% 
+ 
 %% Scatterplot
 % j = [11,18,32,66];
 % for j=j
@@ -410,6 +420,13 @@ group4 = [group1; group2; group3];
 % end
 % 
 %% LINEAR REGRESSION of variables of interest
+
+%% - HC
+idx_covariates = [4,153,154, 26:54, 60:93, 97:103, 158];
+covariates_hc = data_hc(:, idx_covariates); % age, weight, height,  np test + mcatot
+corrcoef(table2array(covariates_hc), 'Rows', 'complete');
+
+
 % %% right
 % figure
 % subplot(131)
