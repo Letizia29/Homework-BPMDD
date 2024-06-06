@@ -262,9 +262,9 @@ discr_variables = [7, 8, 9, 11]; % ethnicity, sex, hand, familiarity
 
 % Conversion to numerical levels - PD
 for i = 1:length(discr_variables)-1 % no need for familiarity
-    legend_pd.(variables{discr_variables(i)}) = unique(data_pd.(variables{discr_variables(i)}));
-    for j = 1:length(legend_pd.(variables{discr_variables(i)}))
-        ind_temp = find(strcmp(data_pd.(variables{discr_variables(i)}), legend_pd.(variables{discr_variables(i)})(j)));
+    legend.PD.(variables{discr_variables(i)}) = unique(data_pd.(variables{discr_variables(i)}));
+    for j = 1:length(legend.PD.(variables{discr_variables(i)}))
+        ind_temp = find(strcmp(data_pd.(variables{discr_variables(i)}), legend.PD.(variables{discr_variables(i)})(j)));
         for k = 1:length(ind_temp)
             data_pd.(variables{discr_variables(i)}){ind_temp(k)} = j;
         end
@@ -274,9 +274,9 @@ end
 
 % Conversion to numerical levels - HC
 for i = 1:length(discr_variables)-1 % no need for familiarity
-    legend_hc.(variables{discr_variables(i)}) = unique(data_hc.(variables{discr_variables(i)}));
-    for j = 1:length(legend_hc.(variables{discr_variables(i)}))
-        ind_temp = find(strcmp(data_hc.(variables{discr_variables(i)}), legend_hc.(variables{discr_variables(i)})(j)));
+    legend.HC.(variables{discr_variables(i)}) = unique(data_hc.(variables{discr_variables(i)}));
+    for j = 1:length(legend.HC.(variables{discr_variables(i)}))
+        ind_temp = find(strcmp(data_hc.(variables{discr_variables(i)}), legend.HC.(variables{discr_variables(i)})(j)));
         for k = 1:length(ind_temp)
             data_hc.(variables{discr_variables(i)}){ind_temp(k)} = j;
         end
@@ -296,9 +296,12 @@ end
 
 clear i j k ind_temp
 
-% save legend_hc also for familiarity (ANYFAMPD)
-legend_hc.(variables{discr_variables(4)}) = unique(data_hc.(variables{discr_variables(4)}));
-legend_hc.(variables{discr_variables(4)}) = legend_hc.(variables{discr_variables(4)})(1:3);
+% save legend also for familiarity (ANYFAMPD)
+legend.HC.(variables{discr_variables(4)}) = unique(data_hc.(variables{discr_variables(4)}));
+legend.HC.(variables{discr_variables(4)}) = legend.HC.(variables{discr_variables(4)})(1:3);
+
+legend.PD.(variables{discr_variables(4)}) = unique(data_pd.(variables{discr_variables(4)}));
+legend.PD.(variables{discr_variables(4)}) = legend.PD.(variables{discr_variables(4)})(1:3);
 
 
 %% LATERALIZATION DATA
@@ -409,109 +412,49 @@ clear y p tbl stats group4 group3 group2 group1
 
 
 %% COVARIATES ANALYSIS
-% HC
-% Comparison lateralization white - asians, indals, black in HC
-% TROPPO POCHI SOGGETTI
-% CAUDATE ----------------------------------------------------------------
-for i = 1:length(discr_variables)-1
+% Comparison of lateralization coefficient only within SEX 
+% The other variables don't have enough samples
 
-    % groups LAT CAUDATE
-    for j = 1:length(legend_hc.(variables{discr_variables(i)}))
-        LAT_groups.HC.CAUDATE.(legend_hc.(variables{discr_variables(i)}){j}) = LATERALIZATION_coeff.CAUDATE.HC(find(data_hc.(variables{discr_variables(i)}) == j));
-
-        % not consider groups with less than 4 elements
-        if length(LAT_groups.HC.CAUDATE.(legend_hc.(variables{discr_variables(i)}){j})) > 4
-            % check for gaussianity
-            [gaussianity.HC.LAT_CAUDATE.(variables{discr_variables(i)}).(legend_hc.(variables{discr_variables(i)}){j}).h, ...
-                gaussianity.HC.LAT_CAUDATE.(variables{discr_variables(i)}).(legend_hc.(variables{discr_variables(i)}){j}).p] = ...
-                lillietest(LAT_groups.HC.CAUDATE.(legend_hc.(variables{discr_variables(i)}){j}));
+cohorts = ["HC", "PD"];
+for cohort = cohorts
+    for region = ROIs_labels
+        for i = 1:length(discr_variables)-1
+        
+            % groups LAT
+            for j = 1:length(legend.(cohort).(variables{discr_variables(i)}))
+                LAT_groups.(cohort).(region).(legend.(cohort).(variables{discr_variables(i)}){j}) = LATERALIZATION_coeff.(region).(cohort)(find(data_hc.(variables{discr_variables(i)}) == j));
+        
+                % not consider groups with less than 4 elements
+                if length(LAT_groups.(cohort).(region).(legend.(cohort).(variables{discr_variables(i)}){j})) > 4
+                    % check for gaussianity
+                    [gaussianity.(cohort).LATERALIZATION.(region).(variables{discr_variables(i)}).(legend.(cohort).(variables{discr_variables(i)}){j}).h, ...
+                        gaussianity.(cohort).LATERALIZATION.(region).(variables{discr_variables(i)}).(legend.(cohort).(variables{discr_variables(i)}){j}).p] = ...
+                        lillietest(LAT_groups.(cohort).(region).(legend.(cohort).(variables{discr_variables(i)}){j}));
+                end
+            end
         end
-    end
-end
-
-clear i j 
-
-% Comparison CAUDATE lateralization female - male in HC
-% Anova test
-y = [LAT_groups.HC.CAUDATE.Female; LAT_groups.HC.CAUDATE.Male]';
-groups_anova = [ones(1,length(LAT_groups.HC.CAUDATE.Female)), 2*ones(1,length(LAT_groups.HC.CAUDATE.Male))];
-anova_test.LAT_CAUDATE.(variables{discr_variables(2)}).p = anova1(y, groups_anova);
-
-if anova_test.LAT_CAUDATE.(variables{discr_variables(2)}).p > 0.05
-    disp(strcat(string(variables{discr_variables(2)}), ': LAT CAUDATE Accepted null hyp (same mean)'))
-else 
-    disp(strcat(string(variables{discr_variables(2)}), ': LAT CAUDATE Rejected null hyp (different mean)'))
-end
-
-clear y groups_anova
-
-% PUTAMEN ----------------------------------------------------------------
-for i = 1:length(discr_variables)-1
-
-    % groups LAT PUTAMEN
-    for j = 1:length(legend_hc.(variables{discr_variables(i)}))
-        LAT_groups.HC.PUTAMEN.(legend_hc.(variables{discr_variables(i)}){j}) = LATERALIZATION_coeff.PUTAMEN.HC(find(data_hc.(variables{discr_variables(i)}) == j));
-
-        % not consider groups with less than 4 elements
-        if length(LAT_groups.HC.PUTAMEN.(legend_hc.(variables{discr_variables(i)}){j})) > 4
-            % check for gaussianity
-            [gaussianity.HC.LAT_PUTAMEN.(variables{discr_variables(i)}).(legend_hc.(variables{discr_variables(i)}){j}).h, ...
-                gaussianity.HC.LAT_PUTAMEN.(variables{discr_variables(i)}).(legend_hc.(variables{discr_variables(i)}){j}).p] = ...
-                lillietest(LAT_groups.HC.PUTAMEN.(legend_hc.(variables{discr_variables(i)}){j}));
+    
+        % Comparison region lateralization female - male in HC
+        % Anova test
+        y = [LAT_groups.(cohort).(region).Female; LAT_groups.HC.(region).Male]';
+        groups_anova = [ones(1,length(LAT_groups.(cohort).(region).Female)), 2*ones(1,length(LAT_groups.(cohort).(region).Male))];
+        anova_test.LATERALIZATION.(region).(cohort).(variables{discr_variables(2)}).p = anova1(y, groups_anova);
+        
+        if anova_test.LATERALIZATION.(region).(cohort).(variables{discr_variables(2)}).p > 0.05
+            disp(strcat(string(variables{discr_variables(2)}), ': LAT', region, ' Accepted null hyp (same mean)'))
+        else 
+            disp(strcat(string(variables{discr_variables(2)}), ': LAT', region, ' Rejected null hyp (different mean)'))
         end
+        
+        clear y groups_anova
+    
     end
+    clear i j region
 end
 
-clear i j 
 
-% Comparison PUTAMEN lateralization female - male in HC
-% Anova test
-y = [LAT_groups.HC.PUTAMEN.Female; LAT_groups.HC.PUTAMEN.Male]';
-groups_anova = [ones(1,length(LAT_groups.HC.PUTAMEN.Female)), 2*ones(1,length(LAT_groups.HC.PUTAMEN.Male))];
-anova_test.LAT_PUTAMEN.(variables{discr_variables(2)}).p = anova1(y, groups_anova);
-
-if anova_test.LAT_PUTAMEN.(variables{discr_variables(2)}).p > 0.05
-    disp(strcat(string(variables{discr_variables(2)}), ': LAT PUTAMEN Accepted null hyp (same mean)'))
-else 
-    disp(strcat(string(variables{discr_variables(2)}), ': LAT PUTAMEN Rejected null hyp (different mean)'))
-end
-
-clear y groups_anova
-
-% PUTAMEN ANT----------------------------------------------------------------
-for i = 1:length(discr_variables)-1
-
-    % groups LAT PUTAMEN ANT
-    for j = 1:length(legend_hc.(variables{discr_variables(i)}))
-        LAT_groups.HC.PUTAMEN_ANT.(legend_hc.(variables{discr_variables(i)}){j}) = LATERALIZATION_coeff.PUTAMEN_ANT.HC(find(data_hc.(variables{discr_variables(i)}) == j));
-
-        % not consider groups with less than 4 elements
-        if length(LAT_groups.HC.PUTAMEN_ANT.(legend_hc.(variables{discr_variables(i)}){j})) > 4
-            % check for gaussianity
-            [gaussianity.HC.LAT_PUTAMEN_ANT.(variables{discr_variables(i)}).(legend_hc.(variables{discr_variables(i)}){j}).h, ...
-                gaussianity.HC.LAT_PUTAMEN_ANT.(variables{discr_variables(i)}).(legend_hc.(variables{discr_variables(i)}){j}).p] = ...
-                lillietest(LAT_groups.HC.PUTAMEN_ANT.(legend_hc.(variables{discr_variables(i)}){j}));
-        end
-    end
-end
-
-clear i j 
-
-% Comparison PUTAMEN ANT lateralization female - male in HC
-% Anova test
-y = [LAT_groups.HC.PUTAMEN_ANT.Female; LAT_groups.HC.PUTAMEN_ANT.Male]';
-groups_anova = [ones(1,length(LAT_groups.HC.PUTAMEN_ANT.Female)), 2*ones(1,length(LAT_groups.HC.PUTAMEN_ANT.Male))];
-anova_test.LAT_PUTAMEN_ANT.(variables{discr_variables(2)}).p = anova1(y, groups_anova);
-
-if anova_test.LAT_PUTAMEN_ANT.(variables{discr_variables(2)}).p > 0.05
-    disp(strcat(string(variables{discr_variables(2)}), ': LAT PUTAMEN ANT Accepted null hyp (same mean)'))
-else 
-    disp(strcat(string(variables{discr_variables(2)}), ': LAT PUTAMEN ANT Rejected null hyp (different mean)'))
-end
-
-clear y groups_anova
-
-%% 
+% Difference in PUTAMEN and PUTAMEN ANT lateralization between male and
+% female
 figure
 boxplot(LAT_groups.HC.PUTAMEN.Male, 'Colors','r')
 hold on
@@ -521,9 +464,6 @@ figure
 boxplot(LAT_groups.HC.PUTAMEN_ANT.Male, 'Colors','r')
 hold on
 boxplot(LAT_groups.HC.PUTAMEN_ANT.Female,'Colors','b')
-
-
-
 
 
 %% LINEAR REGRESSION of variables of interest
