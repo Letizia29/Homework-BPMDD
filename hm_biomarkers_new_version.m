@@ -108,18 +108,9 @@ idx_nan.PD = rmfield(idx_nan.PD, fields_nan_pd(structfun(@isempty, idx_nan.PD)))
 fields_nan_hc = fieldnames(idx_nan.HC);
 idx_nan.HC = rmfield(idx_nan.HC, fields_nan_hc(structfun(@isempty, idx_nan.HC)));
 
-%%    - Remove all PD with NaNs in some np test
-idx_fields_tests = [26:54, 60:93, 97:103];
-idx_nan_all_tests = [];
-for i = 1:length(idx_fields_tests)
-    idx_nan_all_tests = [idx_nan_all_tests; idx_nan.PD.(fields_nan_pd{idx_fields_tests(i)})];
-end
-idx_nan_all_tests = unique(idx_nan_all_tests);
-clear i idx_fields_tests
-% Sono 857 i pazienti a cui manca almeno una misura di un test 
+%%    - Remove all PD with NaNs in np test but not np4
 
-% togliamo np4
-idx_fields_tests_no_np4 = [26:54, 60:93];
+idx_fields_tests_no_np4 = [26:54, 61:93];
 idx_nan_tests_no_np4 = [];
 for i = 1:length(idx_fields_tests_no_np4)
     idx_nan_tests_no_np4 = [idx_nan_tests_no_np4; idx_nan.PD.(fields_nan_pd{idx_fields_tests_no_np4(i)})];
@@ -128,20 +119,15 @@ idx_nan_tests_no_np4 = unique(idx_nan_tests_no_np4);
 clear i idx_fields_tests_no_np4
 % Sono 220
 
+% add indeces nan of hand, mcatot, weight, 
+idx_nan_all = [idx_nan_tests_no_np4', idx_nan.PD.HANDED', idx_nan.PD.MCATOT', idx_nan.PD.WGTKG'];
+idx_nan_all = unique(idx_nan_all);
+
 % Remove patients missing at least one measure of test, excluding np4
 data_pd(idx_nan_tests_no_np4,:) = [];
 
-%%    - TRY Remove all HC with NaNs in some np test
-idx_fields_tests = [26:54, 60:93, 97:103]; % same indeces
-idx_nan_all_tests = [];
-for i = 1:length(idx_fields_tests)
-    idx_nan_all_tests = [idx_nan_all_tests; idx_nan.HC.(fields_nan_pd{idx_fields_tests(i)})];
-end
-idx_nan_all_tests = unique(idx_nan_all_tests);
-clear i idx_fields_tests
-% Sono 253 i pazienti a cui manca almeno una misura di un test 
+%%    - TRY Remove all HC with NaNs in np test but not np4
 
-% togliamo np4
 idx_fields_tests_no_np4 = [26:54, 60:93];
 idx_nan_tests_no_np4 = [];
 for i = 1:length(idx_fields_tests_no_np4)
@@ -151,12 +137,12 @@ idx_nan_tests_no_np4 = unique(idx_nan_tests_no_np4);
 clear i idx_fields_tests_no_np4
 % Sono 37
 
+% add indeces nan of hand, mcatot, weight, 
+idx_nan_all = [idx_nan_tests_no_np4', idx_nan.HC.MCATOT', idx_nan.HC.WGTKG'];
+idx_nan_all = unique(idx_nan_all);
+
 % Remove hc missing at least one measure of test, excluding np4
 data_hc(idx_nan_tests_no_np4,:) = [];
-
-%%    - Remove patients without HAND indication
-data_pd(idx_nan.PD.HANDED, :) = [];
-% HC don't have nan in hand
 
 %%    - Remove patients with low QUALITY RATING
 data_pd(find(data_pd.DATSCAN_QUALITY_RATING==3),:) = [];
