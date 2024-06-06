@@ -562,23 +562,11 @@ model_put_ant_hc = fitlm(covariates_hc,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.
 plot(model_put_ant_hc)
 
 
-% Statistics
-%caudate
-% anova
-% anova_caud = anova(model_caud_hc);
-% % coef test
-% coed_test_caud = coefTest(model_caud_hc);
-% % [pdep_caud,x,y] = partialDependence(model_caud,{'x1','x3'});
-% % figure
-% % imagesc(x,y,pdep_caud)
-% % putamen
-% % anova
-% anova_put = anova(model_put_hc);
-% coef test
-% coed_test_caud = coefTest(model_put);
-% [pdep_put,x,y] = partialDependence(model_put,{'x1','x3'});
-% figure
-% imagesc(x,y,pdep_put)
+%% ------ Statistics
+% CAUDATE
+anova_caud = anova(model_caud_hc,'component');
+% PUTAMEN
+anova_put = anova(model_put_hc,'summary');
 
 %% - PD
 covariates_pd = table2array(covariates_pd(:,contains(covariates_pd.Properties.VariableNames,covariates_to_save_pd)));
