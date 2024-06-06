@@ -340,7 +340,20 @@ for i = 1:length(ROIs_labels)
     idx_samples.LATERALIZATION.HC.(ROIs_labels(i)).none = find(LATERALIZATION_coeff.(ROIs_labels(i)).HC < 0.2 & LATERALIZATION_coeff.(ROIs_labels(i)).HC > -0.2 );
 end
 
+% NOT Absolute value
+% DATSCAN lateralization PD ------------------------------------------
+NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD = LATERALIZATION_coeff.CAUDATE.PD;
+NOT_ABS.LATERALIZATION_coeff.PUTAMEN.PD = LATERALIZATION_coeff.PUTAMEN.PD;
+NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.PD = LATERALIZATION_coeff.PUTAMEN_ANT.PD;
+
+% DATSCAN lateralization HC ------------------------------------------
+NOT_ABS.LATERALIZATION_coeff.CAUDATE.HC = LATERALIZATION_coeff.CAUDATE.HC;
+NOT_ABS.LATERALIZATION_coeff.PUTAMEN.HC = LATERALIZATION_coeff.PUTAMEN.HC;
+NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.HC = LATERALIZATION_coeff.PUTAMEN_ANT.HC;
+
+
 % Absolute value lateralization
+% DATSCAN lateralization PD ------------------------------------------
 LATERALIZATION_coeff.CAUDATE.PD = abs(LATERALIZATION_coeff.CAUDATE.PD);
 LATERALIZATION_coeff.PUTAMEN.PD = abs(LATERALIZATION_coeff.PUTAMEN.PD);
 LATERALIZATION_coeff.PUTAMEN_ANT.PD = abs(LATERALIZATION_coeff.PUTAMEN_ANT.PD);
@@ -352,11 +365,6 @@ LATERALIZATION_coeff.PUTAMEN_ANT.HC = abs(LATERALIZATION_coeff.PUTAMEN_ANT.HC);
 
 
 %% STATISTICAL ANALYSIS 
-
-%% Correlation matrices
-
-
-
 %% One-way Anova
 % Control gaussianity
 rois_names = fieldnames(LATERALIZATION_coeff);
@@ -466,10 +474,17 @@ hold on
 boxplot(LAT_groups.HC.PUTAMEN_ANT.Female,'Colors','b')
 
 
+<<<<<<< Updated upstream
 %% LINEAR REGRESSION of variables of interest
+=======
+
+
+
+%% CORRELATION MATRIX of variables of interest
+>>>>>>> Stashed changes
 % fare scatter
-%% - HC
-idx_covariates = [4,153,154,34, 41, 55, 94, 104, 158];
+%%   - HC
+idx_covariates = [4,153,154,34, 55, 94, 158,27:54, 60:93];
 covariates_hc = data_hc(:, idx_covariates); % age, weight, height,  np test + mcatot
 covariates_hc.('Caudate lat coeff') = LATERALIZATION_coeff.CAUDATE.HC;
 covariates_hc.('Putamen lat coeff') = LATERALIZATION_coeff.PUTAMEN.HC;
@@ -487,85 +502,122 @@ yticks(1:width(covariates_hc))
 yticklabels(covariates_hc.Properties.VariableNames)
 title("Correlation HC age, weight, height,  np test + mcatot")
 
-covariates_to_save = [];
+covariates_to_save_hc = [];
 for i =1:size(R_corr_matrix_hc,1)
     for j = 1:size(R_corr_matrix_hc,2)
         if p_corr_hc(i,j) < 0.05 && R_corr_matrix_hc(i,j) > 0.5
-            disp([covariates_hc.Properties.VariableNames{i}, ' correlated with ', covariates_hc.Properties.VariableNames{j}])
-                if i < 10 && j >=10
-                    covariates_to_save = [covariates_to_save,  convertCharsToStrings(covariates_hc.Properties.VariableNames{i})];
+                if (j < (size(R_corr_matrix_hc,1) -3)) && (i > (size(R_corr_matrix_hc,1) -3)) 
+                    disp([covariates_hc.Properties.VariableNames{i}, ' correlated with ', covariates_hc.Properties.VariableNames{j}])
+                    covariates_to_save_hc = [covariates_to_save_hc,  convertCharsToStrings(covariates_hc.Properties.VariableNames{j})];
                 end
        end
     end
 end
 
+covariates_to_save_hc = unique(covariates_to_save_hc);
+%%  - PD
+covariates_pd = data_pd(:, idx_covariates); % age, weight, height,  np test + mcatot
+covariates_pd.('Caudate lat coeff') = LATERALIZATION_coeff.CAUDATE.PD;
+covariates_pd.('Putamen lat coeff') = LATERALIZATION_coeff.PUTAMEN.PD;
+covariates_pd.('Putamen ant lat coeff') = LATERALIZATION_coeff.PUTAMEN_ANT.PD;
 
-% %% right
-% figure
-% subplot(131)
-% symptoms_r = [data_pd.NP3RIGN,data_pd.NP3RIGRU,data_pd.NP3RIGRL,data_pd.NP3PTRMR,data_pd.NP3KTRMR];
-% model_caud_r = fitlm(symptoms_r,DATSCAN.CAUDATE_lat.PD);
-% plot(model_caud_r)
-% subplot(132)
-% 
-% symptoms_r = [data_pd.NP3RIGN,data_pd.NP3RIGRU,data_pd.NP3RIGRL,data_pd.NP3PTRMR,data_pd.NP3KTRMR];
-% model_put_ant_r = fitlm(symptoms_r,DATSCAN.PUTAMEN_ANT_lat.PD);
-% plot(model_put_ant_r)
-% subplot(133)
-% 
-% symptoms_r = [data_pd.NP3RIGN,data_pd.NP3RIGRU,data_pd.NP3RIGRL,data_pd.NP3PTRMR,data_pd.NP3KTRMR];
-% model_put_r = fitlm(symptoms_r,DATSCAN.PUTAMEN_lat.PD);
-% plot(model_put_r)
-% 
-% % Statistics
-% %caudate
-% % anova
-% anova_caud = anova(model_caud_r);
+[p_corr_pd, R_corr_matrix_pd] = corrcoef(table2array(covariates_pd), 'Rows', 'pairwise');
+
+figure
+imagesc(R_corr_matrix_pd)
+colormap parula
+colorbar
+xticks(1:width(covariates_pd))
+xticklabels(covariates_pd.Properties.VariableNames)
+yticks(1:width(covariates_pd))
+yticklabels(covariates_pd.Properties.VariableNames)
+title("Correlation HC age, weight, height,  np test + mcatot")
+
+covariates_to_save_pd = [];
+for i =1:size(R_corr_matrix_pd,1)
+    for j = 1:size(R_corr_matrix_pd,2)
+        if p_corr_pd(i,j) < 0.05 && R_corr_matrix_pd(i,j) > 0.5
+                if (j < (size(R_corr_matrix_pd,1) -3)) && (i > (size(R_corr_matrix_pd,1) -3)) 
+                    disp([covariates_pd.Properties.VariableNames{i}, ' correlated with ', covariates_pd.Properties.VariableNames{j}])
+                    covariates_to_save_pd = [covariates_to_save_pd,  convertCharsToStrings(covariates_pd.Properties.VariableNames{j})];
+                end
+       end
+    end
+end
+
+covariates_to_save_pd  = unique(covariates_to_save_pd);
+
+%% LINEAR REGRESSION
+%% - HC
+covariates_hc = table2array(covariates_hc(:,contains(covariates_hc.Properties.VariableNames,covariates_to_save_hc)));
+
+figure
+subplot(131)
+model_caud_hc = fitlm(covariates_hc,NOT_ABS.LATERALIZATION_coeff.CAUDATE.HC);
+plot(model_caud_hc)
+
+subplot(132)
+model_put_hc = fitlm(covariates_hc,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.HC);
+plot(model_put_hc)
+
+subplot(133)
+model_put_ant_hc = fitlm(covariates_hc,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.HC);
+plot(model_put_ant_hc)
+
+
+% Statistics
+%caudate
+% anova
+% anova_caud = anova(model_caud_hc);
 % % coef test
-% coed_test_caud = coefTest(model_caud_r);
+% coed_test_caud = coefTest(model_caud_hc);
 % % [pdep_caud,x,y] = partialDependence(model_caud,{'x1','x3'});
 % % figure
 % % imagesc(x,y,pdep_caud)
 % % putamen
 % % anova
-% anova_put = anova(model_put_r);
-% % coef test
-% % coed_test_caud = coefTest(model_put);
-% % [pdep_put,x,y] = partialDependence(model_put,{'x1','x3'});
-% % figure
-% % imagesc(x,y,pdep_put)
-% %% left
+% anova_put = anova(model_put_hc);
+% coef test
+% coed_test_caud = coefTest(model_put);
+% [pdep_put,x,y] = partialDependence(model_put,{'x1','x3'});
 % figure
-% subplot(131)
-% symptoms_l = [data_pd.NP3RIGN,data_pd.NP3RIGLU,data_pd.NP3RIGLL,data_pd.NP3PTRML,data_pd.NP3KTRML];
-% model_caud_l = fitlm(symptoms_l,DATSCAN.CAUDATE_lat.PD);
-% plot(model_caud_l)
-% 
-% subplot(132)
-% model_put_ant_l = fitlm(symptoms_l,DATSCAN.PUTAMEN_ANT_lat.PD);
-% plot(model_put_ant_l)
-% 
-% subplot(133)
-% model_put_l = fitlm(symptoms_l,DATSCAN.PUTAMEN_lat.PD);
-% plot(model_put_l)
-% 
-% % Statistics
-% %caudate
-% % anova
+% imagesc(x,y,pdep_put)
+
+%% - PD
+covariates_pd = table2array(covariates_pd(:,contains(covariates_pd.Properties.VariableNames,covariates_to_save_pd)));
+
+
+figure
+subplot(131)
+model_caud_pd = fitlm(covariates_pd,NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD);
+plot(model_caud_pd)
+
+subplot(132)
+model_put_pd = fitlm(covariates_pd,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.PD);
+plot(model_put_pd)
+
+subplot(133)
+model_put_ant_pd = fitlm(covariates_pd,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.PD);
+plot(model_put_ant_pd)
+
+
+% Statistics
+%caudate
+% anova
 % anova_caud = anova(model_caud_l);
-% % coef test
+% coef test
 % coed_test_caud = coefTest(model_caud_l);
-% % [pdep_caud,x,y] = partialDependence(model_caud,{'x1','x3'});
-% % figure
-% % imagesc(x,y,pdep_caud)
-% % putamen
-% % anova
+% [pdep_caud,x,y] = partialDependence(model_caud,{'x1','x3'});
+% figure
+% imagesc(x,y,pdep_caud)
+% putamen
+% anova
 % anova_put = anova(model_put_l);
-% % coef test
-% % coed_test_caud = coefTest(model_put);
-% % [pdep_put,x,y] = partialDependence(model_put,{'x1','x3'});
-% % figure
-% % imagesc(x,y,pdep_put)
+% coef test
+% coed_test_caud = coefTest(model_put);
+% [pdep_put,x,y] = partialDependence(model_put,{'x1','x3'});
+% figure
+% imagesc(x,y,pdep_put)
 
 
 
