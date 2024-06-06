@@ -1,6 +1,9 @@
 \documentclass[]{article}
 \usepackage{hyperref}
+\usepackage{multicol}
+\setlength{\columnsep}{0.7cm}
 \usepackage[backend=bibtex]{biblatex}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
 %opening
 \title{Report Biomarkers}
 \author{Benedetta Corso, Letizia Rossato, Dalila Dattoli}
@@ -12,10 +15,12 @@
 \begin{abstract}
 Abstract: introduce rationale of investing brain dopamine function and potential brain asymmetry in PD.
 
-This study, which focuses on Parkinson's disease, aims to investigate the significance of left-right lateralization based on dopamine values using DAT-SPECT imaging data and their correlation with clinical symptoms in Parkinson’s disease patient (PD) and healthy controls (HC). DAT-SPECT (Dopamine Transporter Single Photon Emission Computed Tomography) is an imaging technique primarily used to visualize and measure the density of dopamine transporters in the brain.  Indeed, this technique is particularly useful in the diagnosis and evaluation of neurodegenerative diseases, such as Parkinson's disease and other forms of parkinsonism. The dataset, used to perform the analysis, consists of variables relating to demographic data, DAT-SPECT scores and finally the NP tests which are a combination of clinical, neurological, and imaging test since there is no specific test for the diagnosis of Parkinson’s disease.
+This study, which focuses on Parkinson's disease, aims to investigate the significance of left-right lateralization based on dopamine values using DAT-SPECT imaging data and their correlation with clinical symptoms in Parkinson’s disease patient (PD) and healthy controls (HC). DAT-SPECT (Dopamine Transporter Single Photon Emission Computed Tomography) is an imaging technique primarily used to visualize and measure the density of dopamine transporters in the brain.  Indeed, this technique is particularly useful in the diagnosis and evaluation of neurodegenerative diseases, such as Parkinson's disease and other forms of parkinsonism. The dataset, used to perform the analysis, consists of variables relating to demographic data, DAT-SPECT scores and finally the NP tests which are a combination of clinical, neurological, and imaging test since there is no specific test for the diagnosis of Parkinson’s disease. 
+\newline
 
 \end{abstract}
-\newpage
+
+\begin{multicols}{2}
 \section{Introduction}
 
 - Literature evidenced investigating brain dopamine lat in PD
@@ -24,8 +29,6 @@ formulate and motivate study hypotheses
 
 
 Parkinson's disease is a chronic neurodegenerative disorder of the central nervous system primarily affecting motor control. It is characterized by the progressive loss of nerve cells in the brain region called the substantia nigra, which is responsible for producing a neurotransmitter called dopamine. Dopamine deficiency leads to motor symptoms such as tremors, muscle rigidity, bradykinesia (slowness of movement), and postural instability.In addition to motor symptoms, Parkinson's disease can cause a wide range of non-motor symptoms including sleep problems, depression, anxiety, fatigue, and cognitive difficulties. While the exact cause of Parkinson's disease is not fully understood, it is believed to result from a combination of genetic and environmental factors \cite{beitz_parkinsons_2014}. Currently, there is no cure for Parkinson's disease, but there are treatments available to manage symptoms and improve patients’ quality of life.  However, studies conducted in recent years have shown that the lateralization of brain dopamine in Parkinson's disease (PD) is a significant and distinctive aspect of the pathology. In particular, during its development, the degeneration of dopaminergic neurons in the substantia nigra is not uniform. Generally, one side of the brain is more affected than the other, leading to marked asymmetry. This marked asymmetry is visible not only in motor symptoms, such as more pronounced tremors on one side of the body and greater use of one hand over the other, but it can also be evident in non-motor disturbances, including cognitive issues like sleep behavior and olfaction \cite{riederer_lateralisation_2018}. 
-
-
 
 
 \section{Material and Methods}
@@ -63,5 +66,8 @@ providing answers to the research questions
 \newline
 - A list of possible suggestions to improve the study in case 
 someone will repeat it in future
+
+\end{multicols}
+
 \printbibliography
 \end{document}
