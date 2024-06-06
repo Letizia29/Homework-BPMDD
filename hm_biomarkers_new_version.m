@@ -474,14 +474,11 @@ hold on
 boxplot(LAT_groups.HC.PUTAMEN_ANT.Female,'Colors','b')
 
 
-<<<<<<< Updated upstream
 %% LINEAR REGRESSION of variables of interest
-=======
 
 
 
 %% CORRELATION MATRIX of variables of interest
->>>>>>> Stashed changes
 % fare scatter
 %%   - HC
 idx_covariates = [4,153,154,34, 55, 94, 158,27:54, 60:93];
