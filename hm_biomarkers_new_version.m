@@ -481,7 +481,7 @@ boxplot(LAT_groups.HC.PUTAMEN_ANT.Female,'Colors','b')
 %% CORRELATION MATRIX of variables of interest
 % fare scatter
 %%   - HC
-idx_covariates = [4,153,154,34, 55, 94, 158,27:54, 60:93];
+idx_covariates = [4,154,34, 55, 94, 158,27:54, 61:93];
 covariates_hc = data_hc(:, idx_covariates); % age, weight, height,  np test + mcatot
 covariates_hc.('Caudate lat coeff') = LATERALIZATION_coeff.CAUDATE.HC;
 covariates_hc.('Putamen lat coeff') = LATERALIZATION_coeff.PUTAMEN.HC;
@@ -570,7 +570,18 @@ anova_put = anova(model_put_hc,'summary');
 
 %% - PD
 covariates_pd = table2array(covariates_pd(:,contains(covariates_pd.Properties.VariableNames,covariates_to_save_pd)));
-
+EXCLUDE = [2,3,7,10,13,20,25,26,40];
+covariates_pd(:,EXCLUDE) = [];
+%pca(covariates_pd);
+% covariates_pd_saved = [];
+% 
+% for i=1:size(covariates_pd,2)
+%     model_caud_pd_temp = fitlm(covariates_pd(:,i),NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD);
+%     plot(model_caud_pd_temp)
+%     if model_caud_pd_temp.Rsquared.Ordinary>0.2
+%         covariates_pd_saved = [covariates_pd(:,i), covariates_pd_saved];
+%     end
+% end
 
 figure
 subplot(131)
@@ -585,6 +596,20 @@ subplot(133)
 model_put_ant_pd = fitlm(covariates_pd,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.PD);
 plot(model_put_ant_pd)
 
+%% SIMPTOMS LATERALITY INDEX
+
+%while model_caud_pd.Rsquared.Ordinary < 0.2
+
+% for i =1:size(covariates_pd,2)
+%     for j =1:size(covariates_pd,2)
+%          a = covariates_pd(:,i:j);
+%          model_caud_pd = fitlm(covariates_pd,LATERALIZATION_coeff.CAUDATE.PD);
+%          if model_caud_pd.Rsquared.Ordinary > 0.2
+%              disp([i,' ',j,' ', model_caud_pd.Rsquared.Ordinary])
+%          end
+%     end
+% end
+% %end
 
 % Statistics
 %caudate
