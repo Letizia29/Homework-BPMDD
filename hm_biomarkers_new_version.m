@@ -52,12 +52,6 @@ for i = 1:length(ind_to_convert)
 end
 clear i ind_to_convert
 
-%%%%%%%
-% Da gestire PDSTATE
-% AV serve? Solo DATSCAN? Aggiungere AV nella conversione/analisi o
-% toglierlo definitivamente dal dataset
-%%%%%%%
-
 %%   Extraction of NaNs indexes
 % PD --------------------------------------------------------------------
 for i = [2:121, 153:158]
@@ -164,16 +158,34 @@ data_hc(idx_nan_tests_no_np4,:) = [];
 data_pd(idx_nan.PD.HANDED, :) = [];
 % HC don't have nan in hand
 
-%% - Remove patients with low QUALITY RATING
+%%    - Remove patients with low QUALITY RATING
 data_pd(find(data_pd.DATSCAN_QUALITY_RATING==3),:) = [];
 data_hc(find(data_pd.DATSCAN_QUALITY_RATING==3),:) = [];
-% Anche per visual interpretation?
 
-%% - Remove patients with not COMPLETED DATSCAN
+%%    - Remove patients with not COMPLETED DATSCAN
 data_pd(find(data_pd.DATSCAN==0),:) = [];
 data_hc(find(data_pd.DATSCAN==0),:) = [];
 
-% Non ce ne sono
+
+%% MANAGING OUTLIERS (Box plots)
+% remove outliers from both PD nad HC for demographics data
+
+cont_variables = [4, 153, 154]; % age, height, weight
+for i = 1:length(cont_variables)
+    
+    % PD
+    [B,TFrm] = rmoutliers(data_pd.(variables{cont_variables(i)}));
+    ind_outliers = find(TFrm);
+    data_pd(ind_outliers, :) = [];
+
+    % HC
+    [B,TFrm] = rmoutliers(data_hc.(variables{cont_variables(i)}));
+    ind_outliers = find(TFrm);
+    data_hc(ind_outliers, :) = [];
+end
+
+clear i B TFrm ind_outliers
+
 %% IMPORTANT VARIABLES EXTRACTION
 
 %%   Dominant hand division
@@ -186,30 +198,26 @@ idx_samples.HAND.HC.left = find(strcmp(data_hc.HANDED, 'Left'));
 idx_samples.HAND.HC.mixed = find(strcmp(data_hc.HANDED, 'Mixed'));
 
 %%   Neurophysiological testing and assessment: test in 4 parts
-% normalizzazione: per poter confrontare NPTOT, occorre togliere prima
-% tutti i 101, poi dividere la somma per il numero di test fatti. Quindi
-% fare una media per ogni NP1P, NP1R, NP2, NP3, NP4, escludendo i 101.
-% MA i 101 sono già tolti
-
+% normalization of np tests scores
 np_test_normalized.np1ptot = data_pd.NP1PTOT ./ length(27:33);
 np_test_normalized.np1rtot = data_pd.NP1RTOT ./ length(35:40);
 np_test_normalized.np2ptot = data_pd.NP2PTOT ./ length(42:54);
 np_test_normalized.np3tot = data_pd.NP3TOT ./ length(61:93);
 np_test_normalized.np4tot = data_pd.NP4TOT ./ length(98:103);
 
-% plot per curiosità
-figure, hold on
-plot(np_test_normalized.np1ptot)
-plot(np_test_normalized.np1rtot)
-plot(np_test_normalized.np2ptot)
-plot(np_test_normalized.np3tot)
-plot(np_test_normalized.np4tot)
-axis tight
-xlabel('patients')
-title('normalized NPTEST')
-ylabel('test score')
-legend('1p', '1r', '2p', '3', '4')
-ylim([-0.5 4])
+% % plot per curiosità
+% figure, hold on
+% plot(np_test_normalized.np1ptot)
+% plot(np_test_normalized.np1rtot)
+% plot(np_test_normalized.np2ptot)
+% plot(np_test_normalized.np3tot)
+% plot(np_test_normalized.np4tot)
+% axis tight
+% xlabel('patients')
+% title('normalized NPTEST')
+% ylabel('test score')
+% legend('1p', '1r', '2p', '3', '4')
+% ylim([-0.5 4])
 
 %% ANALYSIS OF DEMOGRAPHICS DATA
 
@@ -236,8 +244,8 @@ for i = 1:length(cont_variables)
 
     % Anova test between PD and HC
     y = [data_pd.(variables{cont_variables(i)}); data_hc.(variables{cont_variables(i)})]';
-    groups = [ones(1,size(data_pd.(variables{cont_variables(i)}),1)), 2*ones(1,size(data_hc.(variables{cont_variables(i)}),1))];
-    anova_test.(variables{cont_variables(i)}).p = anova1(y, groups);
+    LAT_groups = [ones(1,size(data_pd.(variables{cont_variables(i)}),1)), 2*ones(1,size(data_hc.(variables{cont_variables(i)}),1))];
+    anova_test.(variables{cont_variables(i)}).p = anova1(y, LAT_groups);
     
     if anova_test.(variables{cont_variables(i)}).p > 0.05
         disp(strcat(string(variables{cont_variables(i)}), ': Accepted null hyp (same mean)'))
@@ -247,7 +255,7 @@ for i = 1:length(cont_variables)
 
 end
 
-clear i y groups
+clear i y LAT_groups
 
 %% DISCRETE VARIABLES
 discr_variables = [7, 8, 9, 11]; % ethnicity, sex, hand, familiarity
@@ -292,13 +300,6 @@ clear i j k ind_temp
 legend_hc.(variables{discr_variables(4)}) = unique(data_hc.(variables{discr_variables(4)}));
 legend_hc.(variables{discr_variables(4)}) = legend_hc.(variables{discr_variables(4)})(1:3);
 
-%% MANAGING OUTLIERS (Box plots)
-
-
-
-
-
-
 
 %% LATERALIZATION DATA
 % Extraction of lateralization index
@@ -320,7 +321,6 @@ LATERALIZATION_coeff.PUTAMEN_ANT.HC = (data_hc.DATSCAN_PUTAMEN_R_ANT - data_hc.D
 
 % If the difference right-left is >0, then the DAT signal from the right
 % side of the ROI is stronger than the left side.
-
 % With significant difference: 20%
 
 % save indexes of relevant lateralizations - PD
@@ -342,14 +342,13 @@ LATERALIZATION_coeff.CAUDATE.PD = abs(LATERALIZATION_coeff.CAUDATE.PD);
 LATERALIZATION_coeff.PUTAMEN.PD = abs(LATERALIZATION_coeff.PUTAMEN.PD);
 LATERALIZATION_coeff.PUTAMEN_ANT.PD = abs(LATERALIZATION_coeff.PUTAMEN_ANT.PD);
 
-
 % DATSCAN lateralization HC ------------------------------------------
 LATERALIZATION_coeff.CAUDATE.HC = abs(LATERALIZATION_coeff.CAUDATE.HC);
 LATERALIZATION_coeff.PUTAMEN.HC = abs(LATERALIZATION_coeff.PUTAMEN.HC);
 LATERALIZATION_coeff.PUTAMEN_ANT.HC = abs(LATERALIZATION_coeff.PUTAMEN_ANT.HC);
 
 
-%% STATISTICAL ANALYSIS ------------- DA SISTEMARE
+%% STATISTICAL ANALYSIS 
 
 %% Correlation matrices
 
@@ -358,39 +357,39 @@ LATERALIZATION_coeff.PUTAMEN_ANT.HC = abs(LATERALIZATION_coeff.PUTAMEN_ANT.HC);
 %% One-way Anova
 % Control gaussianity
 rois_names = fieldnames(LATERALIZATION_coeff);
-for i=2:length(rois_names)
+for i = 1:length(rois_names)
     rois_names_diag = fieldnames(LATERALIZATION_coeff.(rois_names{i,1}));
-    for j =1:length(rois_names_diag)
-        lil = lillietest(LATERALIZATION_coeff.(rois_names{i}).(rois_names_diag{j}));
-        if lil == 1
+    for j = 1:length(rois_names_diag)
+        [gaussianity.(rois_names_diag{j}).(rois_names{i}).h, gaussianity.(rois_names_diag{j}).(rois_names{i}).p] = lillietest(LATERALIZATION_coeff.(rois_names{i}).(rois_names_diag{j}));
+        if gaussianity.(rois_names_diag{j}).(rois_names{i}).h == 1
             disp([rois_names{i}; rois_names_diag{j}; "not gaussian"])
         end
     end
 end
-clear rois_names rois_names_diag i lil j
-%%Absulte value
+clear rois_names rois_names_diag i j
+
+% analysis with absolute value
 % Caudate
 y = [LATERALIZATION_coeff.CAUDATE.PD' LATERALIZATION_coeff.CAUDATE.HC']';
 group1 = [repmat("PD_caudate",length(LATERALIZATION_coeff.CAUDATE.PD),1);repmat("HC_caudate",length(LATERALIZATION_coeff.CAUDATE.HC),1)];
 [p,tbl,stats]  = anova1(y,group1);
-
 if p > 0.05
     disp("There isn't significant difference between the means of the DATSCAN of HC and PD in the CAUDATE region")
 else
     disp("There is significant difference between the means of the DATSCAN of HC and PD in the CAUDATE region")
 end
-% % Putamen
+
+% Putamen
 y = [LATERALIZATION_coeff.PUTAMEN.PD' LATERALIZATION_coeff.PUTAMEN.HC']';
 group2 = [repmat("PD_putamen",length(LATERALIZATION_coeff.PUTAMEN.PD),1);repmat("HC_putamen",length(LATERALIZATION_coeff.PUTAMEN.HC),1)];
 [p,tbl,stats]  = anova1(y,group2);
-
 if p > 0.05
     disp("There isn't significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN region")
 else
     disp("There is significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN region")
 end
 
-% % Putamen ANT
+% Putamen ANT
 y = [LATERALIZATION_coeff.PUTAMEN_ANT.PD' LATERALIZATION_coeff.PUTAMEN_ANT.HC']';
 group3 = [repmat("PD_putamen_ant",length(LATERALIZATION_coeff.PUTAMEN_ANT.PD),1);repmat("HC_putamen_ant",length(LATERALIZATION_coeff.PUTAMEN_ANT.HC),1)];
 [p,tbl,stats]  = anova1(y,group3);
@@ -399,30 +398,15 @@ if p > 0.05
 else
     disp("There is significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN ANT region")
 end
+
+% with all the ROIs
 y = [LATERALIZATION_coeff.CAUDATE.PD' LATERALIZATION_coeff.CAUDATE.HC' LATERALIZATION_coeff.PUTAMEN.PD' LATERALIZATION_coeff.PUTAMEN.HC' LATERALIZATION_coeff.PUTAMEN_ANT.PD' LATERALIZATION_coeff.PUTAMEN_ANT.HC' ]';
 group4 = [group1; group2; group3];
 [p,tbl,stats]  = anova1(y,group4);
  
 clear y p tbl stats group4 group3 group2 group1 
 
- 
-%% Scatterplot
-% j = [11,18,32,66];
-% for j=j
-%     figure
-%     for i=1:3
-%         subplot(1,3,i)
-%         scatter(table2array(new_data_pd(:,i)),table2array(new_data_pd(:,j)))
-%         hold on
-%         scatter(table2array(new_data_hc(:,i)), table2array(new_data_hc(:,j)))
-%         xlabel('Lateralization')
-%         ylabel('Symptoms')
-%         legend('PD','HC')
-%         hold off
-%         title(new_data_pd.Properties.VariableNames{j}, new_data_pd.Properties.VariableNames{i})
-%     end
-% end
-% 
+
 
 %% COVARIATES ANALYSIS
 % HC
@@ -433,14 +417,14 @@ for i = 1:length(discr_variables)-1
 
     % groups LAT CAUDATE
     for j = 1:length(legend_hc.(variables{discr_variables(i)}))
-        groups.HC.CAUDATE.(legend_hc.(variables{discr_variables(i)}){j}) = LATERALIZATION_coeff.CAUDATE.HC(find(data_hc.(variables{discr_variables(i)}) == j));
+        LAT_groups.HC.CAUDATE.(legend_hc.(variables{discr_variables(i)}){j}) = LATERALIZATION_coeff.CAUDATE.HC(find(data_hc.(variables{discr_variables(i)}) == j));
 
         % not consider groups with less than 4 elements
-        if length(groups.HC.CAUDATE.(legend_hc.(variables{discr_variables(i)}){j})) > 4
+        if length(LAT_groups.HC.CAUDATE.(legend_hc.(variables{discr_variables(i)}){j})) > 4
             % check for gaussianity
             [gaussianity.HC.LAT_CAUDATE.(variables{discr_variables(i)}).(legend_hc.(variables{discr_variables(i)}){j}).h, ...
                 gaussianity.HC.LAT_CAUDATE.(variables{discr_variables(i)}).(legend_hc.(variables{discr_variables(i)}){j}).p] = ...
-                lillietest(groups.HC.CAUDATE.(legend_hc.(variables{discr_variables(i)}){j}));
+                lillietest(LAT_groups.HC.CAUDATE.(legend_hc.(variables{discr_variables(i)}){j}));
         end
     end
 end
@@ -449,8 +433,8 @@ clear i j
 
 % Comparison CAUDATE lateralization female - male in HC
 % Anova test
-y = [groups.HC.CAUDATE.Female; groups.HC.CAUDATE.Male]';
-groups_anova = [ones(1,length(groups.HC.CAUDATE.Female)), 2*ones(1,length(groups.HC.CAUDATE.Male))];
+y = [LAT_groups.HC.CAUDATE.Female; LAT_groups.HC.CAUDATE.Male]';
+groups_anova = [ones(1,length(LAT_groups.HC.CAUDATE.Female)), 2*ones(1,length(LAT_groups.HC.CAUDATE.Male))];
 anova_test.LAT_CAUDATE.(variables{discr_variables(2)}).p = anova1(y, groups_anova);
 
 if anova_test.LAT_CAUDATE.(variables{discr_variables(2)}).p > 0.05
@@ -466,14 +450,14 @@ for i = 1:length(discr_variables)-1
 
     % groups LAT PUTAMEN
     for j = 1:length(legend_hc.(variables{discr_variables(i)}))
-        groups.HC.PUTAMEN.(legend_hc.(variables{discr_variables(i)}){j}) = LATERALIZATION_coeff.PUTAMEN.HC(find(data_hc.(variables{discr_variables(i)}) == j));
+        LAT_groups.HC.PUTAMEN.(legend_hc.(variables{discr_variables(i)}){j}) = LATERALIZATION_coeff.PUTAMEN.HC(find(data_hc.(variables{discr_variables(i)}) == j));
 
         % not consider groups with less than 4 elements
-        if length(groups.HC.PUTAMEN.(legend_hc.(variables{discr_variables(i)}){j})) > 4
+        if length(LAT_groups.HC.PUTAMEN.(legend_hc.(variables{discr_variables(i)}){j})) > 4
             % check for gaussianity
             [gaussianity.HC.LAT_PUTAMEN.(variables{discr_variables(i)}).(legend_hc.(variables{discr_variables(i)}){j}).h, ...
                 gaussianity.HC.LAT_PUTAMEN.(variables{discr_variables(i)}).(legend_hc.(variables{discr_variables(i)}){j}).p] = ...
-                lillietest(groups.HC.PUTAMEN.(legend_hc.(variables{discr_variables(i)}){j}));
+                lillietest(LAT_groups.HC.PUTAMEN.(legend_hc.(variables{discr_variables(i)}){j}));
         end
     end
 end
@@ -482,8 +466,8 @@ clear i j
 
 % Comparison PUTAMEN lateralization female - male in HC
 % Anova test
-y = [groups.HC.PUTAMEN.Female; groups.HC.PUTAMEN.Male]';
-groups_anova = [ones(1,length(groups.HC.PUTAMEN.Female)), 2*ones(1,length(groups.HC.PUTAMEN.Male))];
+y = [LAT_groups.HC.PUTAMEN.Female; LAT_groups.HC.PUTAMEN.Male]';
+groups_anova = [ones(1,length(LAT_groups.HC.PUTAMEN.Female)), 2*ones(1,length(LAT_groups.HC.PUTAMEN.Male))];
 anova_test.LAT_PUTAMEN.(variables{discr_variables(2)}).p = anova1(y, groups_anova);
 
 if anova_test.LAT_PUTAMEN.(variables{discr_variables(2)}).p > 0.05
@@ -499,14 +483,14 @@ for i = 1:length(discr_variables)-1
 
     % groups LAT PUTAMEN ANT
     for j = 1:length(legend_hc.(variables{discr_variables(i)}))
-        groups.HC.PUTAMEN_ANT.(legend_hc.(variables{discr_variables(i)}){j}) = LATERALIZATION_coeff.PUTAMEN_ANT.HC(find(data_hc.(variables{discr_variables(i)}) == j));
+        LAT_groups.HC.PUTAMEN_ANT.(legend_hc.(variables{discr_variables(i)}){j}) = LATERALIZATION_coeff.PUTAMEN_ANT.HC(find(data_hc.(variables{discr_variables(i)}) == j));
 
         % not consider groups with less than 4 elements
-        if length(groups.HC.PUTAMEN_ANT.(legend_hc.(variables{discr_variables(i)}){j})) > 4
+        if length(LAT_groups.HC.PUTAMEN_ANT.(legend_hc.(variables{discr_variables(i)}){j})) > 4
             % check for gaussianity
             [gaussianity.HC.LAT_PUTAMEN_ANT.(variables{discr_variables(i)}).(legend_hc.(variables{discr_variables(i)}){j}).h, ...
                 gaussianity.HC.LAT_PUTAMEN_ANT.(variables{discr_variables(i)}).(legend_hc.(variables{discr_variables(i)}){j}).p] = ...
-                lillietest(groups.HC.PUTAMEN_ANT.(legend_hc.(variables{discr_variables(i)}){j}));
+                lillietest(LAT_groups.HC.PUTAMEN_ANT.(legend_hc.(variables{discr_variables(i)}){j}));
         end
     end
 end
@@ -515,8 +499,8 @@ clear i j
 
 % Comparison PUTAMEN ANT lateralization female - male in HC
 % Anova test
-y = [groups.HC.PUTAMEN_ANT.Female; groups.HC.PUTAMEN_ANT.Male]';
-groups_anova = [ones(1,length(groups.HC.PUTAMEN_ANT.Female)), 2*ones(1,length(groups.HC.PUTAMEN_ANT.Male))];
+y = [LAT_groups.HC.PUTAMEN_ANT.Female; LAT_groups.HC.PUTAMEN_ANT.Male]';
+groups_anova = [ones(1,length(LAT_groups.HC.PUTAMEN_ANT.Female)), 2*ones(1,length(LAT_groups.HC.PUTAMEN_ANT.Male))];
 anova_test.LAT_PUTAMEN_ANT.(variables{discr_variables(2)}).p = anova1(y, groups_anova);
 
 if anova_test.LAT_PUTAMEN_ANT.(variables{discr_variables(2)}).p > 0.05
@@ -526,8 +510,24 @@ else
 end
 
 clear y groups_anova
-%% LINEAR REGRESSION of variables of interest
 
+%% 
+figure
+boxplot(LAT_groups.HC.PUTAMEN.Male, 'Colors','r')
+hold on
+boxplot(LAT_groups.HC.PUTAMEN.Female,'Colors','b')
+
+figure
+boxplot(LAT_groups.HC.PUTAMEN_ANT.Male, 'Colors','r')
+hold on
+boxplot(LAT_groups.HC.PUTAMEN_ANT.Female,'Colors','b')
+
+
+
+
+
+%% LINEAR REGRESSION of variables of interest
+% fare scatter
 %% - HC
 idx_covariates = [4,153,154,34, 41, 55, 94, 104, 158];
 covariates_hc = data_hc(:, idx_covariates); % age, weight, height,  np test + mcatot
