@@ -99,9 +99,31 @@ idx_nan.HC.ENROLL_AGE = find(isnan(data_hc.ENROLL_AGE));
 clear i idx_nan_temp datscan_date datscan_year birth_date birth_year
 
 %% ANALYSIS AVERAGE DEMOGRAPHIC
+%SEX
+demo.SEX.TOT.num_males = length(data.SEX(strcmpi(data.SEX,'Male')));
+demo.SEX.TOT.num_females = length(data.SEX(strcmpi(data.SEX,'Female')));
+
+demo.SEX.PD.num_males = length(data_pd.SEX(strcmpi(data_pd.SEX,'Male')));
+demo.SEX.PD.num_females = length(data_pd.SEX(strcmpi(data_pd.SEX,'Female')));
+
+demo.SEX.HC.num_males = length(data_hc.SEX(strcmpi(data_hc.SEX,'Male')));
+demo.SEX.HC.num_females = length(data_hc.SEX(strcmpi(data_hc.SEX,'Female')));
 
 
+% AGE
+demo.AGE.TOT.mean = nanmean(data.ENROLL_AGE,"all");
+demo.AGE.TOT.min = min(data.ENROLL_AGE);
+demo.AGE.TOT.max = max(data.ENROLL_AGE);
+demo.AGE.TOT.std = nanstd(data.ENROLL_AGE);
 
+
+demo.AGE.PD.mean = nanmean(data_pd.ENROLL_AGE,"all");
+demo.AGE.PD.min = min(data_pd.ENROLL_AGE);
+demo.AGE.PD.max = max(data_pd.ENROLL_AGE);
+
+demo.AGE.HC.mean = nanmean(data_hc.ENROLL_AGE,"all");
+demo.AGE.HC.min = min(data_hc.ENROLL_AGE);
+demo.AGE.HC.max = max(data_hc.ENROLL_AGE);
 
 
 %%   Decide what to remove
