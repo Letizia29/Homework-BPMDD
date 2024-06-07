@@ -228,16 +228,16 @@ for i = 1:length(cont_variables)
         disp(strcat(string(variables{cont_variables(i)}), ' in HC is normally distributed'))
     end
 
-    % Anova test between PD and HC
-    y = [data_pd.(variables{cont_variables(i)}); data_hc.(variables{cont_variables(i)})]';
-    LAT_groups = [ones(1,size(data_pd.(variables{cont_variables(i)}),1)), 2*ones(1,size(data_hc.(variables{cont_variables(i)}),1))];
-    anova_test.(variables{cont_variables(i)}).p = anova1(y, LAT_groups);
-    
-    if anova_test.(variables{cont_variables(i)}).p > 0.05
-        disp(strcat(string(variables{cont_variables(i)}), ': Accepted null hyp (same mean)'))
-    else 
-        disp(strcat(string(variables{cont_variables(i)}), ': Rejected null hyp (different mean)'))
-    end
+    % % Anova test between PD and HC
+    % y = [data_pd.(variables{cont_variables(i)}); data_hc.(variables{cont_variables(i)})]';
+    % LAT_groups = [ones(1,size(data_pd.(variables{cont_variables(i)}),1)), 2*ones(1,size(data_hc.(variables{cont_variables(i)}),1))];
+    % anova_test.(variables{cont_variables(i)}).p = anova1(y, LAT_groups);
+    % 
+    % if anova_test.(variables{cont_variables(i)}).p > 0.05
+    %     disp(strcat(string(variables{cont_variables(i)}), ': Accepted null hyp (same mean)'))
+    % else 
+    %     disp(strcat(string(variables{cont_variables(i)}), ': Rejected null hyp (different mean)'))
+    % end
 
 end
 
@@ -270,15 +270,15 @@ for i = 1:length(discr_variables)-1 % no need for familiarity
     data_hc.(variables{discr_variables(i)}) = cellfun(@double, (data_hc.(variables{discr_variables(i)})));
 end
 
-for i = 1:length(discr_variables)
-    % Perfom Wilcoxon test
-    [wilcoxon.(variables{discr_variables(i)}).p, wilcoxon.(variables{discr_variables(i)}).h] = ranksum(data_pd.(variables{discr_variables(i)}), data_hc.(variables{discr_variables(i)}));
-    if wilcoxon.(variables{discr_variables(i)}).h == 1
-        disp(strcat(string(variables{discr_variables(i)}), ': Rejected null hyp (different mean)'))
-    else
-        disp(strcat(string(variables{discr_variables(i)}), ': Accepted null hyp (same mean)'))
-    end
-end
+% for i = 1:length(discr_variables)
+%     % Perfom Wilcoxon test
+%     [wilcoxon.(variables{discr_variables(i)}).p, wilcoxon.(variables{discr_variables(i)}).h] = ranksum(data_pd.(variables{discr_variables(i)}), data_hc.(variables{discr_variables(i)}));
+%     if wilcoxon.(variables{discr_variables(i)}).h == 1
+%         disp(strcat(string(variables{discr_variables(i)}), ': Rejected null hyp (different mean)'))
+%     else
+%         disp(strcat(string(variables{discr_variables(i)}), ': Accepted null hyp (same mean)'))
+%     end
+% end
 
 clear i j k ind_temp
 
@@ -365,36 +365,36 @@ for i = 1:length(rois_names)
 end
 clear rois_names rois_names_diag i j
 
-% analysis with absolute value
-% Caudate
-y = [LATERALIZATION_coeff.CAUDATE.PD' LATERALIZATION_coeff.CAUDATE.HC']';
+% % analysis with absolute value
+% % Caudate
+% y = [LATERALIZATION_coeff.CAUDATE.PD' LATERALIZATION_coeff.CAUDATE.HC']';
 group1 = [repmat("PD_caudate",length(LATERALIZATION_coeff.CAUDATE.PD),1);repmat("HC_caudate",length(LATERALIZATION_coeff.CAUDATE.HC),1)];
-[p,tbl,stats]  = anova1(y,group1);
-if p > 0.05
-    disp("There isn't significant difference between the means of the DATSCAN of HC and PD in the CAUDATE region")
-else
-    disp("There is significant difference between the means of the DATSCAN of HC and PD in the CAUDATE region")
-end
-
-% Putamen
-y = [LATERALIZATION_coeff.PUTAMEN.PD' LATERALIZATION_coeff.PUTAMEN.HC']';
+% [p,tbl,stats]  = anova1(y,group1);
+% if p > 0.05
+%     disp("There isn't significant difference between the means of the DATSCAN of HC and PD in the CAUDATE region")
+% else
+%     disp("There is significant difference between the means of the DATSCAN of HC and PD in the CAUDATE region")
+% end
+% 
+% % Putamen
+% y = [LATERALIZATION_coeff.PUTAMEN.PD' LATERALIZATION_coeff.PUTAMEN.HC']';
 group2 = [repmat("PD_putamen",length(LATERALIZATION_coeff.PUTAMEN.PD),1);repmat("HC_putamen",length(LATERALIZATION_coeff.PUTAMEN.HC),1)];
-[p,tbl,stats]  = anova1(y,group2);
-if p > 0.05
-    disp("There isn't significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN region")
-else
-    disp("There is significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN region")
-end
-
-% Putamen ANT
-y = [LATERALIZATION_coeff.PUTAMEN_ANT.PD' LATERALIZATION_coeff.PUTAMEN_ANT.HC']';
+% [p,tbl,stats]  = anova1(y,group2);
+% if p > 0.05
+%     disp("There isn't significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN region")
+% else
+%     disp("There is significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN region")
+% end
+% 
+% % Putamen ANT
+% y = [LATERALIZATION_coeff.PUTAMEN_ANT.PD' LATERALIZATION_coeff.PUTAMEN_ANT.HC']';
 group3 = [repmat("PD_putamen_ant",length(LATERALIZATION_coeff.PUTAMEN_ANT.PD),1);repmat("HC_putamen_ant",length(LATERALIZATION_coeff.PUTAMEN_ANT.HC),1)];
-[p,tbl,stats]  = anova1(y,group3);
-if p > 0.05
-    disp("There isn't significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN ANT region")
-else
-    disp("There is significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN ANT region")
-end
+% [p,tbl,stats]  = anova1(y,group3);
+% if p > 0.05
+%     disp("There isn't significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN ANT region")
+% else
+%     disp("There is significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN ANT region")
+% end
 
 % with all the ROIs
 y = [LATERALIZATION_coeff.CAUDATE.PD' LATERALIZATION_coeff.CAUDATE.HC' LATERALIZATION_coeff.PUTAMEN.PD' LATERALIZATION_coeff.PUTAMEN.HC' LATERALIZATION_coeff.PUTAMEN_ANT.PD' LATERALIZATION_coeff.PUTAMEN_ANT.HC' ]';
@@ -447,17 +447,17 @@ for cohort = cohorts
 end
 
 
-% Difference in PUTAMEN and PUTAMEN ANT lateralization between male and
-% female
-figure
-boxplot(LAT_groups.HC.PUTAMEN.Male, 'Colors','r')
-hold on
-boxplot(LAT_groups.HC.PUTAMEN.Female,'Colors','b')
-
-figure
-boxplot(LAT_groups.HC.PUTAMEN_ANT.Male, 'Colors','r')
-hold on
-boxplot(LAT_groups.HC.PUTAMEN_ANT.Female,'Colors','b')
+% % Difference in PUTAMEN and PUTAMEN ANT lateralization between male and
+% % female
+% figure
+% boxplot(LAT_groups.HC.PUTAMEN.Male, 'Colors','r')
+% hold on
+% boxplot(LAT_groups.HC.PUTAMEN.Female,'Colors','b')
+% 
+% figure
+% boxplot(LAT_groups.HC.PUTAMEN_ANT.Male, 'Colors','r')
+% hold on
+% boxplot(LAT_groups.HC.PUTAMEN_ANT.Female,'Colors','b')
 
 
 %% LINEAR REGRESSION of variables of interest
@@ -549,38 +549,33 @@ plot(model_put_ant_hc)
 
 
 %% ------ Statistics
-% CAUDATE
-anova_caud = anova(model_caud_hc,'component');
-% PUTAMEN
-anova_put = anova(model_put_hc,'summary');
+anova_caud_hc = anova(model_caud_hc,'component');
+anova_put_hc = anova(model_put_hc,'summary');
+anova_put_ant_hc =  anova(model_put_ant_hc,'summary');
 
 %% - PD
 covariates_pd = table2array(covariates_pd(:,contains(covariates_pd.Properties.VariableNames,covariates_to_save_pd)));
 EXCLUDE = [2,3,7,10,13,20,25,26,40];
 covariates_pd(:,EXCLUDE) = [];
-%pca(covariates_pd);
-% covariates_pd_saved = [];
-% 
-% for i=1:size(covariates_pd,2)
-%     model_caud_pd_temp = fitlm(covariates_pd(:,i),NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD);
-%     plot(model_caud_pd_temp)
-%     if model_caud_pd_temp.Rsquared.Ordinary>0.2
-%         covariates_pd_saved = [covariates_pd(:,i), covariates_pd_saved];
-%     end
-% end
 
 figure
 subplot(131)
-model_caud_pd = fitlm(covariates_pd,NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD);
+model_caud_pd = fitlm(covariates_pd,NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD,'interactions');
 plot(model_caud_pd)
 
 subplot(132)
-model_put_pd = fitlm(covariates_pd,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.PD);
+model_put_pd = fitlm(covariates_pd,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.PD,'interactions');
 plot(model_put_pd)
 
 subplot(133)
-model_put_ant_pd = fitlm(covariates_pd,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.PD);
+model_put_ant_pd = fitlm(covariates_pd,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.PD,'interactions');
 plot(model_put_ant_pd)
+
+
+%% ----- Statistics
+anova_caud_pd = anova(model_caud_pd,'summary');
+anova_put_pd = anova(model_put_pd,'summary');
+anova_put_ant_pd = anova(model_put_ant_pd,'summary');
 
 %% SIMPTOMS LATERALITY INDEX
 
@@ -597,23 +592,7 @@ plot(model_put_ant_pd)
 % end
 % %end
 
-% Statistics
-%caudate
-% anova
-% anova_caud = anova(model_caud_l);
-% coef test
-% coed_test_caud = coefTest(model_caud_l);
-% [pdep_caud,x,y] = partialDependence(model_caud,{'x1','x3'});
-% figure
-% imagesc(x,y,pdep_caud)
-% putamen
-% anova
-% anova_put = anova(model_put_l);
-% coef test
-% coed_test_caud = coefTest(model_put);
-% [pdep_put,x,y] = partialDependence(model_put,{'x1','x3'});
-% figure
-% imagesc(x,y,pdep_put)
+
 
 
 
