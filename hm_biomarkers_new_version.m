@@ -430,17 +430,17 @@ for cohort = cohorts
     
         % Comparison region lateralization female - male in HC
         % Anova test
-        y = [LAT_groups.(cohort).(region).Female; LAT_groups.HC.(region).Male]';
-        groups_anova = [ones(1,length(LAT_groups.(cohort).(region).Female)), 2*ones(1,length(LAT_groups.(cohort).(region).Male))];
-        anova_test.LATERALIZATION.(region).(cohort).(variables{discr_variables(2)}).p = anova1(y, groups_anova);
-        
-        if anova_test.LATERALIZATION.(region).(cohort).(variables{discr_variables(2)}).p > 0.05
-            disp(strcat(string(variables{discr_variables(2)}), ': LAT', region, ' Accepted null hyp (same mean)'))
-        else 
-            disp(strcat(string(variables{discr_variables(2)}), ': LAT', region, ' Rejected null hyp (different mean)'))
-        end
-        
-        clear y groups_anova
+        % % y = [LAT_groups.(cohort).(region).Female; LAT_groups.HC.(region).Male]';
+        % % groups_anova = [ones(1,length(LAT_groups.(cohort).(region).Female)), 2*ones(1,length(LAT_groups.(cohort).(region).Male))];
+        % % anova_test.LATERALIZATION.(region).(cohort).(variables{discr_variables(2)}).p = anova1(y, groups_anova);
+        % % 
+        % % if anova_test.LATERALIZATION.(region).(cohort).(variables{discr_variables(2)}).p > 0.05
+        % %     disp(strcat(string(variables{discr_variables(2)}), ': LAT', region, ' Accepted null hyp (same mean)'))
+        % % else 
+        % %     disp(strcat(string(variables{discr_variables(2)}), ': LAT', region, ' Rejected null hyp (different mean)'))
+        % % end
+        % % 
+        % % clear y groups_anova
     
     end
     clear i j region
@@ -488,7 +488,7 @@ title("Correlation HC age, weight, height,  np test + mcatot")
 covariates_to_save_hc = [];
 for i =1:size(R_corr_matrix_hc,1)
     for j = 1:size(R_corr_matrix_hc,2)
-        if p_corr_hc(i,j) < 0.05 && R_corr_matrix_hc(i,j) > 0.5
+        if p_corr_hc(i,j) < 0.05 && R_corr_matrix_hc(i,j) > 0.85
                 if (j < (size(R_corr_matrix_hc,1) -3)) && (i > (size(R_corr_matrix_hc,1) -3)) 
                     disp([covariates_hc.Properties.VariableNames{i}, ' correlated with ', covariates_hc.Properties.VariableNames{j}])
                     covariates_to_save_hc = [covariates_to_save_hc,  convertCharsToStrings(covariates_hc.Properties.VariableNames{j})];
@@ -536,15 +536,15 @@ covariates_hc = table2array(covariates_hc(:,contains(covariates_hc.Properties.Va
 
 figure
 subplot(131)
-model_caud_hc = fitlm(covariates_hc,NOT_ABS.LATERALIZATION_coeff.CAUDATE.HC);
+model_caud_hc = fitlm(covariates_hc,NOT_ABS.LATERALIZATION_coeff.CAUDATE.HC,'interactions');
 plot(model_caud_hc)
 
 subplot(132)
-model_put_hc = fitlm(covariates_hc,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.HC);
+model_put_hc = fitlm(covariates_hc,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.HC,'interactions');
 plot(model_put_hc)
 
 subplot(133)
-model_put_ant_hc = fitlm(covariates_hc,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.HC);
+model_put_ant_hc = fitlm(covariates_hc,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.HC,'interactions');
 plot(model_put_ant_hc)
 
 
@@ -578,22 +578,6 @@ anova_put_pd = anova(model_put_pd,'summary');
 anova_put_ant_pd = anova(model_put_ant_pd,'summary');
 
 %% SIMPTOMS LATERALITY INDEX
-
-%while model_caud_pd.Rsquared.Ordinary < 0.2
-
-% for i =1:size(covariates_pd,2)
-%     for j =1:size(covariates_pd,2)
-%          a = covariates_pd(:,i:j);
-%          model_caud_pd = fitlm(covariates_pd,LATERALIZATION_coeff.CAUDATE.PD);
-%          if model_caud_pd.Rsquared.Ordinary > 0.2
-%              disp([i,' ',j,' ', model_caud_pd.Rsquared.Ordinary])
-%          end
-%     end
-% end
-% %end
-
-
-
 
 
 
@@ -655,3 +639,19 @@ anova_put_ant_pd = anova(model_put_ant_pd,'summary');
 % fields = fieldnames(idx_samples.npTEST_101);
 % idx_samples.npTEST_101 = rmfield(idx_samples.npTEST_101, fields(structfun(@isempty, idx_samples.npTEST_101)));
 % % Remove 101
+
+%while model_caud_pd.Rsquared.Ordinary < 0.2
+
+% for i =1:size(covariates_pd,2)
+%     for j =1:size(covariates_pd,2)
+%          a = covariates_pd(:,i:j);
+%          model_caud_pd = fitlm(covariates_pd,LATERALIZATION_coeff.CAUDATE.PD);
+%          if model_caud_pd.Rsquared.Ordinary > 0.2
+%              disp([i,' ',j,' ', model_caud_pd.Rsquared.Ordinary])
+%          end
+%     end
+% end
+% %end
+
+
+
