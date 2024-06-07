@@ -98,6 +98,11 @@ end
 idx_nan.HC.ENROLL_AGE = find(isnan(data_hc.ENROLL_AGE));
 clear i idx_nan_temp datscan_date datscan_year birth_date birth_year
 
+%% ANALYSIS AVERAGE DEMOGRAPHIC
+
+
+
+
 
 %%   Decide what to remove
 % Remove from idx_nan empty fields -------- PD

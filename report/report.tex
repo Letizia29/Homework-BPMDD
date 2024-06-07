@@ -33,12 +33,12 @@ formulate and motivate study hypotheses
 
 Parkinson's disease is a chronic neurodegenerative disorder of the central nervous system primarily affecting motor control. It is characterized by the progressive loss of nerve cells in the brain region called the substantia nigra, which is responsible for producing a neurotransmitter called dopamine. Dopamine deficiency leads to motor symptoms such as tremors, muscle rigidity, bradykinesia (slowness of movement), and postural instability. In addition to motor symptoms, Parkinson's disease can cause a wide range of non-motor symptoms including sleep problems, depression, anxiety, fatigue, and cognitive difficulties. While the exact cause of Parkinson's disease is not fully understood, it is believed to result from a combination of genetic and environmental factors \cite{beitz_parkinsons_2014}. Currently, there is no cure for Parkinson's disease, but there are treatments available to manage symptoms and improve the patients’ quality of life.  However, studies conducted in recent years have shown that the lateralization of brain dopamine in Parkinson's disease (PD) is a significant and distinctive aspect of the pathology. In particular, during its development, the degeneration of dopaminergic neurons in the substantia nigra is not uniform. Generally, one side of the brain is more affected than the other, leading to marked asymmetry. This marked asymmetry is visible not only in motor symptoms, such as more pronounced tremors on one side of the body and greater use of one hand over the other, but it can also be evident in non-motor disturbances, including cognitive issues for example in the sleep behavior and or sense of smell \cite{riederer_lateralisation_2018}. 
 \newline
-The aim of this study is to analyze a dataset containing information about patients' motor and cognitive symptoms and also their lateralization data obtained from DAT-SPECT scans. The dopamine degeneration is explored in 3 different brain areas, divided in right and left: Caudate, Putamen and Putamen Anterior. This analysis aims to investigate the relationship (if present) between the lateralization of dopamine function in these brain areas and the symptoms showed by Parkinson's patients.
+The aim of this study is to analyze a dataset containing information about patients' motor and cognitive symptoms and also their lateralization data obtained from DAT-SPECT scans. The dopamine degeneration is explored in three different Regions of Interests (ROIs) in the brain, divided in right and left: Caudate, Putamen and Putamen Anterior. This analysis aims to investigate the relationship (if present) between the lateralization of dopamine function in these brain areas and the symptoms showed by Parkinson's patients, and relationship (if present) between the lateralization of dopamine function in these brain areas and possible covariates showed by healthy controls.
 \newline
-The group expected to find a strong relation between the dopamine lateralization and the motor symptoms. Also the lateralization in the different areas of the brain was expected to be related: a high lateralization in the Caudate was expected if both Putamen and Putamen Anterior were highly lateralized. Another preliminary consideration concerned the lateralization of symptoms, which were expected to follow the dopamine lateralization. 
+The group expected to find a strong relation between the dopamine lateralization and the motor symptoms. Also the lateralization in different ROIs was expected to be related: a high lateralization in the Caudate was expected if both Putamen and Putamen Anterior were highly lateralized. Another preliminary consideration concerned the lateralization of symptoms, which were expected to follow the dopamine lateralization. 
 
 \textcolor{red}{ADD RESULTS, ADD REFERENCES FOR HYPOTHESES/AIM OF THE STUDY}
-
+- Results: c'è relazione ? fit è ok. per hc non tanto
 
 \section{Material and Methods}
 
@@ -50,6 +50,7 @@ The group expected to find a strong relation between the dopamine lateralization
 	portal). Please note that only individual with baseline DAT imaging 
 	where included.
 \newline
+
 	- The main target regions are Caudate and Putamen, quantified as 
 	Signal Binding Ration (i.e. DATSCAN PUTAMEN L/R and 
 	DATSCAN CAUDATE L/R)
@@ -64,18 +65,33 @@ The group expected to find a strong relation between the dopamine lateralization
 	
 The dataset used in this study was composed of 1556 subjects, of which 256 healthy controls and 1300 PD patients with different levels of symptoms' severity. Not all the variables given were interesting for the study aim, for example, all the data regarding the MRI acquisitions were discarded, because the analysis focused on the data from the DAT-SPECT scans. 
 \newline
-The dataset included a part of demographics data, like age, ethnicity, gender, familiarity with PD, height, weight and dominant hand. There was then the data regarding the neuropsychological assessments of the patients, a series of questions with scaled multiple answers. The test was divided in 4 parts, concerning different classes of motor and cognitive symptoms, as specified in the PPMI Program Protocols (https://www.ppmi-info.org/sites/default/files/docs/v6.0\_IMPLEMENTED\_PPMI\%20Online\%20PROs\_14Apr2023.pdf). ()O MEGLIO VD. ARTICOLO DRIVE: The Progression of Parkinson...) Each answer could range from 0 (normal) to 4 (severe), and for each part there was a summing-up variable, that contained the sum of all the scores of that section. Some motor symptoms, especially in the third part, were divided in right and left. This was useful to investigate the different relation with the dopamine function lateralization.
+The dataset included a part of demographics data, like age, ethnicity, gender, family members affected by PD, height, weight and dominant hand.
+A total of 967 and 596 patients were males and females, respectively. The average age in the baseline was 61.11 ± 9.93 years (range [32.19–84.89]). 
+
+There was then the data regarding the neuropsychological assessments of the patients using the Movement Disorder Society (MDS)-sponsored revision of the Unified Parkinson's Disease Rating Scale (MDS-UPDRS). The test is divided in 4 parts, concerning different classes of motor and cognitive symptoms, as specified in the PPMI Program Protocols (https://www.ppmi-info.org/sites/default/files/docs/v6.0\_IMPLEMENTED\_PPMI\%20Online\%20PROs\_14Apr2023.pdf). ()O MEGLIO VD. ARTICOLO DRIVE: The Progression of Parkinson...) Each answer could range from 0 (normal) to 4 (severe), and for each part there was a summing-up variable, that contained the sum of all the scores of that section. Some motor symptoms, especially in the third part, were divided in right and left. This was useful to investigate the different relation with the dopamine function lateralization.
 \newline
 
 Più aggiungere forse grafici con distribuzioni variabili iniziali, tipo grafici lateralizzazione
-
+\subsection{Cleaning e preprocessing}
+Che dati abbiamo escluso, perchè + MISSING DATA  e come li abbiamo trattati
+++ GRAFICO missing data (spiegazione parte di R)
+Abbiamo controllato che i hc e pd fossero simili (stessa pop di m/f età etc)
+\subsection{Statistical methods}
+2- Che statistiche abbiamo usato, perchè
+Anova per vedere se c'è diff tra hc e pd [forse è meglio sostituire con wilxcon?]
+\subsection{Feature extraction}
+- Come abbiamo trovato il lateralization index [REFERENCE]
+- Matrice di correlazione
+in base alla matrice di correlazione ->  scelto le variabili più significative
+\subsection{Linear regression}
+IMMAGINE linear regression + descrizione statistiche 
 
 \section{Results}
 
 - A clear and concise description of the statistical results 
 providing answers to the research questions
 \newline
-- A sensitivity analysis of the results to covariates, group  matching and data quality (e.g. missing data, data miss balance)
+- A sensitivity analysis of the results to covariates, group matching and data quality (e.g. missing data, data miss balance)
 
 \section{Discussion}
 
