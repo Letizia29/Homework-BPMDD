@@ -75,6 +75,51 @@
     \field{year}{2014}
   \endentry
 
+  \entry{pirker_correlation_2003}{article}{}
+    \name{author}{1}{}{%
+      {{hash=PW}{%
+         family={Pirker},
+         familyi={P\bibinitperiod},
+         given={Walter},
+         giveni={W\bibinitperiod},
+      }}%
+    }
+    \list{language}{1}{%
+      {en}%
+    }
+    \strng{namehash}{PW1}
+    \strng{fullhash}{PW1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{sortinit}{P}
+    \field{sortinithash}{P}
+    \verb{doi}
+    \verb 10.1002/mds.10579
+    \endverb
+    \field{issn}{0885-3185, 1531-8257}
+    \field{number}{S7}
+    \field{pages}{S43\bibrangedash S51}
+    \field{shorttitle}{Correlation of dopamine transporter imaging with
+  parkinsonian motor handicap}
+    \field{title}{Correlation of dopamine transporter imaging with parkinsonian
+  motor handicap: {How} close is it?}
+    \verb{url}
+    \verb https://onlinelibrary.wiley.com/doi/10.1002/mds.10579
+    \endverb
+    \field{volume}{18}
+    \verb{file}
+    \verb Pirker - 2003 - Correlation of dopamine transporter imaging with p.pd
+    \verb f:C\:\\Users\\bened\\Zotero\\storage\\M33NZGM5\\Pirker - 2003 - Corre
+    \verb lation of dopamine transporter imaging with p.pdf:application/pdf
+    \endverb
+    \field{journaltitle}{Movement Disorders}
+    \field{month}{10}
+    \field{year}{2003}
+    \field{urlday}{31}
+    \field{urlmonth}{05}
+    \field{urlyear}{2024}
+  \endentry
+
   \entry{riederer_lateralisation_2018}{article}{}
     \name{author}{6}{}{%
       {{hash=RP}{%
