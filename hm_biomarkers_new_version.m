@@ -201,6 +201,7 @@ end
 
 clear i B TFrm ind_outliers
 
+
 %% IMPORTANT VARIABLES EXTRACTION
 
 %%   Dominant hand division
@@ -377,6 +378,39 @@ LATERALIZATION_coeff.PUTAMEN_ANT.PD = abs(LATERALIZATION_coeff.PUTAMEN_ANT.PD);
 LATERALIZATION_coeff.CAUDATE.HC = abs(LATERALIZATION_coeff.CAUDATE.HC);
 LATERALIZATION_coeff.PUTAMEN.HC = abs(LATERALIZATION_coeff.PUTAMEN.HC);
 LATERALIZATION_coeff.PUTAMEN_ANT.HC = abs(LATERALIZATION_coeff.PUTAMEN_ANT.HC);
+
+%% VISUALISING LATERALIZATION
+difference_caudate_hc = mean(LATERALIZATION_coeff.CAUDATE.HC);
+difference_caudate_pd = mean(LATERALIZATION_coeff.CAUDATE.PD);
+
+difference_putamen_hc = mean(LATERALIZATION_coeff.PUTAMEN.HC);
+difference_putamen_pd = mean(LATERALIZATION_coeff.PUTAMEN.PD);
+
+difference_putamen_ant_hc = mean(LATERALIZATION_coeff.PUTAMEN_ANT.HC);
+difference_putamen_ant_pd = mean(LATERALIZATION_coeff.PUTAMEN_ANT.PD);
+
+difference_hc = [NOT_ABS.LATERALIZATION_coeff.CAUDATE.HC,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.HC,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.HC];
+difference_pd = [NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.PD,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.PD];
+
+figure
+histogram(difference_hc,'Normalization','countdensity') 
+hold on
+% ylim([-0.8, 0.8])
+% pd
+% boxchart(difference_pd, 'MarkerStyle', 'none', 'BoxFaceColor', 'r')
+histogram(difference_pd,'Normalization','countdensity')
+% visualization
+% view(-90,90)
+% xlabel('ROIs')
+% ylabel('DAT difference')
+% ylim([-0.8, 0.8])
+title('Difference DAT_{left} - DAT_{right} for HC and PD')
+% xticklabels({'Caudate','Putamen','Putamen Anterior'})
+% yline(0)
+legend('HC','PD')
+
+
+
 
 
 %% STATISTICAL ANALYSIS 
