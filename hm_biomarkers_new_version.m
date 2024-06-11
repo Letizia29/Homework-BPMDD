@@ -179,6 +179,8 @@ data_hc(find(data_pd.DATSCAN_QUALITY_RATING==3),:) = [];
 data_pd(find(data_pd.DATSCAN==0),:) = [];
 data_hc(find(data_pd.DATSCAN==0),:) = [];
 
+%%    - Remove HC patients with abnormal MoCA scores
+data_hc(find(data_hc.MCATOT < 26),:) = [];
 
 %% MANAGING OUTLIERS (Box plots)
 % remove outliers from both PD nad HC for demographics data
