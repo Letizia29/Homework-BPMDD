@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.5.30)  11 JUN 2024 14:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.5.30)  11 JUN 2024 16:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -244,17 +244,33 @@ Package: multicol 2023/03/30 v1.9f multicolumn formatting (FMi)
 \colbreak@box=\box96
 \mc@col@check@num=\count282
 )
-(C:\Users\letiz\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
+(C:\Users\letiz\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+
+(C:\Users\letiz\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
+Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
+
+(C:\Users\letiz\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+)
+(C:\Users\letiz\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.c
+fg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 107.
+
+(C:\Users\letiz\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
+File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen154
+\Gin@req@width=\dimen155
+) (C:\Users\letiz\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
 Package: xcolor 2023/11/15 v3.01 LaTeX color extensions (UK)
 
 (C:\Users\letiz\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: pdftex.def on input line 274.
-
-(C:\Users\letiz\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
-File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
-)
 (C:\Users\letiz\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.ltx)
 Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1350.
 Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1354.
@@ -531,14 +547,14 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@cnth=\count410
 \Gm@cntv=\count411
 \c@Gm@tempcnt=\count412
-\Gm@bindingoffset=\dimen154
-\Gm@wd@mp=\dimen155
-\Gm@odd@mp=\dimen156
-\Gm@even@mp=\dimen157
-\Gm@layoutwidth=\dimen158
-\Gm@layoutheight=\dimen159
-\Gm@layouthoffset=\dimen160
-\Gm@layoutvoffset=\dimen161
+\Gm@bindingoffset=\dimen156
+\Gm@wd@mp=\dimen157
+\Gm@odd@mp=\dimen158
+\Gm@even@mp=\dimen159
+\Gm@layoutwidth=\dimen160
+\Gm@layoutheight=\dimen161
+\Gm@layouthoffset=\dimen162
+\Gm@layoutvoffset=\dimen163
 \Gm@dimlist=\toks18
 
 (C:\Users\letiz\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg))
@@ -547,25 +563,25 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 (report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-Package hyperref Info: Link coloring OFF on input line 12.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+Package hyperref Info: Link coloring OFF on input line 14.
  (report.out) (report.out)
 \@outlinefile=\write4
 \openout4 = `report.out'.
@@ -575,17 +591,27 @@ Package hyperref Info: Link coloring OFF on input line 12.
 ii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count415
-\scratchdimen=\dimen162
+\scratchdimen=\dimen164
 \scratchbox=\box98
 \nofMPsegments=\count416
 \nofMParguments=\count417
 \everyMPshowfont=\toks19
 \MPscratchCnt=\count418
-\MPscratchDim=\dimen163
+\MPscratchDim=\dimen165
 \MPnumerator=\count419
 \makeMPintoPDFobject=\count420
 \everyMPtoPDFconversion=\toks20
 )
+(C:\Users\letiz\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
+ase.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(C:\Users\letiz\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.c
+fg
+File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
+))
 Package biblatex Info: Trying to load language 'english'...
 Package biblatex Info: ... file 'english.lbx' found.
 
@@ -604,8 +630,8 @@ Package biblatex Info: Data encoding 'utf8' specified.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'report.bbl' found.
  (report.bbl)
-Package biblatex Info: Reference section=0 on input line 12.
-Package biblatex Info: Reference segment=0 on input line 12.
+Package biblatex Info: Reference section=0 on input line 14.
+Package biblatex Info: Reference segment=0 on input line 14.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -642,34 +668,56 @@ Package biblatex Info: Reference segment=0 on input line 12.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 15.
+(Font)              <12> on input line 17.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 15.
+(Font)              <8> on input line 17.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 15.
+(Font)              <6> on input line 17.
 
-Underfull \hbox (badness 10000) in paragraph at lines 19--23
+Underfull \hbox (badness 10000) in paragraph at lines 21--25
 
  []
 
 [1
 
 {C:/Users/letiz/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 40--46
+Underfull \hbox (badness 10000) in paragraph at lines 46--48
 
  []
 
+<../missing_patterns_HC.png, id=59, 738.50906pt x 286.82156pt>
+File: ../missing_patterns_HC.png Graphic file (type png)
+<use ../missing_patterns_HC.png>
+Package pdftex.def Info: ../missing_patterns_HC.png  used on input line 64.
+(pdftex.def)             Requested size: 289.07999pt x 112.27135pt.
+<../missing_patterns_PD.png, id=60, 738.50906pt x 286.82156pt>
+File: ../missing_patterns_PD.png Graphic file (type png)
+<use ../missing_patterns_PD.png>
+Package pdftex.def Info: ../missing_patterns_PD.png  used on input line 69.
+(pdftex.def)             Requested size: 289.07999pt x 112.27135pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 64--66
+LaTeX Warning: `h' float specifier changed to `ht'.
 
- []
+<../HC_missing_values.png, id=61, 738.50906pt x 432.11438pt>
+File: ../HC_missing_values.png Graphic file (type png)
+<use ../HC_missing_values.png>
+Package pdftex.def Info: ../HC_missing_values.png  used on input line 76.
+(pdftex.def)             Requested size: 173.44756pt x 101.48755pt.
+<../PD_missing_values.png, id=62, 738.50906pt x 432.11438pt>
+File: ../PD_missing_values.png Graphic file (type png)
+<use ../PD_missing_values.png>
+Package pdftex.def Info: ../PD_missing_values.png  used on input line 81.
+(pdftex.def)             Requested size: 173.44756pt x 101.48755pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
 
 [2]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 100.
+(Font)              <7> on input line 126.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 100.
- [3] (report.aux)
+(Font)              <5> on input line 126.
+ [3 <../missing_patterns_HC.png> <../missing_patterns_PD.png>] [4 <../HC_missin
+g_values.png> <../PD_missing_values.png>] (report.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
@@ -681,13 +729,13 @@ Package logreq Info: Writing requests to 'report.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 16466 strings out of 474486
- 291813 string characters out of 5743755
+ 16888 strings out of 474486
+ 299711 string characters out of 5743755
  1942542 words of memory out of 5000000
- 38599 multiletter control sequences out of 15000+600000
+ 38997 multiletter control sequences out of 15000+600000
  563773 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,6n,81p,1902b,1345s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,6n,81p,1902b,1479s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\letiz\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
 1000.pk><C:/Users/letiz/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
 ts/cm/cmbx12.pfb><C:/Users/letiz/AppData/Local/Programs/MiKTeX/fonts/type1/publ
@@ -700,9 +748,9 @@ ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/let
 iz/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/
 Users/letiz/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10
 .pfb>
-Output written on report.pdf (3 pages, 149913 bytes).
+Output written on report.pdf (4 pages, 185851 bytes).
 PDF statistics:
- 124 PDF objects out of 1000 (max. 8388607)
- 17 named destinations out of 1000 (max. 500000)
- 73 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 143 PDF objects out of 1000 (max. 8388607)
+ 22 named destinations out of 1000 (max. 500000)
+ 93 words of extra memory for PDF output out of 10000 (max. 10000000)
 

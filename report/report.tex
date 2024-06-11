@@ -1,6 +1,8 @@
 \documentclass[]{article}
 \usepackage{hyperref}
 \usepackage{multicol}
+\usepackage{graphicx}
+
 \usepackage{xcolor}
 \setlength{\columnsep}{0.7cm}
 \usepackage[backend=bibtex]{biblatex}
@@ -36,36 +38,60 @@ Agreeing with what found in \cite{pirker_correlation_2003}, the group expected t
 \section{Material and Methods}
 
 \subsection{Dataset description}
-
-- Dataset:
-\newline
-	- Provide a summary of the dataset (refers to data files and PPMI
-	portal). Please note that only individual with baseline DAT imaging 
-	where included.
-\newline
-
-	- The main target regions are Caudate and Putamen, quantified as 
-	Signal Binding Ration (i.e. DATSCAN PUTAMEN L/R and 
-	DATSCAN CAUDATE L/R)
-\newline
-- Research methods:
-\newline
-	- Provide a description of the methodology used to answer the research 
-	questions. 
-	\newline
-	- Provide an extensive and motivated description of statistical analysis plan, including the metrics used to assess the biomarker 
-	performances
-	
-The dataset used in this study was composed of 1556 subjects, of which 256 healthy controls and 1300 PD patients with different levels of symptoms' severity. Not all the variables given were interesting for the study aim, for example, all the data regarding the MRI acquisitions were discarded, because the analysis focused on the data from the DAT-SPECT scans. 
+The dataset used in this study was composed of 1556 subjects, of which 256 healthy controls and 1300 PD patients with different levels of symptoms' severity. Not all the variables given were interesting for the study. For example, all the data regarding the MRI acquisitions were discarded, because the analysis focused on the data from the DAT-SPECT scans, which were Striatal Binding Ratios (SBR) of the three ROIs (right and left sides), whether the scan was completed and its quality based on visual interpretation, as well as information regardind the date of the scan and the injection. 
 \newline
 The dataset included a part of demographics data, like age, ethnicity, gender, family members affected by PD, height, weight and dominant hand.
 A total of 967 and 589 patients were males and females, respectively. The average age in the baseline was 62.69 ± 10.11 years (range [29.3–86.5]). 
 
-There was then the data regarding the neuropsychological assessments of the patients using the Movement Disorder Society (MDS)-sponsored revision of the Unified Parkinson's Disease Rating Scale (MDS-UPDRS). The test is divided in 4 parts, concerning different classes of motor and cognitive symptoms, as specified in the PPMI Program Protocols . (O MEGLIO VD. ARTICOLO DRIVE: The Progression of Parkinson...) Each answer could range from 0 (normal) to 4 (severe), and for each part there was a summing-up variable, that contained the sum of all the scores of that section. Some motor symptoms, especially in the third part, were divided in right and left. This was useful to investigate the different relation with the dopamine function lateralization.
+There was then the data regarding the neuropsychological assessments of the patients using the Movement Disorder Society (MDS)-sponsored revision of the Unified Parkinson's Disease Rating Scale (MDS-UPDRS). The test is divided in 4 parts, concerning different classes of motor and cognitive symptoms, as specified in the PPMI Program Protocols (THE PARKINSON'S PROGRESSION...). Each answer could range from 0 (normal) to 4 (severe), and for each part there was a summing-up variable, that contained the sum of all the scores of that section. Some motor symptoms, especially in the third part, were divided in right and left, for example, the severity of tremor of the right or left upper limb. This was useful to investigate the different relation with the dopamine function lateralization.
 \newline
 
 Più aggiungere forse grafici con distribuzioni variabili iniziali, tipo grafici lateralizzazione
+
 \subsection{Cleaning e preprocessing}
+
+The first step was dividing the dataset in patients (PD, SWEDD, Prodromal) and HC.
+
+In the preprocessing of the data, the patterns of missing values were analyzed, to determine the best course of action, through the VIM package in R.
+
+In the HC, as shown in figure \ref{fig:missing_patterns_HC}, GENETICS and FAMILIARITY are mostly empty fields, due to the nature of these variables: for healthy subjects, the chance of having relatives with a PD diagnosis and of having genetics history related to PD are low. NP4TOT is missing at the TOT \%, following the same pattern of the PD patients (figure \ref{fig:missing_patterns_PD}). This suggests that the fourth part of the test was taken by a few subjects. For this reason, the NP4 variables were not taken into account in the statistical analysis.
+
+\end{multicols}
+
+\begin{figure}[h]
+
+	\centering
+	\includegraphics[width=4in]{../missing_patterns_HC}
+	\caption{Pattern of missing values in HC}
+	\label{fig:missing_patterns_HC}
+
+	\centering
+	\includegraphics[width=4in]{../missing_patterns_PD}
+	\caption{Pattern of missing values in PD}
+	\label{fig:missing_patterns_PD}
+	
+\end{figure} 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=2.4in]{../HC_missing_values}
+	\caption{Missing values in HC}
+	\label{fig:HC_missing_values}
+	
+	\centering
+	\includegraphics[width=2.4in]{../PD_missing_values}
+	\caption{Missing values in PD}
+	\label{fig:PD_missing_values}
+
+\end{figure} 
+
+
+\begin{multicols}{2}
+
+
+The missing data in the ENROLL\_AGE variable was computed using the DAT-SCAN date and the birth date of the subject.
+
+
+
 Che dati abbiamo escluso, perchè + MISSING DATA  e come li abbiamo trattati
 ++ GRAFICO missing data (spiegazione parte di R)
 Abbiamo controllato che i hc e pd fossero simili (stessa pop di m/f età etc)
