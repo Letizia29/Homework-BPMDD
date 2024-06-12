@@ -99,23 +99,27 @@ In figures \ref{fig:HC_missing_values} and \ref{fig:PD_missing_values}, all the 
 
 \begin{multicols}{2}
 
-Another reason of exclusion from the analysis, was having an incomplete DAT-SCAN, a scan with poor quality, or, just for HC, a MoCA (Montreal Cognitive Assessment) score lower than 26. This test assesses the cognitive impairment, and, under 26, the subjects couldn't be considered healthy. 
+Another reason of exclusion from the analysis, was having an incomplete DAT-SCAN, a scan with poor quality, or, just for HC, a MoCA (Montreal Cognitive Assessment - stored in the variable MCATOT), score lower than 26. This test assesses the cognitive impairment, and, under 26, the subjects couldn't be considered healthy. 
 
 The preprocessing step ended with the removal of some outliers from ENROLL\_AGE, HEIGHT and WEIGHT. (DA CONTROLLARE)
 
-Concerning the demographics data, the two datasets were compared, to see if they had the same distributions. The average values of age, height and weight were similar for the two groups, as well as the proportion of male and female was comparable. 
+Concerning the demographics data, the two datasets were compared, to see if they had the same distributions. Through the Anova test, the average values of age, height and weight were found identical for the two groups. The proportion of male and female was comparable: in the whole dataset, the proportion of females was 37,85\%, while in PD was 38,5\% and in HC 34,37\%. 
 
-(Abbiamo controllato che i hc e pd fossero simili (stessa pop di m/f età etc))
+The distribution of ETHNICITY was also found similar between the two groups, while FAMILIARITY and HAND were significant different in the two populations when analyzed through a Wilcoxon test. The differences in FAMILIARITY can be explained by the connection between PD patients and the genetic components in the disease: for a PD patient, it's more likely to have some relatives affected by PD, than for an healthy subject. 
 
 
 \subsection{Feature extraction}
 
 In order to perform the statistical analysis to answer the study questions, the relevant features were extracted. 
 
-From the lateralization data, the group used a DAT binding asymmetry index found in \cite{kaasinen_ipsilateral_2016}: (right - left SBR)/(right + left SBR).
+From the lateralization data, the group used a DAT binding asymmetry index found in \cite{kaasinen_ipsilateral_2016}: (right - left SBR)/(right + left SBR). The lateralization was considered relevant when the asymmetry index was higher than 20\%.
+This threshold level was adopted from a previous study \cite{}.
+
+This reasoning allowed the removal of some subjects not having a significant lateralization, and therefore the analysis was carried out with TOT subjects. 
+
+Through the Pearson pairwise correlation, the group analysed the correlation coefficients of the relevant variables, such as all the NP tests, ENROLL\_AGE, WEIGHT, HEIGHT, and MCATOT, with the lateralization index. For the analysis, were kept only the significant ones, with p-value < 0.05, and correlation coefficient higher than 0.5.
 
 
-- Come abbiamo trovato il lateralization index [REFERENCE]
 - Matrice di correlazione
 in base alla matrice di correlazione ->  scelto le variabili più significative
 
@@ -135,6 +139,9 @@ providing answers to the research questions
 - A sensitivity analysis of the results to covariates, group matching and data quality (e.g. missing data, data miss balance)
 
 \section{Discussion}
+
+HC differenza significativa con PD grazie all'indice <20 
+
 
 - Direct answers to the research questions
 \newline
