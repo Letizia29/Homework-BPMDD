@@ -2,7 +2,6 @@
 \usepackage{hyperref}
 \usepackage{multicol}
 \usepackage{graphicx}
-\usepackage{subfigure}
 \usepackage{xcolor}
 \setlength{\columnsep}{0.7cm}
 \usepackage[backend=bibtex]{biblatex}
@@ -43,7 +42,7 @@ The dataset used in this study was composed of 1556 subjects, of which 256 healt
 The dataset included a part of demographics data, like age, ethnicity, gender, family members affected by PD, height, weight and dominant hand.
 A total of 967 and 589 patients were males and females, respectively. The average age in the baseline was 62.69 ± 10.11 years (range [29.3–86.5]). 
 
-There was then the data regarding the neuropsychological assessments of the patients using the Movement Disorder Society (MDS)-sponsored revision of the Unified Parkinson's Disease Rating Scale (MDS-UPDRS). The test is divided in 4 parts, concerning different classes of motor and cognitive symptoms, as specified in the PPMI Program Protocols (THE PARKINSON'S PROGRESSION...). Each answer could range from 0 (normal) to 4 (severe), and for each part there was a summing-up variable, that contained the sum of all the scores of that section. Some motor symptoms, especially in the third part, were divided in right and left, for example, the severity of tremor of the right or left upper limb. This was useful to investigate the different relation with the dopamine function lateralization.
+There was then the data regarding the neuropsychological assessments of the patients using the Movement Disorder Society (MDS)-sponsored revision of the Unified Parkinson's Disease Rating Scale (MDS-UPDRS). The test is divided in 4 parts, concerning different classes of motor and cognitive symptoms, as specified in the PPMI Program Protocols (THE PARKINSON'S PROGRESSION...). Each answer could range from 0 (normal) to 4 (severe), and for each part there was a summing-up variable, that contained the sum of all the scores of that section. These variables were called NP1PTOT, NP1RTOT, NP2TOT, NP3TOT, NP4TOT. Some motor symptoms, especially in the third part, were divided in right and left, for example, the severity of tremor of the right or left upper limb. This was useful to investigate the different relation with the dopamine function lateralization.
 \newline
 
 Più aggiungere forse grafici con distribuzioni variabili iniziali, tipo grafici lateralizzazione
@@ -54,7 +53,20 @@ The first step was dividing the dataset in patients (PD, SWEDD, Prodromal) and H
 
 In the preprocessing of the data, the patterns of missing values were analyzed, to determine the best course of action, through the VIM package in R.
 
-In the HC, as shown in figure \ref{fig:missing_patterns_HC}, GENETICS and FAMILIARITY are mostly empty fields, due to the nature of these variables: for healthy subjects, the chance of having relatives with a PD diagnosis and of having genetics history related to PD are low. On the opposite, for PD patients (figure \ref{fig:missing_patterns_PD}),  NP4TOT is missing at the 73.9\%, following the same pattern of the PD patients (figure \ref{fig:missing_patterns_PD}). This suggests that the fourth part of the test was taken by a few subjects. For this reason, the NP4 variables were not taken into account in the statistical analysis.
+In the HC, as shown in figure \ref{fig:missing_patterns_HC}, GENETICS and FAMILIARITY are mostly empty fields, due to the nature of these variables: for healthy subjects, the chance of having relatives with a PD diagnosis and of having genetics history related to PD are low. On the opposite, for PD patients (figure \ref{fig:missing_patterns_PD}), GENETICS is empty at the TOT \%, while FAMILIRITY has the TOT \% of NaNs. The reason for this missingness, is probably that patients didn't know if their relatives had history of Parkinson's, or they didn't take the genetics test. 
+
+In the complete dataset, NP4TOT is missing at the 73.9\%; nearly all the HC didn't take the fourth part of the test, and also the participation of the PD was really low. This suggests that the fourth part of the test was taken by a few subjects. For this reason, the NP4 variables were not taken into account in the statistical analysis.
+
+For all the test-related variables (NP1PTOT, NP1RTOT, NP2TOT, NP3TOT), both in HC and PD, if a subject is missing a value for one test, also the other tests' results are missing. The pattern of missing data is considered to be MAR (Missingness At Random). For the statistical analysis, all the subjects that were missing at least one test result weren't considered.  
+
+For ETHNICITY, SEX, and HAND (dominant hand of the subject), there aren't missing valules in the whole dataset. In the ENROLL\_AGE variable, the missing values were calculated using the DAT-SCAN date and the birth date of the subject.
+
+Regarding HEIGHT and WEIGHT, the pattern of missing data is MAR, with a total of TOT \% of NaNs. 
+
+The variable PRIM\_DIAG described the primary diagnosis; the group found some subjects with the value of 97, that wasn't explained by the data dictionary, therefore it was removed both from the HC and from the PD. 
+
+In figures \ref{fig:HC_missing_values} and \ref{fig:PD_missing_values}, all the combinations of missing values of the dataset have been represented, using the VIM package in R.
+
 
 \end{multicols}
 
@@ -87,21 +99,31 @@ In the HC, as shown in figure \ref{fig:missing_patterns_HC}, GENETICS and FAMILI
 
 \begin{multicols}{2}
 
+Another reason of exclusion from the analysis, was having an incomplete DAT-SCAN, a scan with poor quality, or, just for HC, a MoCA (Montreal Cognitive Assessment) score lower than 26. This test assesses the cognitive impairment, and, under 26, the subjects couldn't be considered healthy. 
 
-The missing data in the ENROLL\_AGE variable was computed using the DAT-SCAN date and the birth date of the subject.
+The preprocessing step ended with the removal of some outliers from ENROLL\_AGE, HEIGHT and WEIGHT. (DA CONTROLLARE)
+
+Concerning the demographics data, the two datasets were compared, to see if they had the same distributions. The average values of age, height and weight were similar for the two groups, as well as the proportion of male and female was comparable. 
+
+(Abbiamo controllato che i hc e pd fossero simili (stessa pop di m/f età etc))
 
 
-
-Che dati abbiamo escluso, perchè + MISSING DATA  e come li abbiamo trattati
-++ GRAFICO missing data (spiegazione parte di R)
-Abbiamo controllato che i hc e pd fossero simili (stessa pop di m/f età etc)
-\subsection{Statistical methods}
-2- Che statistiche abbiamo usato, perchè
-Anova per vedere se c'è diff tra hc e pd [forse è meglio sostituire con wilxcon?]
 \subsection{Feature extraction}
+
+In order to perform the statistical analysis to answer the study questions, the relevant features were extracted. 
+
+From the lateralization data, the group used a DAT binding asymmetry index found in \cite{kaasinen_ipsilateral_2016}: (right - left SBR)/(right + left SBR).
+
+
 - Come abbiamo trovato il lateralization index [REFERENCE]
 - Matrice di correlazione
 in base alla matrice di correlazione ->  scelto le variabili più significative
+
+
+\subsection{Statistical methods}
+2- Che statistiche abbiamo usato, perchè
+Anova per vedere se c'è diff tra hc e pd [forse è meglio sostituire con wilxcon?]
+
 \subsection{Linear regression}
 IMMAGINE linear regression + descrizione statistiche 
 
