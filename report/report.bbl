@@ -75,6 +75,107 @@
     \field{year}{2014}
   \endentry
 
+  \entry{fiorenzato_asymmetric_2021}{article}{}
+    \name{author}{5}{}{%
+      {{hash=FE}{%
+         family={Fiorenzato},
+         familyi={F\bibinitperiod},
+         given={Eleonora},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=AA}{%
+         family={Antonini},
+         familyi={A\bibinitperiod},
+         given={Angelo},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=BP}{%
+         family={Bisiacchi},
+         familyi={B\bibinitperiod},
+         given={Patrizia},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=WL}{%
+         family={Weis},
+         familyi={W\bibinitperiod},
+         given={Luca},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=BR}{%
+         family={Biundo},
+         familyi={B\bibinitperiod},
+         given={Roberta},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \list{language}{1}{%
+      {en}%
+    }
+    \strng{namehash}{FE+1}
+    \strng{fullhash}{FEAABPWLBR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{F}
+    \field{sortinithash}{F}
+    \field{abstract}{%
+    ABSTRACT Background Asymmetric hemispheric loss of dopaminergic neurons is
+  one of the characteristic features of Parkinson's disease (PD). However, it
+  is still debated if right or left asymmetry differently affects cognitive and
+  motor progression. Objectives The objective of this study was to investigate,
+  for the first time, the relevance of dopamine transporter (DAT) asymmetry on
+  cognitive and motor manifestations at onset and at 4‐year progression in
+  drug‐naïve PD. Methods From the Parkinson's Progression Markers Initiative
+  multicenter cohort, we identified 249 right‐handed patients with PD with
+  baseline asymmetry greater than 20\% in putamen DAT binding at
+  single‐photon emission computed tomography. A predominant putamen asymmetry
+  was found on the left in 143 patients (PD‐left), and on the right side in
+  106 patients (PD‐right); we compared them with 196 healthy controls.
+  Patients were followed longitudinally (2‐year and 4‐year visits),
+  examining their clinical, cognitive, and imaging data. Results At baseline,
+  the PD‐left group showed worse performance on the Symbol Digit Modality
+  Test, an attention and processing‐speed test, and lower cerebrospinal fluid
+  β‐amyloid levels than the PD‐right group. These differences were
+  maintained at follow‐up, declining over time in both groups. By contrast,
+  the PD‐right group showed greater motor impairment at baseline, which
+  increased over 4 years. Striatal DAT binding decreased over time in both
+  groups, but the PD‐right group showed a steeper decline, particularly
+  during the first 2‐year follow‐up. Putaminal asymmetry assessed at
+  baseline was maintained over time. Conclusions These findings suggest that
+  hemispheric asymmetric dopaminergic denervation influences PD cognitive and
+  motor performance as well as progression. Predominant right hemisphere
+  nigrostriatal dopaminergic loss is associated with greater motor severity,
+  whereas more pronounced left hemisphere denervation affects cognitive
+  manifestations at onset and their progression. © 2021 The Authors. Movement
+  Disorders published by Wiley Periodicals LLC on behalf of International
+  Parkinson and Movement Disorder Society%
+    }
+    \verb{doi}
+    \verb 10.1002/mds.28682
+    \endverb
+    \field{issn}{0885-3185, 1531-8257}
+    \field{number}{10}
+    \field{pages}{2303\bibrangedash 2313}
+    \field{title}{Asymmetric {Dopamine} {Transporter} {Loss} {Affects}
+  {Cognitive} and {Motor} {Progression} in {Parkinson}'s {Disease}}
+    \verb{url}
+    \verb https://movementdisorders.onlinelibrary.wiley.com/doi/10.1002/mds.286
+    \verb 82
+    \endverb
+    \field{volume}{36}
+    \verb{file}
+    \verb Fiorenzato et al. - 2021 - Asymmetric Dopamine Transporter Loss Affec
+    \verb ts Cogni.pdf:C\:\\Users\\bened\\Zotero\\storage\\AQNCX5KI\\Fiorenzato
+    \verb  et al. - 2021 - Asymmetric Dopamine Transporter Loss Affects Cogni.p
+    \verb df:application/pdf
+    \endverb
+    \field{journaltitle}{Movement Disorders}
+    \field{month}{10}
+    \field{year}{2021}
+    \field{urlday}{31}
+    \field{urlmonth}{05}
+    \field{urlyear}{2024}
+  \endentry
+
   \entry{kaasinen_ipsilateral_2016}{article}{}
     \name{author}{1}{}{%
       {{hash=KV}{%

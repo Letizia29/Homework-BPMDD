@@ -380,36 +380,36 @@ LATERALIZATION_coeff.PUTAMEN.HC = abs(LATERALIZATION_coeff.PUTAMEN.HC);
 LATERALIZATION_coeff.PUTAMEN_ANT.HC = abs(LATERALIZATION_coeff.PUTAMEN_ANT.HC);
 
 %% VISUALISING LATERALIZATION
-difference_caudate_hc = mean(LATERALIZATION_coeff.CAUDATE.HC);
-difference_caudate_pd = mean(LATERALIZATION_coeff.CAUDATE.PD);
-
-difference_putamen_hc = mean(LATERALIZATION_coeff.PUTAMEN.HC);
-difference_putamen_pd = mean(LATERALIZATION_coeff.PUTAMEN.PD);
-
-difference_putamen_ant_hc = mean(LATERALIZATION_coeff.PUTAMEN_ANT.HC);
-difference_putamen_ant_pd = mean(LATERALIZATION_coeff.PUTAMEN_ANT.PD);
-
-difference_hc = [NOT_ABS.LATERALIZATION_coeff.CAUDATE.HC,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.HC,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.HC];
-difference_pd = [NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.PD,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.PD];
-
-figure
-histogram(difference_hc,'Normalization','countdensity') 
-hold on
-% ylim([-0.8, 0.8])
-% pd
-% boxchart(difference_pd, 'MarkerStyle', 'none', 'BoxFaceColor', 'r')
-histogram(difference_pd,'Normalization','countdensity')
-% visualization
-% view(-90,90)
-% xlabel('ROIs')
-% ylabel('DAT difference')
-% ylim([-0.8, 0.8])
-title('Difference DAT_{left} - DAT_{right} for HC and PD')
-% xticklabels({'Caudate','Putamen','Putamen Anterior'})
-% yline(0)
-legend('HC','PD')
-
-
+% difference_caudate_hc = mean(LATERALIZATION_coeff.CAUDATE.HC);
+% difference_caudate_pd = mean(LATERALIZATION_coeff.CAUDATE.PD);
+% 
+% difference_putamen_hc = mean(LATERALIZATION_coeff.PUTAMEN.HC);
+% difference_putamen_pd = mean(LATERALIZATION_coeff.PUTAMEN.PD);
+% 
+% difference_putamen_ant_hc = mean(LATERALIZATION_coeff.PUTAMEN_ANT.HC);
+% difference_putamen_ant_pd = mean(LATERALIZATION_coeff.PUTAMEN_ANT.PD);
+% 
+% difference_hc = [NOT_ABS.LATERALIZATION_coeff.CAUDATE.HC,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.HC,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.HC];
+% difference_pd = [NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.PD,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.PD];
+% 
+% figure
+% histogram(difference_hc,'Normalization','countdensity') 
+% hold on
+% % ylim([-0.8, 0.8])
+% % pd
+% % boxchart(difference_pd, 'MarkerStyle', 'none', 'BoxFaceColor', 'r')
+% histogram(difference_pd,'Normalization','countdensity')
+% % visualization
+% % view(-90,90)
+% % xlabel('ROIs')
+% % ylabel('DAT difference')
+% % ylim([-0.8, 0.8])
+% title('Difference DAT_{left} - DAT_{right} for HC and PD')
+% % xticklabels({'Caudate','Putamen','Putamen Anterior'})
+% % yline(0)
+% legend('HC','PD')
+% 
+% 
 
 
 
@@ -547,6 +547,9 @@ xticklabels(covariates_hc.Properties.VariableNames)
 yticks(1:width(covariates_hc))
 yticklabels(covariates_hc.Properties.VariableNames)
 title("Correlation HC age, weight, height,  np test + mcatot")
+ax = gca;
+ax.FontSize = 6;
+axis equal
 
 covariates_to_save_hc = [];
 for i =1:size(R_corr_matrix_hc,1)
@@ -577,7 +580,11 @@ xticks(1:width(covariates_pd))
 xticklabels(covariates_pd.Properties.VariableNames)
 yticks(1:width(covariates_pd))
 yticklabels(covariates_pd.Properties.VariableNames)
-title("Correlation HC age, weight, height,  np test + mcatot")
+title("Correlation PD age, weight, height,  np test + mcatot")
+ax = gca;
+ax.FontSize = 6;
+axis equal
+
 
 covariates_to_save_pd = [];
 for i =1:size(R_corr_matrix_pd,1)
@@ -597,19 +604,37 @@ covariates_to_save_pd  = unique(covariates_to_save_pd);
 %% - HC
 covariates_hc = table2array(covariates_hc(:,contains(covariates_hc.Properties.VariableNames,covariates_to_save_hc)));
 
-figure
+figure(25)
+set(gcf, 'Position', get(0, 'Screensize'));
+
 subplot(131)
 model_caud_hc = fitlm(covariates_hc,NOT_ABS.LATERALIZATION_coeff.CAUDATE.HC,'interactions');
 plot(model_caud_hc)
+xlim([-0.05 0.05])
+ylim([-0.3 0.2])
+xlabel('Covariates')
+ylabel('Lateralization index')
+title('Caudate linear fit - HC')
 
 subplot(132)
 model_put_hc = fitlm(covariates_hc,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.HC,'interactions');
 plot(model_put_hc)
+xlim([-0.05 0.05])
+ylim([-0.3 0.2])
+xlabel('Covariates')
+ylabel('Lateralization index')
+title('Putamen linear fit - HC')
 
 subplot(133)
 model_put_ant_hc = fitlm(covariates_hc,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.HC,'interactions');
 plot(model_put_ant_hc)
+xlim([-0.05 0.05])
+ylim([-0.3 0.2])
+xlabel('Covariates')
+ylabel('Lateralization index')
+title('Putamen Anterior linear fit - HC')
 
+saveas(figure(25), "fit_covariates_hc.png", "png")
 
 %% ------ Statistics
 anova_caud_hc = anova(model_caud_hc,'component');
@@ -621,19 +646,37 @@ covariates_pd = table2array(covariates_pd(:,contains(covariates_pd.Properties.Va
 EXCLUDE = [2,3,7,10,13,20,25,26,40];
 covariates_pd(:,EXCLUDE) = [];
 
-figure
+figure(26)
+set(gcf, 'Position', get(0, 'Screensize'));
+
 subplot(131)
 model_caud_pd = fitlm(covariates_pd,NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD,'interactions');
 plot(model_caud_pd)
+xlim([-0.5 0.6])
+ylim([-0.6 0.8])
+xlabel('Covariates')
+ylabel('Lateralization index')
+title('Caudate linear fit - PD')
 
 subplot(132)
 model_put_pd = fitlm(covariates_pd,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.PD,'interactions');
 plot(model_put_pd)
+xlim([-0.5 0.6])
+ylim([-0.6 0.8])
+xlabel('Covariates')
+ylabel('Lateralization index')
+title('Putamen linear fit - PD')
 
 subplot(133)
 model_put_ant_pd = fitlm(covariates_pd,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.PD,'interactions');
 plot(model_put_ant_pd)
+xlim([-0.5 0.6])
+ylim([-0.6 0.8])
+xlabel('Covariates')
+ylabel('Lateralization index')
+title('Putamen Anterior linear fit - PD')
 
+saveas(figure(26), "fit_covariates_pd.png", "png")
 
 %% ----- Statistics
 anova_caud_pd = anova(model_caud_pd,'summary');

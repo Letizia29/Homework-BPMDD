@@ -32,7 +32,7 @@ In previous studies, the connection between dopamine lateralization and symptoms
 \newline
 Therefore, the aim of this study is to further investigate this idea, analyzing a dataset containing information about patients' motor and cognitive symptoms and also their lateralization data obtained from DAT-SPECT scans. The dopamine degeneration is explored in three different Regions of Interests (ROIs) in the brain, divided in right and left: Caudate, Putamen and Putamen Anterior. This analysis aims to investigate the relationship (if present) between the lateralization of dopamine function in these brain areas and the symptoms showed by Parkinson's patients, and relationship (if present) between the lateralization of dopamine function in these brain areas and possible covariates showed by healthy controls.
 \newline
-Agreeing with what found in \cite{pirker_correlation_2003}, the group expected to find a strong relation between the dopamine lateralization and the motor symptoms. Also the lateralization in different ROIs was expected to be related: a high lateralization in the Caudate was expected if both Putamen and Putamen Anterior were highly lateralized. 
+Agreeing with what found in \cite{pirker_correlation_2003}, the group expected to find a strong relation between the dopamine lateralization and the motor symptoms. The lateralization was expected to be significantly different between the two groups of HC and PD. Also the lateralization in different ROIs was expected to be related: a high lateralization in the Caudate was expected if both Putamen and Putamen Anterior were highly lateralized. 
 
 \section{Material and Methods}
 
@@ -113,23 +113,106 @@ The distribution of ETHNICITY was also found similar between the two groups, whi
 In order to perform the statistical analysis to answer the study questions, the relevant features were extracted. 
 
 From the lateralization data, the group used a DAT binding asymmetry index found in \cite{kaasinen_ipsilateral_2016}: (right - left SBR)/(right + left SBR). The lateralization was considered relevant when the asymmetry index was higher than 20\%.
-This threshold level was adopted from a previous study \cite{}.
+This threshold level was adopted from a previous study \cite{fiorenzato_asymmetric_2021}. In this way, the group identified, for the Caudate,  28 PD patients with a right lateralization and 29 with a left lateralization. For the Putamen, 203 PD had a right lateralization, 2 HC and 150 PD with a left lateralization. For the Putamen Anterior, 113 PD patients were found lateralized on the right side, while 64 on the left. The remaining subjects were not lateralized.
 
-This reasoning allowed the removal of some subjects not having a significant lateralization, and therefore the analysis was carried out with TOT subjects. 
+Through the Pearson pairwise correlation, the group analysed the correlation coefficients of the relevant variables, such as all the NP tests, ENROLL\_AGE, WEIGHT, HEIGHT, and MCATOT, with the lateralization index (figures \ref{fig:corr_mat_hc} and \ref{fig:corr_mat_pd}). For the analysis, were kept only the significant ones, with p-value < 0.05, and correlation coefficient higher than 0.5.
 
-Through the Pearson pairwise correlation, the group analysed the correlation coefficients of the relevant variables, such as all the NP tests, ENROLL\_AGE, WEIGHT, HEIGHT, and MCATOT, with the lateralization index. For the analysis, were kept only the significant ones, with p-value < 0.05, and correlation coefficient higher than 0.5.
+For PD patients the selected covariates were: NP1ANXS, NP1APAT, NP1LTHD, NP1PAIN, NP1PTOT, NP1PTOT\_1, NP2DRES, NP2HWRT, NP2RISE, NP2SWAL, NP2TRMR, NP3BRADY, NP3FACXP, NP3FTAPR, NP3HMOVR, NP3KTRMR, NP3PRSPR, NP3PTRML, NP3RIGRU, NP3RISNG, WGTKG.
+For HC subjects the selected covariates were instead: MCATOT, NP1ANXS, NP1APAT, NP1COG, NP1DDS, NP1FATG, NP1PAIN, NP1PTOT, NP1PTOT\_1, NP1SLPN, NP2DRES, NP2EAT, NP2FREZ, NP2HOBB, NP2HWRT, NP2HYGN, NP2PTOT, NP2RISE, NP2SPCH, NP2SWAL, NP2WALK, NP3BRADY, NP3FACXP, NP3FRZGT, NP3FTAPR, NP3GAIT, NP3HMOVR, NP3KTRML, NP3KTRMR, NP3LGAGR, NP3PTRML, NP3PTRMR, NP3RIGLL, NP3RIGLU, NP3RISNG, NP3RTALJ, NP3RTALU, NP3RTARL, NP3RTARU, NP3SPCH, NP3TOT, WGTKG.
+
+\end{multicols}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=3in]{../correlation_matrix_hc}
+	\caption{Correlation matrix with the lateralization index - HC}
+	\label{fig:corr_mat_hc}
+	
+\end{figure} 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=3in]{../correlation_matrix_pd}
+	\caption{Correlation matrix with the lateralization index - PD}
+	\label{fig:corr_mat_pd}
+	
+\end{figure} 
 
 
-- Matrice di correlazione
-in base alla matrice di correlazione ->  scelto le variabili più significative
+\begin{multicols}{2}
+
+In the correlation matrix in figure \ref{fig:corr_mat_hc}, the rows and columns with correlation coefficient of -1 are the ones containig NaNs values.
+
 
 
 \subsection{Statistical methods}
-2- Che statistiche abbiamo usato, perchè
-Anova per vedere se c'è diff tra hc e pd [forse è meglio sostituire con wilxcon?]
+
+At first, the group compared HC and PD populations in terms of lateralization, using an Anova test. The Anova test was chosen because ?????[forse Wilcoxon]?????????????
+
+The aim was to see if there was a difference in the absolute value of lateralization of the two groups, for each region of interest. The choice of using the absolute value came from the interest on the amount of lateralization, not its direction.
+
+As hypothesized at the start of the study, the analysis confirmed that there was a significant difference (p-value $<$ 0.01) in the lateralization of HC and PD in all the ROIs. 
 
 \subsection{Linear regression}
 IMMAGINE linear regression + descrizione statistiche 
+
+Using the covariates found for PD and HC through the correlation matrix, the group performed a linear fit through the MATLAB fuction \begin{verbatim}fitlm \end{verbatim} (the lateralization was not take in absolute value, in order to have a relation with its direction).
+
+As parameter, the adjusted $R^2$ was used to get the true value of the fit.
+
+\end{multicols}
+
+
+\begin{tabular}{|l|l|l|r|}
+	\hline
+	CAUDATE & HC & PD \\
+	\hline
+	$R^2$ (adjusted) & 0.021899285491766 & 0.441924423381424 \\ 
+	\hline
+	p-value & 0.398349585769054 & 1.950516939619888e-20 \\
+	\hline
+\end{tabular}
+\newline
+\begin{tabular}{|l|l|l|r|}
+	\hline
+	PUTAMEN & HC & PD \\
+	\hline
+	$R^2$ (adjusted) & 0.027100337935025 & 0.481441593928543 \\ 
+	\hline
+	p-value & 0.375829445576761 & 1.749319862864852e-24 \\
+	\hline
+\end{tabular}
+\newline
+\begin{tabular}{|l|l|l|r|}
+	\hline
+	PUTAMEN ANT & HC & PD \\
+	\hline
+	$R^2$ (adjusted) &  -0.048170586150496 & 0.511431631643848 \\ 
+	\hline
+	p-value & 0.705855414513558 & 6.121704939031713e-28 \\
+	\hline
+\end{tabular}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=3in]{../fit_covariates_hc}
+\caption{Linear fit - HC}
+\label{fig:lin_fit_hc}
+\end{figure} 
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=3in]{../fit_covariates_pd}
+\caption{Linear fit - PD}
+\label{fig:lin_fit_pd}
+\end{figure} 
+
+\begin{multicols}{2}
+
+As shown in figures \ref{fig:lin_fit_hc} and \ref{fig:lin_fit_pd}, and from the values of $R^2$ and p-value, the group understood that the linear fit wasn't appropriate to describe the lateralization of HC, because there wasn't any significant lateralization, nor any symptoms. The image of the fit is used to show that the results are as expected. 
+On the other hand, for PD patients, the values of $R^2$ and p-value are highly significant, showing that the lateralization is related to the symptoms, as hypothesized. 
+
+
 
 \section{Results}
 
