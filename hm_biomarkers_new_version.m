@@ -258,7 +258,7 @@ for i = 1:length(cont_variables)
         disp(strcat(string(variables{cont_variables(i)}), ' in HC is normally distributed'))
     end
 
-    % % Anova test between PD and HC
+    % Anova test between PD and HC
     % y = [data_pd.(variables{cont_variables(i)}); data_hc.(variables{cont_variables(i)})]';
     % LAT_groups = [ones(1,size(data_pd.(variables{cont_variables(i)}),1)), 2*ones(1,size(data_hc.(variables{cont_variables(i)}),1))];
     % anova_test.(variables{cont_variables(i)}).p = anova1(y, LAT_groups);
@@ -300,15 +300,15 @@ for i = 1:length(discr_variables)-1 % no need for familiarity
     data_hc.(variables{discr_variables(i)}) = cellfun(@double, (data_hc.(variables{discr_variables(i)})));
 end
 
-% for i = 1:length(discr_variables)
-%     % Perfom Wilcoxon test
-%     [wilcoxon.(variables{discr_variables(i)}).p, wilcoxon.(variables{discr_variables(i)}).h] = ranksum(data_pd.(variables{discr_variables(i)}), data_hc.(variables{discr_variables(i)}));
-%     if wilcoxon.(variables{discr_variables(i)}).h == 1
-%         disp(strcat(string(variables{discr_variables(i)}), ': Rejected null hyp (different mean)'))
-%     else
-%         disp(strcat(string(variables{discr_variables(i)}), ': Accepted null hyp (same mean)'))
-%     end
-% end
+for i = 1:length(discr_variables)
+    % Perfom Wilcoxon test
+    [wilcoxon.(variables{discr_variables(i)}).p, wilcoxon.(variables{discr_variables(i)}).h] = ranksum(data_pd.(variables{discr_variables(i)}), data_hc.(variables{discr_variables(i)}));
+    if wilcoxon.(variables{discr_variables(i)}).h == 1
+        disp(strcat(string(variables{discr_variables(i)}), ': Rejected null hyp (different mean)'))
+    else
+        disp(strcat(string(variables{discr_variables(i)}), ': Accepted null hyp (same mean)'))
+    end
+end
 
 clear i j k ind_temp
 
@@ -380,6 +380,7 @@ LATERALIZATION_coeff.PUTAMEN.HC = abs(LATERALIZATION_coeff.PUTAMEN.HC);
 LATERALIZATION_coeff.PUTAMEN_ANT.HC = abs(LATERALIZATION_coeff.PUTAMEN_ANT.HC);
 
 %% VISUALISING LATERALIZATION
+<<<<<<< Updated upstream
 % difference_caudate_hc = mean(LATERALIZATION_coeff.CAUDATE.HC);
 % difference_caudate_pd = mean(LATERALIZATION_coeff.CAUDATE.PD);
 % 
@@ -410,6 +411,38 @@ LATERALIZATION_coeff.PUTAMEN_ANT.HC = abs(LATERALIZATION_coeff.PUTAMEN_ANT.HC);
 % legend('HC','PD')
 % 
 % 
+=======
+difference_caudate_hc = mean(LATERALIZATION_coeff.CAUDATE.HC);
+difference_caudate_pd = mean(LATERALIZATION_coeff.CAUDATE.PD);
+
+difference_putamen_hc = mean(LATERALIZATION_coeff.PUTAMEN.HC);
+difference_putamen_pd = mean(LATERALIZATION_coeff.PUTAMEN.PD);
+
+difference_putamen_ant_hc = mean(LATERALIZATION_coeff.PUTAMEN_ANT.HC);
+difference_putamen_ant_pd = mean(LATERALIZATION_coeff.PUTAMEN_ANT.PD);
+
+difference_hc = [NOT_ABS.LATERALIZATION_coeff.CAUDATE.HC,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.HC,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.HC];
+difference_pd = [NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.PD,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.PD];
+
+figure
+histogram(difference_hc,'Normalization','countdensity') 
+hold on
+% ylim([-0.8, 0.8])
+% pd
+% boxchart(difference_pd, 'MarkerStyle', 'none', 'BoxFaceColor', 'r')
+histogram(difference_pd,'Normalization','countdensity')
+% visualization
+% view(-90,90)
+% xlabel('ROIs')
+% ylabel('DAT difference')
+% ylim([-0.8, 0.8])
+title('Difference DAT_{left} - DAT_{right} for HC and PD')
+% xticklabels({'Caudate','Putamen','Putamen Anterior'})
+% yline(0)
+% legend('HC','PD')
+
+
+>>>>>>> Stashed changes
 
 
 
