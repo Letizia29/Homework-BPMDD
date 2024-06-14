@@ -617,7 +617,7 @@ axis equal
 covariates_to_save_pd = [];
 for i =1:size(R_corr_matrix_pd,1)
     for j = 1:size(R_corr_matrix_pd,2)
-        if p_corr_pd(i,j) < 0.05 && R_corr_matrix_pd(i,j) > 0.5
+        if p_corr_pd(i,j) < 0.05 && R_corr_matrix_pd(i,j) > 0.75
                 if (j < (size(R_corr_matrix_pd,1) -3)) && (i > (size(R_corr_matrix_pd,1) -3)) 
                     disp([covariates_pd.Properties.VariableNames{i}, ' correlated with ', covariates_pd.Properties.VariableNames{j}])
                     covariates_to_save_pd = [covariates_to_save_pd,  convertCharsToStrings(covariates_pd.Properties.VariableNames{j})];
@@ -760,18 +760,14 @@ saveas(figure(27), "fit asimmetry index.png", "png")
 
 
 
+%% AGE
+age_pd = fitlm(data_pd.ENROLL_AGE,NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD);
+age_hc = fitlm(data_hc.ENROLL_AGE,NOT_ABS.LATERALIZATION_coeff.CAUDATE.HC);
 
-
-
-
-
-
-
-
-
-
-
-
+figure
+plot(age_pd)
+figure
+plot(age_hc)
 
 
 
