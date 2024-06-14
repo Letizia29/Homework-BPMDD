@@ -521,17 +521,17 @@ for cohort = cohorts
     
         % Comparison region lateralization female - male in HC
         % Anova test
-        % % y = [LAT_groups.(cohort).(region).Female; LAT_groups.HC.(region).Male]';
-        % % groups_anova = [ones(1,length(LAT_groups.(cohort).(region).Female)), 2*ones(1,length(LAT_groups.(cohort).(region).Male))];
-        % % anova_test.LATERALIZATION.(region).(cohort).(variables{discr_variables(2)}).p = anova1(y, groups_anova);
-        % % 
-        % % if anova_test.LATERALIZATION.(region).(cohort).(variables{discr_variables(2)}).p > 0.05
-        % %     disp(strcat(string(variables{discr_variables(2)}), ': LAT', region, ' Accepted null hyp (same mean)'))
-        % % else 
-        % %     disp(strcat(string(variables{discr_variables(2)}), ': LAT', region, ' Rejected null hyp (different mean)'))
-        % % end
-        % % 
-        % % clear y groups_anova
+        y = [LAT_groups.(cohort).(region).Female; LAT_groups.HC.(region).Male]';
+        groups_anova = [ones(1,length(LAT_groups.(cohort).(region).Female)), 2*ones(1,length(LAT_groups.(cohort).(region).Male))];
+        anova_test.LATERALIZATION.(region).(cohort).(variables{discr_variables(2)}).p = anova1(y, groups_anova);
+
+        if anova_test.LATERALIZATION.(region).(cohort).(variables{discr_variables(2)}).p > 0.05
+            disp(strcat(string(variables{discr_variables(2)}), ': LAT', region, ' Accepted null hyp (same mean)'))
+        else 
+            disp(strcat(string(variables{discr_variables(2)}), ': LAT', region, ' Rejected null hyp (different mean)'))
+        end
+
+        clear y groups_anova
     
     end
     clear i j region
@@ -770,11 +770,25 @@ figure
 plot(age_hc)
 
 
+%% WEIGHT
+weight_pd = fitlm(data_pd.WGTKG,NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD);
+weight_hc = fitlm(data_hc.WGTKG,NOT_ABS.LATERALIZATION_coeff.CAUDATE.HC);
 
+figure
+plot(weight_pd)
+figure
+plot(weight_hc)
 
+%% MCATOT
 
+mcatot_pd = fitlm(data_pd.MCATOT,NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD);
+mcatot_hc = fitlm(data_hc.MCATOT,NOT_ABS.LATERALIZATION_coeff.CAUDATE.HC);
 
+figure
+plot(mcatot_hc)
 
+figure
+plot(mcatot_pd)
 
 
 
