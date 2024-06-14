@@ -530,9 +530,17 @@ for cohort = cohorts
         else 
             disp(strcat(string(variables{discr_variables(2)}), ': LAT', region, ' Rejected null hyp (different mean)'))
         end
+    
+        wilcoxon_test.LATERALIZATION.(region).(cohort).(variables{discr_variables(2)}).p = ranksum(y, groups_anova);
+
+        if wilcoxon_test.LATERALIZATION.(region).(cohort).(variables{discr_variables(2)}).p > 0.05
+            disp(strcat(string(variables{discr_variables(2)}), ': LAT ', region, ' Accepted null hyp (same mean)'))
+        else 
+            disp(strcat(string(variables{discr_variables(2)}), ': LAT ', region, ' Rejected null hyp (different mean)'))
+        end
 
         clear y groups_anova
-    
+        
     end
     clear i j region
 end
@@ -557,33 +565,33 @@ end
 
 %% CORRELATION MATRIX of variables of interest
 % fare scatter
-%%   - HC
-idx_covariates = [4,154,34, 55, 94, 158,27:54, 61:93];
-covariates_hc = data_hc(:, idx_covariates); % age, weight, height,  np test + mcatot
+%%   - HC - indirect data
+idx_covariates = [4, 153, 154, 158]; 
+covariates_hc = data_hc(:, idx_covariates); % age, height, weight, mcatot
 covariates_hc.('Caudate lat coeff') = LATERALIZATION_coeff.CAUDATE.HC;
 covariates_hc.('Putamen lat coeff') = LATERALIZATION_coeff.PUTAMEN.HC;
 covariates_hc.('Putamen ant lat coeff') = LATERALIZATION_coeff.PUTAMEN_ANT.HC;
 
-[p_corr_hc, R_corr_matrix_hc] = corrcoef(table2array(covariates_hc), 'Rows', 'pairwise');
+[correlation.indirect.HC.p, correlation.indirect.HC.R] = corrcoef(table2array(covariates_hc), 'Rows', 'pairwise');
 
 figure
-imagesc(R_corr_matrix_hc)
+imagesc(correlation.indirect.HC.R)
 colormap parula
 colorbar
 xticks(1:width(covariates_hc))
 xticklabels(covariates_hc.Properties.VariableNames)
 yticks(1:width(covariates_hc))
 yticklabels(covariates_hc.Properties.VariableNames)
-title("Correlation HC age, weight, height,  np test + mcatot")
+title("Correlation between lateralization and age, weight, height, MCATOT - HC")
 ax = gca;
 ax.FontSize = 6;
 axis equal
 
 covariates_to_save_hc = [];
-for i =1:size(R_corr_matrix_hc,1)
-    for j = 1:size(R_corr_matrix_hc,2)
-        if p_corr_hc(i,j) < 0.05 && R_corr_matrix_hc(i,j) > 0.75
-                if (j < (size(R_corr_matrix_hc,1) -3)) && (i > (size(R_corr_matrix_hc,1) -3)) 
+for i =1:size(correlation.indirect.HC.R,1)
+    for j = 1:size(correlation.indirect.HC.R,2)
+        if correlation.indirect.HC.p(i,j) < 0.05 && correlation.indirect.HC.R(i,j) > 0.75
+                if (j < (size(correlation.indirect.HC.R,1) -3)) && (i > (size(correlation.indirect.HC.R,1) -3)) 
                     disp([covariates_hc.Properties.VariableNames{i}, ' correlated with ', covariates_hc.Properties.VariableNames{j}])
                     covariates_to_save_hc = [covariates_to_save_hc,  convertCharsToStrings(covariates_hc.Properties.VariableNames{j})];
                 end
@@ -592,33 +600,69 @@ for i =1:size(R_corr_matrix_hc,1)
 end
 
 covariates_to_save_hc = unique(covariates_to_save_hc);
-%%  - PD
+
+%%   - HC - symptoms data
+idx_symptoms = [34, 55, 94, 27:54, 61:93]; 
+symptoms_hc = data_hc(:, idx_symptoms); % age, height, weight, mcatot
+symptoms_hc.('Caudate lat coeff') = LATERALIZATION_coeff.CAUDATE.HC;
+symptoms_hc.('Putamen lat coeff') = LATERALIZATION_coeff.PUTAMEN.HC;
+symptoms_hc.('Putamen ant lat coeff') = LATERALIZATION_coeff.PUTAMEN_ANT.HC;
+
+[correlation.symptoms.HC.p, correlation.symptoms.HC.R] = corrcoef(table2array(symptoms_hc), 'Rows', 'pairwise');
+
+figure
+imagesc(correlation.symptoms.HC.R)
+colormap parula
+colorbar
+xticks(1:width(symptoms_hc))
+xticklabels(symptoms_hc.Properties.VariableNames)
+yticks(1:width(symptoms_hc))
+yticklabels(symptoms_hc.Properties.VariableNames)
+title("Correlation between lateralization and symptoms - HC")
+ax = gca;
+ax.FontSize = 6;
+axis equal
+
+symptoms_to_save_hc = [];
+for i =1:size(correlation.symptoms.HC.R,1)
+    for j = 1:size(correlation.symptoms.HC.R,2)
+        if correlation.symptoms.HC.p(i,j) < 0.05 && correlation.symptoms.HC.R(i,j) > 0.75
+                if (j < (size(correlation.symptoms.HC.R,1) -3)) && (i > (size(correlation.symptoms.HC.R,1) -3)) 
+                    disp([symptoms_hc.Properties.VariableNames{i}, ' correlated with ', symptoms_hc.Properties.VariableNames{j}])
+                    symptoms_to_save_hc = [symptoms_to_save_hc,  convertCharsToStrings(symptoms_hc.Properties.VariableNames{j})];
+                end
+       end
+    end
+end
+
+symptoms_to_save_hc = unique(symptoms_to_save_hc);
+
+%%  - PD - indirect data
 covariates_pd = data_pd(:, idx_covariates); % age, weight, height,  np test + mcatot
 covariates_pd.('Caudate lat coeff') = LATERALIZATION_coeff.CAUDATE.PD;
 covariates_pd.('Putamen lat coeff') = LATERALIZATION_coeff.PUTAMEN.PD;
 covariates_pd.('Putamen ant lat coeff') = LATERALIZATION_coeff.PUTAMEN_ANT.PD;
 
-[p_corr_pd, R_corr_matrix_pd] = corrcoef(table2array(covariates_pd), 'Rows', 'pairwise');
+[correlation.indirect.PD.p, correlation.indirect.PD.R] = corrcoef(table2array(covariates_pd), 'Rows', 'pairwise');
 
 figure
-imagesc(R_corr_matrix_pd)
+imagesc(correlation.indirect.PD.R)
 colormap parula
 colorbar
 xticks(1:width(covariates_pd))
 xticklabels(covariates_pd.Properties.VariableNames)
 yticks(1:width(covariates_pd))
 yticklabels(covariates_pd.Properties.VariableNames)
-title("Correlation PD age, weight, height,  np test + mcatot")
+title("Correlation between lateralization and age, weight, height, MCATOT - PD")
 ax = gca;
 ax.FontSize = 6;
 axis equal
 
-
 covariates_to_save_pd = [];
-for i =1:size(R_corr_matrix_pd,1)
-    for j = 1:size(R_corr_matrix_pd,2)
-        if p_corr_pd(i,j) < 0.05 && R_corr_matrix_pd(i,j) > 0.75
-                if (j < (size(R_corr_matrix_pd,1) -3)) && (i > (size(R_corr_matrix_pd,1) -3)) 
+for i =1:size(correlation.indirect.PD.R,1)
+    for j = 1:size(correlation.indirect.PD.R,2)
+        if correlation.indirect.PD.p(i,j) < 0.05 && correlation.indirect.PD.R(i,j) > 0.75
+                if (j < (size(correlation.indirect.PD.R,1) -3)) && (i > (size(correlation.indirect.PD.R,1) -3)) 
                     disp([covariates_pd.Properties.VariableNames{i}, ' correlated with ', covariates_pd.Properties.VariableNames{j}])
                     covariates_to_save_pd = [covariates_to_save_pd,  convertCharsToStrings(covariates_pd.Properties.VariableNames{j})];
                 end
@@ -628,9 +672,45 @@ end
 
 covariates_to_save_pd  = unique(covariates_to_save_pd);
 
+%%   - PD - symptoms data
+idx_symptoms = [34, 55, 94, 27:54, 61:93]; 
+symptoms_pd = data_pd(:, idx_symptoms); % age, height, weight, mcatot
+symptoms_pd.('Caudate lat coeff') = LATERALIZATION_coeff.CAUDATE.PD;
+symptoms_pd.('Putamen lat coeff') = LATERALIZATION_coeff.PUTAMEN.PD;
+symptoms_pd.('Putamen ant lat coeff') = LATERALIZATION_coeff.PUTAMEN_ANT.PD;
+
+[correlation.symptoms.PD.p, correlation.symptoms.PD.R] = corrcoef(table2array(symptoms_pd), 'Rows', 'pairwise');
+
+figure
+imagesc(correlation.symptoms.PD.R)
+colormap parula
+colorbar
+xticks(1:width(symptoms_pd))
+xticklabels(symptoms_pd.Properties.VariableNames)
+yticks(1:width(symptoms_pd))
+yticklabels(symptoms_pd.Properties.VariableNames)
+title("Correlation between lateralization and symptoms - PD")
+ax = gca;
+ax.FontSize = 6;
+axis equal
+
+symptoms_to_save_pd = [];
+for i =1:size(correlation.symptoms.PD.R,1)
+    for j = 1:size(correlation.symptoms.PD.R,2)
+        if correlation.symptoms.PD.p(i,j) < 0.05 && correlation.symptoms.PD.R(i,j) > 0.75
+                if (j < (size(correlation.symptoms.PD.R,1) -3)) && (i > (size(correlation.symptoms.PD.R,1) -3)) 
+                    disp([symptoms_pd.Properties.VariableNames{i}, ' correlated with ', symptoms_pd.Properties.VariableNames{j}])
+                    symptoms_to_save_pd = [symptoms_to_save_pd,  convertCharsToStrings(symptoms_pd.Properties.VariableNames{j})];
+                end
+       end
+    end
+end
+
+symptoms_to_save_pd = unique(symptoms_to_save_pd);
+
 %% LINEAR REGRESSION
 %% - HC
-covariates_hc_array = table2array(covariates_hc(:,contains(covariates_hc.Properties.VariableNames,covariates_to_save_hc)));
+covariates_hc_array = table2array(symptoms_hc(:,contains(symptoms_hc.Properties.VariableNames,symptoms_to_save_hc)));
 
 figure(25)
 set(gcf, 'Position', get(0, 'Screensize'));
@@ -670,7 +750,7 @@ anova_put_hc = anova(model_put_hc,'summary');
 anova_put_ant_hc =  anova(model_put_ant_hc,'summary');
 
 %% - PD
-covariates_pd_array = table2array(covariates_pd(:,contains(covariates_pd.Properties.VariableNames,covariates_to_save_hc)));
+covariates_pd_array = table2array(covariates_pd(:,contains(covariates_pd.Properties.VariableNames,symptoms_to_save_hc)));
 % EXCLUDE = [2,3,7,10,13,20,25,26,40];
 % covariates_pd(:,EXCLUDE) = [];
 
