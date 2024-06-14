@@ -680,8 +680,8 @@ set(gcf, 'Position', get(0, 'Screensize'));
 subplot(131)
 model_caud_pd = fitlm(covariates_pd_array,NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD);
 plot(model_caud_pd)
-xlim([-0.5 0.6])
-ylim([-0.6 0.8])
+% xlim([-0.5 0.6])
+% ylim([-0.6 0.8])
 xlabel('Covariates')
 ylabel('Lateralization index')
 title('Caudate linear fit - PD')
@@ -689,8 +689,8 @@ title('Caudate linear fit - PD')
 subplot(132)
 model_put_pd = fitlm(covariates_pd_array,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.PD);
 plot(model_put_pd)
-xlim([-0.5 0.6])
-ylim([-0.6 0.8])
+% xlim([-0.5 0.6])
+% ylim([-0.6 0.8])
 xlabel('Covariates')
 ylabel('Lateralization index')
 title('Putamen linear fit - PD')
@@ -698,8 +698,8 @@ title('Putamen linear fit - PD')
 subplot(133)
 model_put_ant_pd = fitlm(covariates_pd_array,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.PD);
 plot(model_put_ant_pd)
-xlim([-0.5 0.6])
-ylim([-0.6 0.8])
+% xlim([-0.5 0.6])
+% ylim([-0.6 0.8])
 xlabel('Covariates')
 ylabel('Lateralization index')
 title('Putamen Anterior linear fit - PD')
@@ -732,7 +732,7 @@ model_sintomi_lat_caud = fitlm(sintomi_lat,NOT_ABS.LATERALIZATION_coeff.CAUDATE.
 model_sintomi_lat_put = fitlm(sintomi_lat,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.PD);
 model_sintomi_lat_put_ant = fitlm(sintomi_lat,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.PD);
 
-figure
+figure(27)
 subplot(131)
 plot(model_sintomi_lat_caud)
 subplot(132)
@@ -740,6 +740,7 @@ plot(model_sintomi_lat_put)
 subplot(133)
 plot(model_sintomi_lat_put_ant)
 
+saveas(figure(27), "fit asimmetry index.png", "png")
 
 
 
