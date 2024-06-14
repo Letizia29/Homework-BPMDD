@@ -733,12 +733,25 @@ model_sintomi_lat_put = fitlm(sintomi_lat,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.P
 model_sintomi_lat_put_ant = fitlm(sintomi_lat,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.PD);
 
 figure(27)
+set(gcf, 'Position', get(0, 'Screensize'));
+
 subplot(131)
 plot(model_sintomi_lat_caud)
+xlabel('Asymmetry index symptoms')
+ylabel('Lateralization index')
+title('Caudate linear fit - PD')
+
 subplot(132)
 plot(model_sintomi_lat_put)
+xlabel('Asymmetry index symptoms')
+ylabel('Lateralization index')
+title('Putamen linear fit - PD')
+
 subplot(133)
 plot(model_sintomi_lat_put_ant)
+xlabel('Asymmetry index symptoms')
+ylabel('Lateralization index')
+title('Putamen Anterior linear fit - PD')
 
 saveas(figure(27), "fit asimmetry index.png", "png")
 
