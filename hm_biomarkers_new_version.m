@@ -380,7 +380,6 @@ LATERALIZATION_coeff.PUTAMEN.HC = abs(LATERALIZATION_coeff.PUTAMEN.HC);
 LATERALIZATION_coeff.PUTAMEN_ANT.HC = abs(LATERALIZATION_coeff.PUTAMEN_ANT.HC);
 
 %% VISUALISING LATERALIZATION
-<<<<<<< Updated upstream
 % difference_caudate_hc = mean(LATERALIZATION_coeff.CAUDATE.HC);
 % difference_caudate_pd = mean(LATERALIZATION_coeff.CAUDATE.PD);
 % 
@@ -411,7 +410,6 @@ LATERALIZATION_coeff.PUTAMEN_ANT.HC = abs(LATERALIZATION_coeff.PUTAMEN_ANT.HC);
 % legend('HC','PD')
 % 
 % 
-=======
 difference_caudate_hc = mean(LATERALIZATION_coeff.CAUDATE.HC);
 difference_caudate_pd = mean(LATERALIZATION_coeff.CAUDATE.PD);
 
@@ -440,9 +438,6 @@ title('Difference DAT_{left} - DAT_{right} for HC and PD')
 % xticklabels({'Caudate','Putamen','Putamen Anterior'})
 % yline(0)
 % legend('HC','PD')
-
-
->>>>>>> Stashed changes
 
 
 
@@ -587,7 +582,7 @@ axis equal
 covariates_to_save_hc = [];
 for i =1:size(R_corr_matrix_hc,1)
     for j = 1:size(R_corr_matrix_hc,2)
-        if p_corr_hc(i,j) < 0.05 && R_corr_matrix_hc(i,j) > 0.85
+        if p_corr_hc(i,j) < 0.05 && R_corr_matrix_hc(i,j) > 0.75
                 if (j < (size(R_corr_matrix_hc,1) -3)) && (i > (size(R_corr_matrix_hc,1) -3)) 
                     disp([covariates_hc.Properties.VariableNames{i}, ' correlated with ', covariates_hc.Properties.VariableNames{j}])
                     covariates_to_save_hc = [covariates_to_save_hc,  convertCharsToStrings(covariates_hc.Properties.VariableNames{j})];
@@ -635,13 +630,13 @@ covariates_to_save_pd  = unique(covariates_to_save_pd);
 
 %% LINEAR REGRESSION
 %% - HC
-covariates_hc = table2array(covariates_hc(:,contains(covariates_hc.Properties.VariableNames,covariates_to_save_hc)));
+covariates_hc_array = table2array(covariates_hc(:,contains(covariates_hc.Properties.VariableNames,covariates_to_save_hc)));
 
 figure(25)
 set(gcf, 'Position', get(0, 'Screensize'));
 
 subplot(131)
-model_caud_hc = fitlm(covariates_hc,NOT_ABS.LATERALIZATION_coeff.CAUDATE.HC,'interactions');
+model_caud_hc = fitlm(covariates_hc_array,NOT_ABS.LATERALIZATION_coeff.CAUDATE.HC,'interactions');
 plot(model_caud_hc)
 xlim([-0.05 0.05])
 ylim([-0.3 0.2])
@@ -650,7 +645,7 @@ ylabel('Lateralization index')
 title('Caudate linear fit - HC')
 
 subplot(132)
-model_put_hc = fitlm(covariates_hc,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.HC,'interactions');
+model_put_hc = fitlm(covariates_hc_array,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.HC,'interactions');
 plot(model_put_hc)
 xlim([-0.05 0.05])
 ylim([-0.3 0.2])
@@ -659,7 +654,7 @@ ylabel('Lateralization index')
 title('Putamen linear fit - HC')
 
 subplot(133)
-model_put_ant_hc = fitlm(covariates_hc,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.HC,'interactions');
+model_put_ant_hc = fitlm(covariates_hc_array,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.HC,'interactions');
 plot(model_put_ant_hc)
 xlim([-0.05 0.05])
 ylim([-0.3 0.2])
@@ -675,15 +670,15 @@ anova_put_hc = anova(model_put_hc,'summary');
 anova_put_ant_hc =  anova(model_put_ant_hc,'summary');
 
 %% - PD
-covariates_pd = table2array(covariates_pd(:,contains(covariates_pd.Properties.VariableNames,covariates_to_save_pd)));
-EXCLUDE = [2,3,7,10,13,20,25,26,40];
-covariates_pd(:,EXCLUDE) = [];
+covariates_pd_array = table2array(covariates_pd(:,contains(covariates_pd.Properties.VariableNames,covariates_to_save_hc)));
+% EXCLUDE = [2,3,7,10,13,20,25,26,40];
+% covariates_pd(:,EXCLUDE) = [];
 
 figure(26)
 set(gcf, 'Position', get(0, 'Screensize'));
 
 subplot(131)
-model_caud_pd = fitlm(covariates_pd,NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD,'interactions');
+model_caud_pd = fitlm(covariates_pd_array,NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD);
 plot(model_caud_pd)
 xlim([-0.5 0.6])
 ylim([-0.6 0.8])
@@ -692,7 +687,7 @@ ylabel('Lateralization index')
 title('Caudate linear fit - PD')
 
 subplot(132)
-model_put_pd = fitlm(covariates_pd,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.PD,'interactions');
+model_put_pd = fitlm(covariates_pd_array,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.PD);
 plot(model_put_pd)
 xlim([-0.5 0.6])
 ylim([-0.6 0.8])
@@ -701,7 +696,7 @@ ylabel('Lateralization index')
 title('Putamen linear fit - PD')
 
 subplot(133)
-model_put_ant_pd = fitlm(covariates_pd,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.PD,'interactions');
+model_put_ant_pd = fitlm(covariates_pd_array,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.PD);
 plot(model_put_ant_pd)
 xlim([-0.5 0.6])
 ylim([-0.6 0.8])
@@ -718,19 +713,32 @@ anova_put_ant_pd = anova(model_put_ant_pd,'summary');
 
 %% SIMPTOMS LATERALITY INDEX
 
+rigidity_upper = (data_pd.NP3RIGRU -data_pd.NP3RIGLU)./(data_pd.NP3RIGRU + data_pd.NP3RIGLU);  
+rigidity_lower = (data_pd.NP3RIGRL -data_pd.NP3RIGLL)./(data_pd.NP3RIGRL + data_pd.NP3RIGLL);
+tap_hand = (data_pd.NP3FTAPR - data_pd.NP3FTAPL)./(data_pd.NP3FTAPR + data_pd.NP3FTAPL);
+move_hand = (data_pd.NP3HMOVL - data_pd.NP3HMOVR)./(data_pd.NP3HMOVL + data_pd.NP3HMOVR); 
+pu_hand = (data_pd.NP3PRSPR - data_pd.NP3PRSPL)./(data_pd.NP3PRSPR + data_pd.NP3PRSPL);  
+tap_foot = (data_pd.NP3TTAPR - data_pd.NP3TTAPL)./(data_pd.NP3TTAPR + data_pd.NP3TTAPL);
+tap_leg = (data_pd.NP3LGAGR - data_pd.NP3LGAGL)./(data_pd.NP3LGAGR + data_pd.NP3LGAGL);
+post_trem_leg =  (data_pd.NP3PTRMR - data_pd.NP3PTRML)./((data_pd.NP3PTRMR + data_pd.NP3PTRML));
+kin_trem_hand = (data_pd.NP3KTRMR-data_pd.NP3KTRML)./(data_pd.NP3KTRMR + data_pd.NP3KTRML);
+rest_trem_up = (data_pd.NP3RTARU - data_pd.NP3RTALU)./(data_pd.NP3RTARU + data_pd.NP3RTALU);
+rest_trem_low = (data_pd.NP3RTARL - data_pd.NP3RTALL)./(data_pd.NP3RTARL + data_pd.NP3RTALL);
 
 
+sintomi_lat = [rigidity_upper';rigidity_lower';tap_hand';move_hand';pu_hand';tap_foot';tap_leg';post_trem_leg';kin_trem_hand';rest_trem_up';rest_trem_low']';
 
+model_sintomi_lat_caud = fitlm(sintomi_lat,NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD);
+model_sintomi_lat_put = fitlm(sintomi_lat,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.PD);
+model_sintomi_lat_put_ant = fitlm(sintomi_lat,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.PD);
 
-
-
-
-
-
-
-
-
-
+figure
+subplot(131)
+plot(model_sintomi_lat_caud)
+subplot(132)
+plot(model_sintomi_lat_put)
+subplot(133)
+plot(model_sintomi_lat_put_ant)
 
 
 
