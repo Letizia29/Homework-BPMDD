@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.5.30)  15 JUN 2024 19:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.5.30)  15 JUN 2024 20:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -766,51 +766,66 @@ File: ../anova_table_lat_hc_pd.png Graphic file (type png)
 <use ../anova_table_lat_hc_pd.png>
 Package pdftex.def Info: ../anova_table_lat_hc_pd.png  used on input line 208.
 (pdftex.def)             Requested size: 216.81pt x 42.12393pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 <../anova_plot_lat_hc_pd.png, id=141, 360.8682pt x 304.4976pt>
 File: ../anova_plot_lat_hc_pd.png Graphic file (type png)
 <use ../anova_plot_lat_hc_pd.png>
 Package pdftex.def Info: ../anova_plot_lat_hc_pd.png  used on input line 215.
 (pdftex.def)             Requested size: 216.81pt x 182.94621pt.
 
-
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[6 <../anova_table_lat_hc_pd.png (PNG copy)>]
-<../corr_mat_symptoms_pd.png, id=153, 585.387pt x 502.0356pt>
+
+Overfull \vbox (11.89404pt too high) has occurred while \output is active []
+
+
+Overfull \vbox (6.35236pt too high) has occurred while \output is active []
+
+
+[6]
+<../corr_mat_symptoms_pd.png, id=154, 585.387pt x 502.0356pt>
 File: ../corr_mat_symptoms_pd.png Graphic file (type png)
 <use ../corr_mat_symptoms_pd.png>
 Package pdftex.def Info: ../corr_mat_symptoms_pd.png  used on input line 230.
 (pdftex.def)             Requested size: 216.81pt x 185.94177pt.
- [7 <../anova_plot_lat_hc_pd.png (PNG copy)> <../corr_mat_symptoms_pd.png (PNG 
-copy)>]
-<../fit_covariates_pd.png, id=163, 1156.32pt x 668.7384pt>
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<../fit_covariates_pd.png, id=159, 1156.32pt x 596.4684pt>
 File: ../fit_covariates_pd.png Graphic file (type png)
 <use ../fit_covariates_pd.png>
-Package pdftex.def Info: ../fit_covariates_pd.png  used on input line 246.
-(pdftex.def)             Requested size: 216.81pt x 125.38814pt.
-<../fit_covariates_male.png, id=168, 1156.32pt x 668.7384pt>
+Package pdftex.def Info: ../fit_covariates_pd.png  used on input line 249.
+(pdftex.def)             Requested size: 216.81pt x 111.83754pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[7 <../anova_table_lat_hc_pd.png (PNG copy)> <../anova_plot_lat_hc_pd.png (PNG 
+copy)>]
+<../fit_covariates_male.png, id=170, 1156.32pt x 596.4684pt>
 File: ../fit_covariates_male.png Graphic file (type png)
 <use ../fit_covariates_male.png>
-Package pdftex.def Info: ../fit_covariates_male.png  used on input line 274.
-(pdftex.def)             Requested size: 216.81pt x 125.38814pt.
+Package pdftex.def Info: ../fit_covariates_male.png  used on input line 278.
+(pdftex.def)             Requested size: 216.81pt x 111.83754pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<../fit_covariates_female.png, id=169, 1156.32pt x 668.7384pt>
+<../fit_covariates_female.png, id=171, 1156.32pt x 596.4684pt>
 File: ../fit_covariates_female.png Graphic file (type png)
 <use ../fit_covariates_female.png>
-Package pdftex.def Info: ../fit_covariates_female.png  used on input line 294.
-(pdftex.def)             Requested size: 216.81pt x 125.38814pt.
+Package pdftex.def Info: ../fit_covariates_female.png  used on input line 285.
+(pdftex.def)             Requested size: 216.81pt x 111.83754pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[8 <../fit_covariates_pd.png (PNG copy)>] [9 <../fit_covariates_male.png (PNG c
-opy)> <../fit_covariates_female.png (PNG copy)>]
-Overfull \hbox (46.7259pt too wide) in paragraph at lines 353--353
+[8 <../corr_mat_symptoms_pd.png (PNG copy)> <../fit_covariates_pd.png (PNG copy
+)>] [9 <../fit_covariates_male.png (PNG copy)> <../fit_covariates_female.png (P
+NG copy)>]
+Overfull \hbox (46.7259pt too wide) in paragraph at lines 345--345
 \OT1/cmr/m/n/10 pp. 2303{2313. \OT1/cmr/m/sc/10 issn\OT1/cmr/m/n/10 : 0885-3185
 , 1531-8257. \OT1/cmr/m/sc/10 doi\OT1/cmr/m/n/10 : []$\OT1/cmtt/m/n/10 10 . 100
 2 / mds . 28682$[]\OT1/cmr/m/n/10 . \OT1/cmr/m/sc/10 url\OT1/cmr/m/n/10 : []$\O
@@ -829,13 +844,13 @@ Package logreq Info: Writing requests to 'report.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 18419 strings out of 474486
- 323939 string characters out of 5743755
+ 18418 strings out of 474486
+ 323909 string characters out of 5743755
  1943542 words of memory out of 5000000
  40484 multiletter control sequences out of 15000+600000
  564081 words of font info for 56 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,9n,79p,1902b,1478s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,9n,79p,1902b,1385s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\letiz\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
 1000.pk><C:/Users/letiz/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
 ts/cm/cmbx10.pfb><C:/Users/letiz/AppData/Local/Programs/MiKTeX/fonts/type1/publ
@@ -851,9 +866,9 @@ letiz/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C
 cm/cmr9.pfb><C:/Users/letiz/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
 sfonts/cm/cmti10.pfb><C:/Users/letiz/AppData/Local/Programs/MiKTeX/fonts/type1/
 public/amsfonts/cm/cmtt10.pfb>
-Output written on report.pdf (11 pages, 991762 bytes).
+Output written on report.pdf (11 pages, 972711 bytes).
 PDF statistics:
- 280 PDF objects out of 1000 (max. 8388607)
- 51 named destinations out of 1000 (max. 500000)
+ 279 PDF objects out of 1000 (max. 8388607)
+ 50 named destinations out of 1000 (max. 500000)
  200 words of extra memory for PDF output out of 10000 (max. 10000000)
 

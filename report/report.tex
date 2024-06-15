@@ -138,8 +138,8 @@ In this section, the group investigated whether there was any relevant covariate
 Analyzing HC, the possible covariates were sex, dominant hand, ethnicity, age, height, weight.
 
 Regarding the discrete variables, it was possible to analyze only SEX, because the others didn't divide the subjects in groups with a comparable number of data. 
-The lateralization indexes were, for each region, divided in males and females. Through a Lillie test, both groups were found not gaussian. Therefore, they were compared with a Wilcoxon test, finding that for all the three regions, males and females had different medians of lateralization indexes.
-Consequently, SEX was considered as a covariate for the study, and the statistical analysis on PD patients was performed both on the whole group and on the two sub-groups of males and females.
+The lateralization indexes were, for each region, divided in males and females. Through a Lillie test, both groups were found not gaussian. Therefore, they were compared with a Wilcoxon test, finding that only for Putamen Anterior, males and females had different medians of lateralization indexes.
+Consequently, SEX was considered as a covariate for Putamen Anterior lateralization data, and the statistical analysis on PD patients was performed both on the whole group and on the two sub-groups of males and females for this brain region.
 
 Through the Pearson pairwise correlation, the group analyzed the correlation coefficients of the continue variables, such as ENROLL\_AGE, WGTKG (weight - kg), HGTCM (height - cm), with the lateralization indexes (figures \ref{fig:cov_mat_hc}). For the statistical analysis, were kept only the significant ones, with p-value $<$ 0.05, and correlation coefficient higher than 0.5. This threshold was chosen in order to have at least a moderate correlation (0.4-0.59). 
 
@@ -168,7 +168,7 @@ Therefore, the analysis investigated the presence of a difference between the la
 
 \subsubsection{Linear regression}
 
-Using the covariates variables (found for HC through the correlation matrix) and the symptoms data, the group performed a linear fit with the lateralization indexes of PD patients, to check the presence of a linear relation between them. 
+Using the covariates variables (found for HC through the correlation matrix) and the symptoms data, the group performed a linear fit with the lateralization indexes of PD patients, to check the presence of a linear relation between them. To improve this fit, the covariates were chosen looking at the best value of the adjusted $R^2$ obtained from the comparison of all the fits with all the possible covariates combinations. 
 This was implemented through the MATLAB function \codeword{fitlm} (the lateralization was not take in absolute value, in order to have a relation with its direction).
 As parameter, the adjusted $R^2$ was used to get the true value of the fit.
 
@@ -237,6 +237,9 @@ To answer the second research question, which was to investigate the relationshi
 \subsection{Linear fit with symptoms}
 
 These symptoms were used, together with the covariates found from HC, to perform a linear fit with the lateralization indexes in PD, in order to find the relationship between dopamine lateralization function and symptoms. The graphs of the fit are shown in Figure \ref{fig:lin_fit_pd}. The graphs contain on the x-axis the covariates, while on the y-axis the lateralization indexes. Each figure shows the fit for the three different ROIs, Caudate, Putamen and Putamen Anterior. 
+
+To improve the fit, the group chose the best combination of covariates among the ones found before, using as selection criteria the adjusted $R^2$ value of the models tried with all the possible combinations. The selected covariates are listed in Table \ref{tbl:R_squared_fit_pd}. 
+
 The numerical results of these linear fits are shown in the Table \ref{tbl:R_squared_fit_pd}, where $R^2$ (adjusted) was chosen because of the large amount of variables, in order to retrieve a more accurate value (CITAZIONE). The p-values were all significantly below 0.001 and therefore they aren't shown in Table \ref{tbl:R_squared_fit_pd}.
 
 \end{multicols}
@@ -250,22 +253,23 @@ The numerical results of these linear fits are shown in the Table \ref{tbl:R_squ
 
 \begin{table}[h]
 	\centering
-	\begin{tabular}{|c|c|}
+	\begin{tabular}{|c|c|l|}
 		\hline
-		\textbf{ROIs}             & \textbf{adjusted $R^2$} \\ \hline
-		\textbf{Caudate}          & 0.3287                  \\ \hline
-		\textbf{Putamen}          & 0.3634                  \\ \hline
-		\textbf{Putamen Anterior} & 0.3014                  \\ \hline
+		\textbf{ROIs}             & \textbf{Adjusted $R^2$} & \textbf{Covariates} \\ \hline
+		\textbf{Caudate}          & 0.3343                  & HTCM                \\ \hline
+		\textbf{Putamen}          & 0.3673                  & None                \\ \hline
+		\textbf{Putamen Anterior} & 0.3014                  & HTCM, WGTKG         \\ \hline
 	\end{tabular}
 	\caption{Adjusted $R^2$ values of the linear fit between lateralization and symptoms}
 	\label{tbl:R_squared_fit_pd}
 \end{table}
 
+
 \begin{multicols}{2}
 
 \subsection{Linear fit with symptoms - gender division}
 
-The linear fit was repeated for two sub-groups of patients - males and females. The results are shown in Figure \ref{fig:lin_fit_males} and in Table \ref{tbl:R_squared_fit_males} for males, and in Figure \ref{fig:lin_fit_females} and in Table \ref{tbl:R_squared_fit_females} for females. The p-values were all $<<$ 0.001.
+The linear fit on the Putamen Anterior was repeated for two sub-groups of patients - males and females, always selecting the best covariates from all the possible combinations. The results are shown in Figure \ref{fig:lin_fit_males} for males, and in Figure \ref{fig:lin_fit_females} for females. The p-values were all $<$ 0.05, while the adjusted $R^2$ values are shown in Table \ref{tbl:lin_fit_put_ant} for both males and females.
 
 \end{multicols}
 
@@ -276,19 +280,6 @@ The linear fit was repeated for two sub-groups of patients - males and females. 
 \label{fig:lin_fit_males}
 \end{figure} 
 
-\begin{table}[h]
-\centering
-\begin{tabular}{|c|c|}
-	\hline
-	\textbf{ROIs}             & \textbf{adjusted $R^2$} \\ \hline
-	\textbf{Caudate}          & 0.3307                  \\ \hline
-	\textbf{Putamen}          & 0.3409                  \\ \hline
-	\textbf{Putamen Anterior} & 0.2721                  \\ \hline
-\end{tabular}
-\caption{Adjusted $R^2$ values of the linear fit of males between lateralization and symptoms}
-\label{tbl:R_squared_fit_males}
-\end{table}
-
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=3in]{../fit_covariates_female}
@@ -298,22 +289,17 @@ The linear fit was repeated for two sub-groups of patients - males and females. 
 
 \begin{table}[h]
 	\centering
-	\begin{tabular}{|c|c|}
+	\begin{tabular}{|c|c|l|}
 		\hline
-		\textbf{ROIs}             & \textbf{adjusted $R^2$} \\ \hline
-		\textbf{Caudate}          & 0.3354                  \\ \hline
-		\textbf{Putamen}          & 0.4065                  \\ \hline
-		\textbf{Putamen Anterior} & 0.3505                  \\ \hline
+		\textbf{Putamen Anterior} & \textbf{Adjusted $R^2$} & \textbf{Covariates} \\ \hline
+		\textbf{Males}            & 0.2721                  & HTCM, WGTKG         \\ \hline
+		\textbf{Females}          & 0.3523                  & WGTKG               \\ \hline
 	\end{tabular}
-	\caption{Adjusted $R^2$ values of the linear fit of females between lateralization and symptoms}
-	\label{tbl:R_squared_fit_females}
+	\caption{Adjusted $R^2$ for the linear fit of Putamen Anterior for males and females}
+	\label{tbl:lin_fit_put_ant}
 \end{table}
 
 \begin{multicols}{2}
-
-
-CICLO CAMBIANDO COVARIATE
-- A sensitivity analysis of the results to covariates, group matching and data quality (e.g. missing data, data miss balance)
 
 \section{Discussion}
 
@@ -326,7 +312,13 @@ The first aim of the study was to assess whether there were some relevant covari
 The group understood that there wasn't any significant lateralization in the HC, and therefore the linear fit wasn't appropriate to describe its relation with the symptoms.
 
 The second research question concerned the relationship between the lateralization of dopamine function in the ROIs and the symptoms of PD patients.
-As shown in Figure \ref{fig:lin_fit_pd} and in Table \ref{tbl:R_squared_fit_pd}, for PD patients, the values of $R^2$ and p-value are highly significant, showing that the lateralization is related to the symptoms, as hypothesized. The conclusion is that with a higher lateralization, there will be stronger symptoms. 
+As shown in Figure \ref{fig:lin_fit_pd} and in Table \ref{tbl:R_squared_fit_pd}, for PD patients, the values of $R^2$ and p-value are highly significant, showing that the lateralization is related to the symptoms, as hypothesized. The conclusion is that with a higher lateralization, there will be stronger symptoms.
+
+Subsequently, the group performed the same analysis dividing the subjects between males and females for the Putamen Anterior lateralization data.
+
+è MIGLIORATO?
+
+ 
 
 \subsection{Limitations}
 
