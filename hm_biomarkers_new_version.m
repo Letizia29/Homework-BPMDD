@@ -506,11 +506,11 @@ cohorts = ["HC", "PD"];
 for cohort = cohorts
     for region = ROIs_labels
         for i = 1:length(discr_variables)-1
-        
+
             % groups LAT
             for j = 1:length(legend.(cohort).(variables{discr_variables(i)}))
                 LAT_groups.(cohort).(region).(legend.(cohort).(variables{discr_variables(i)}){j}) = LATERALIZATION_coeff.(region).(cohort)(find(data_hc.(variables{discr_variables(i)}) == j));
-        
+
                 % not consider groups with less than 4 elements
                 if length(LAT_groups.(cohort).(region).(legend.(cohort).(variables{discr_variables(i)}){j})) > 4
                     % check for gaussianity
@@ -520,7 +520,7 @@ for cohort = cohorts
                 end
             end
         end
-    
+
         % Comparison region lateralization female - male in HC
         % Anova test
         y = [LAT_groups.(cohort).(region).Female; LAT_groups.HC.(region).Male]';
@@ -532,7 +532,7 @@ for cohort = cohorts
         else 
             disp(strcat(cohort, string(variables{discr_variables(2)}), ': LAT', region, ' Rejected null hyp (different mean)'))
         end
-    
+
         wilcoxon_test.LATERALIZATION.(region).(cohort).(variables{discr_variables(2)}).p = ranksum(LAT_groups.(cohort).(region).Female, LAT_groups.HC.(region).Male);
 
         if wilcoxon_test.LATERALIZATION.(region).(cohort).(variables{discr_variables(2)}).p > 0.05
@@ -542,7 +542,7 @@ for cohort = cohorts
         end
 
         clear y groups_anova
-        
+
     end
     clear i j region
 end
@@ -846,8 +846,8 @@ end
 [max_R_squared_caud,idx_max_R_squared_caud] = max(R_squared_caud);
 plot(model_caud_pd{idx_max_R_squared_caud})
 covariate_fit.CAUDATE.ALL = names_permutazioni_caud{idx_max_R_squared_caud};
-% xlim([-0.5 0.6])
-% ylim([-0.6 0.8])
+xlim([-4 6])
+ylim([-0.6 0.8])
 xlabel('Covariates and symptoms')
 ylabel('Lateralization index')
 title('Caudate linear fit - PD')
@@ -863,8 +863,8 @@ plot(model_put_pd{idx_max_R_squared_put})
 covariate_fit.PUTAMEN.ALL = names_permutazioni_put{idx_max_R_squared_put};
 
 
-% xlim([-0.5 0.6])
-% ylim([-0.6 0.8])
+xlim([-4 6])
+ylim([-0.6 0.8])
 xlabel('Covariates and symptoms')
 ylabel('Lateralization index')
 title('Putamen linear fit - PD')
@@ -880,8 +880,8 @@ plot(model_put_ant_pd{idx_max_R_squared_put_ant})
 covariate_fit.PUTAMEN_ANT.ALL = names_permutazioni_put_ant{idx_max_R_squared_put_ant};
 
 
-% xlim([-0.5 0.6])
-% ylim([-0.6 0.8])
+xlim([-4 6])
+ylim([-0.6 0.8])
 xlabel('Covariates and symptoms')
 ylabel('Lateralization index')
 title('Putamen Anterior linear fit - PD')
@@ -981,9 +981,13 @@ set(gcf, 'Position', get(0, 'Screensize'));
 % t = title('Fit Lateralization PUTAMEN - Regressors [Male population]');
 % set(t, 'FontSize', 9)
 % subplot(133)
+
+subplot(121)
 plot(model_put_ant_male{idx_max_R_squared_put_ant_male})
 xlabel('Covariates and symptoms')
 ylabel('Lateralization index')
+ylim([-0.4 0.5])
+xlim([-2.5 7])
 t = title('Fit Lateralization PUTAMEN ANTERIOR - Regressors [Male population]');
 set(t, 'FontSize', 9)
 
@@ -1042,8 +1046,8 @@ end
 [max_R_squared_put_ant_female,idx_max_R_squared_put_ant_female] = max(R_squared_put_ant_female);
 covariate_fit.PUTAMEN_ANT.FEMALE = names_permutazioni_put_ant{idx_max_R_squared_put_ant_female};
 
-figure(28)
-set(gcf, 'Position', get(0, 'Screensize'));
+% figure(28)
+% set(gcf, 'Position', get(0, 'Screensize'));
 
 % subplot(131)
 % plot(model_caud_female{idx_max_R_squared_caud_female})
@@ -1058,9 +1062,12 @@ set(gcf, 'Position', get(0, 'Screensize'));
 % t = title('Fit Lateralization PUTAMEN - Regressors [Female population]');
 % set(t, 'FontSize', 9)
 % subplot(133)
+subplot(122)
 plot(model_put_ant_female{idx_max_R_squared_put_ant_female})
 xlabel('Covariates and symptoms')
 ylabel('Lateralization index')
+ylim([-0.4 0.5])
+xlim([-2.5 7])
 t = title('Fit Lateralization PUTAMEN ANTERIOR - Regressors [Female population]');
 set(t, 'FontSize', 9)
 
