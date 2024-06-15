@@ -28,6 +28,8 @@
 This study, which focuses on Parkinson's disease, aims to investigate the significance of left-right lateralization based on dopamine values using DAT-SPECT imaging data and their correlation with clinical symptoms in Parkinson’s disease patient (PD) and healthy controls (HC). DAT-SPECT (Dopamine Transporter Single Photon Emission Computed Tomography) is an imaging technique primarily used to visualize and measure the density of dopamine transporters in the brain.  Indeed, this technique is particularly useful in the diagnosis and evaluation of neurodegenerative diseases, such as Parkinson's disease and other forms of parkinsonism. The dataset, used to perform the analysis, consists of variables relating to demographic data, DAT-SPECT scores and finally the Neuropsychological (NP) tests which are a combination of clinical, neurological, and imaging test since there is no specific test for the diagnosis of Parkinson’s disease. In order to investigate whether the lateralization is related to symptoms, a linear regression approach was used. This analysis verified that the lateralization is highly related to symptoms in PD patients.
 The lateralization of dopamine function could be useful in the future as a possible biomarker of PD symptoms severity.
 
+LAT COEFFICIENT OR INDEX CAMBIARE DAPPERTUTTO
+
 \textcolor{red}{ADD RESULTS}
 \newline
 
@@ -124,52 +126,37 @@ In order to perform the statistical analysis to answer the study questions, the 
 From the lateralization data, the group used a DAT binding asymmetry index found in \cite{kaasinen_ipsilateral_2016}: (right - left SBR)/(right + left SBR). The lateralization was considered relevant when the asymmetry index was higher than 20\%.
 This threshold level was adopted from a previous study \cite{fiorenzato_asymmetric_2021}. In this way, the group identified, for the Caudate,  28 PD patients with a right lateralization and 29 with a left lateralization. For the Putamen, 203 PD had a right lateralization, 2 HC and 150 PD with a left lateralization. For the Putamen Anterior, 113 PD patients were found lateralized on the right side, while 64 on the left. The remaining subjects were not lateralized.
 
+\subsection{Covariates analysis}
+
 DIVIDE SYMPTOMS - COVARIATES (indirect data)
 
-
-The possible covariates were age, height, weight, MCATOT.
+Analyzing HC, the possible covariates were sex, dominant hand, ethnicity, age, height, weight, MCATOT.
 
 Regarding the discrete variables, it was possible to analyze only SEX, because the others didn't divide the subjects in groups with a comparable number of data. 
-The lateralization indexes were, for each region, divided in males and females. Through a Lillie test, both groups were found not gaussian. Therefore, they were compared with a Wilcoxon test, finding that for Caudate males and females have different distributions, for Putamen ..., while for Putamen Anterior ... 
-
+The lateralization indexes were, for each region, divided in males and females. Through a Lillie test, both groups were found not gaussian. Therefore, they were compared with a Wilcoxon test, finding that for all the three regions, males and females had different medians of lateralization indexes.
+Consequently, SEX was considered as a covariate for the study, and the statistical analysis on PD patients was performed both on the whole group and on the two sub-groups of males and females.
 
 CONTINUE
-Through the Pearson pairwise correlation, the group analysed the correlation coefficients of the relevant variables, such as ENROLL\_AGE, WGTKG (weight - kg), HGTCM (height - cm), and MCATOT, with the lateralization index (figures \ref{fig:corr_mat_hc} and \ref{fig:corr_mat_pd}). For the analysis, were kept only the significant ones, with p-value $<$ 0.05, and correlation coefficient higher than 0.75. This threshold was chosen in order to have a strong correlation (0.6-0.79) and a good trade-off between selecting significant covariates and not having too many of them. With a lower correlation threshold, the number of covariates was too high. Therefore, the table \ref{tbl:covariates} was obtained, listing the significant covariates of HC and PD.
+Through the Pearson pairwise correlation, the group analyzed the correlation coefficients of the continue variables, such as ENROLL\_AGE, WGTKG (weight - kg), HGTCM (height - cm), and MCATOT, with the lateralization indexes (figures \ref{fig:cov_mat_hc}). For the statistical analysis, were kept only the significant ones, with p-value $<$ 0.05, and correlation coefficient higher than 0.75. This threshold was chosen in order to have a strong correlation coefficient (0.6-0.79). 
 
 \end{multicols}
 
-\begin{table}[]
-	\begin{tabular}{|l|l|}
-		\hline
-		& \textbf{Covariates}                                                                                                                                                                                                                                                                                                                                                                            \\ \hline
-		\textbf{HC} & \begin{tabular}[c]{@{}l@{}}NP1ANXS, NP1APAT, NP1COG, NP1HALL, NP1LTHD, NP1PAIN, NP1PTOT\\ NP1PTOT\_1, NP1RTOT, NP1URIN, NP2DRES, NP2HOBB, NP2HWRT\\ NP2PTOT, NP2RISE, NP2SALV, NP2SPCH, NP2SWAL, NP2TRMR, NP2TURN\\ NP3BRADY, NP3FACXP, NP3FTAPL, NP3FTAPR, NP3HMOVR, NP3KTRMR\\ NP3PRSPR, NP3PSTBL, NP3PTRML, NP3RIGLU, NP3RIGRL, NP3RIGRU\\ NP3RISNG, NP3RTALU, NP3TTAPL, WGTKG\end{tabular} \\ \hline
-		\textbf{PD} & \begin{tabular}[c]{@{}l@{}}NP1ANXS, NP1COG, NP1SLPN, NP2DRES, NP2FREZ, NP2HYGN, NP2PTOT\\ NP2RISE, NP2SWAL, NP2WALK, NP3FACXP, NP3GAIT, NP3HMOVR\\ NP3KTRML, NP3PTRML, NP3PTRMR, NP3RIGLL, NP3RTALU, NP3RTARL\\ NP3RTARU, NP3SPCH, NP3TOT, WGTKG\end{tabular}                                                                                                                                  \\ \hline
-	\end{tabular}
-	\caption{Table of the significant covariates for HC and PD}
-	\label{tbl:covariates}
-	
-\end{table}
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=3in]{../correlation_matrix_hc}
-	\caption{Correlation matrix with the lateralization index - HC}
-	\label{fig:corr_mat_hc}
+	\includegraphics[width=3in]{../covariates_mat_hc}
+	\caption{Correlation matrix between covariates and lateralization index - HC}
+	\label{fig:cov_mat_hc}
 	
 \end{figure} 
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=3in]{../correlation_matrix_pd}
-	\caption{Correlation matrix with the lateralization index - PD}
-	\label{fig:corr_mat_pd}
-	
-\end{figure} 
+ 
 
 
 \begin{multicols}{2}
 
-In the correlation matrix of the HC in figure \ref{fig:corr_mat_hc}, the rows and columns with correlation coefficients all equal to -1 are due to the NaN values.
+In the correlation matrix of the HC in figure \ref{fig:cov_mat_hc}, it's shown that ENROLL\_AGE has a moderate correlation only with the lateralization coefficient in the Caudate region, while it has a weak correlation with the other two ROIs. HTCM is strongly correlated with Caudate's lateralization coefficient, moderately with Putamen and has a very strong correlation with Putamen Anterior. Similarly, also WGTKG has a very strong correlation with Putamen Anterior, and a strong one with Caudate and Putamen lateralization indexes.
+
+
 
 CONFRONTO PER VARIABILI DISCRETE
 
@@ -188,6 +175,8 @@ Using the covariates found for PD and HC through the correlation matrix, the gro
 As parameter, the adjusted $R^2$ was used to get the true value of the fit.
 
 ALTRI METODI USATI
+
+FIT SENZA E CON DIVISIONE MASCHI FEMM
 
 \section{Results}
 
