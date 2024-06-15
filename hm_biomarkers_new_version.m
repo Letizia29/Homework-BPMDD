@@ -456,42 +456,44 @@ for i = 1:length(rois_names)
 end
 clear rois_names rois_names_diag i j
 
-% % analysis with absolute value
-% % Caudate
-% y = [LATERALIZATION_coeff.CAUDATE.PD' LATERALIZATION_coeff.CAUDATE.HC']';
+% analysis with absolute value
+% Caudate
+y = [LATERALIZATION_coeff.CAUDATE.PD' LATERALIZATION_coeff.CAUDATE.HC']';
 group1 = [repmat("PD_caudate",length(LATERALIZATION_coeff.CAUDATE.PD),1);repmat("HC_caudate",length(LATERALIZATION_coeff.CAUDATE.HC),1)];
-% [p,tbl,stats]  = anova1(y,group1);
-% if p > 0.05
-%     disp("There isn't significant difference between the means of the DATSCAN of HC and PD in the CAUDATE region")
-% else
-%     disp("There is significant difference between the means of the DATSCAN of HC and PD in the CAUDATE region")
-% end
-% 
-% % Putamen
-% y = [LATERALIZATION_coeff.PUTAMEN.PD' LATERALIZATION_coeff.PUTAMEN.HC']';
+[p,tbl,stats]  = anova1(y,group1);
+if p > 0.05
+    disp("There isn't significant difference between the means of the DATSCAN of HC and PD in the CAUDATE region")
+else
+    disp("There is significant difference between the means of the DATSCAN of HC and PD in the CAUDATE region")
+end
+
+% Putamen
+y = [LATERALIZATION_coeff.PUTAMEN.PD' LATERALIZATION_coeff.PUTAMEN.HC']';
 group2 = [repmat("PD_putamen",length(LATERALIZATION_coeff.PUTAMEN.PD),1);repmat("HC_putamen",length(LATERALIZATION_coeff.PUTAMEN.HC),1)];
-% [p,tbl,stats]  = anova1(y,group2);
-% if p > 0.05
-%     disp("There isn't significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN region")
-% else
-%     disp("There is significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN region")
-% end
-% 
-% % Putamen ANT
-% y = [LATERALIZATION_coeff.PUTAMEN_ANT.PD' LATERALIZATION_coeff.PUTAMEN_ANT.HC']';
+[p,tbl,stats]  = anova1(y,group2);
+if p > 0.05
+    disp("There isn't significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN region")
+else
+    disp("There is significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN region")
+end
+
+% Putamen ANT
+y = [LATERALIZATION_coeff.PUTAMEN_ANT.PD' LATERALIZATION_coeff.PUTAMEN_ANT.HC']';
 group3 = [repmat("PD_putamen_ant",length(LATERALIZATION_coeff.PUTAMEN_ANT.PD),1);repmat("HC_putamen_ant",length(LATERALIZATION_coeff.PUTAMEN_ANT.HC),1)];
-% [p,tbl,stats]  = anova1(y,group3);
-% if p > 0.05
-%     disp("There isn't significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN ANT region")
-% else
-%     disp("There is significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN ANT region")
-% end
+[p,tbl,stats]  = anova1(y,group3);
+if p > 0.05
+    disp("There isn't significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN ANT region")
+else
+    disp("There is significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN ANT region")
+end
 
 % with all the ROIs
 y = [LATERALIZATION_coeff.CAUDATE.PD' LATERALIZATION_coeff.CAUDATE.HC' LATERALIZATION_coeff.PUTAMEN.PD' LATERALIZATION_coeff.PUTAMEN.HC' LATERALIZATION_coeff.PUTAMEN_ANT.PD' LATERALIZATION_coeff.PUTAMEN_ANT.HC' ]';
 group4 = [group1; group2; group3];
 [p,tbl,stats]  = anova1(y,group4);
- 
+title('Lateralization indexes for each ROI - PD & HC')
+ylabel('Lateralization index')
+
 clear y p tbl stats group4 group3 group2 group1 
 
 
@@ -579,12 +581,12 @@ imagesc(correlation.indirect.HC.R)
 colormap parula
 colorbar
 xticks(1:width(covariates_hc))
-xticklabels(covariates_hc.Properties.VariableNames)
+xticklabels(["ENROLL\_AGE", "HTCM", "WGTKG", "CAUDATE", "PUTAMEN", "PUTAMEN\_ANT"])
 yticks(1:width(covariates_hc))
-yticklabels(covariates_hc.Properties.VariableNames)
+yticklabels(["ENROLL\_AGE", "HTCM", "WGTKG", "CAUDATE", "PUTAMEN", "PUTAMEN\_ANT"])
 title("Correlation between lateralization and age, weight, height")
 ax = gca;
-ax.FontSize = 6;
+ax.FontSize = 9;
 axis equal
 for i=1:3
     covariates_to_save_hc.(ROIs_labels(i)) = [];
@@ -708,10 +710,11 @@ xticks(1:width(symptoms_pd))
 xticklabels(symptoms_pd.Properties.VariableNames)
 yticks(1:width(symptoms_pd))
 yticklabels(symptoms_pd.Properties.VariableNames)
-title("Correlation between lateralization and symptoms - PD")
+t = title("Correlation between lateralization and symptoms - PD");
 ax = gca;
-ax.FontSize = 6;
+ax.FontSize = 5;
 axis equal
+t.FontSize = 15;
 
 for i=1:3
     symptoms_to_save_pd.(ROIs_labels(i)) = [];
