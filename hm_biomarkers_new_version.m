@@ -491,8 +491,8 @@ end
 y = [LATERALIZATION_coeff.CAUDATE.PD' LATERALIZATION_coeff.CAUDATE.HC' LATERALIZATION_coeff.PUTAMEN.PD' LATERALIZATION_coeff.PUTAMEN.HC' LATERALIZATION_coeff.PUTAMEN_ANT.PD' LATERALIZATION_coeff.PUTAMEN_ANT.HC' ]';
 group4 = [group1; group2; group3];
 [p,tbl,stats]  = anova1(y,group4);
-title('Lateralization indexes for each ROI - PD & HC')
-ylabel('Lateralization index')
+title('Lateralization coefficients for each ROI - PD & HC')
+ylabel('Lateralization coefficient')
 
 clear y p tbl stats group4 group3 group2 group1 
 
@@ -759,7 +759,7 @@ plot(model_caud_hc)
 % xlim([-0.05 0.05])
 % ylim([-0.3 0.2])
 xlabel('Covariates')
-ylabel('Lateralization index')
+ylabel('Lateralization coefficient')
 title('Caudate linear fit - HC')
 
 subplot(132)
@@ -768,7 +768,7 @@ plot(model_put_hc)
 % xlim([-0.05 0.05])
 % ylim([-0.3 0.2])
 xlabel('Covariates')
-ylabel('Lateralization index')
+ylabel('Lateralization coefficient')
 title('Putamen linear fit - HC')
 
 subplot(133)
@@ -777,9 +777,9 @@ plot(model_put_ant_hc)
 % xlim([-0.05 0.05])
 % ylim([-0.3 0.2])
 xlabel('Covariates')
-ylabel('Lateralization index')
+ylabel('Lateralization coefficient')
 title('Putamen Anterior linear fit - HC')
-sgtitle('Lateralization index - Covariates FIT HC')
+sgtitle('Lateralization coefficient - Covariates FIT HC')
 
 
 saveas(figure(25), "fit_covariates_hc.png", "png")
@@ -849,7 +849,7 @@ covariate_fit.CAUDATE.ALL = names_permutazioni_caud{idx_max_R_squared_caud};
 xlim([-4 6])
 ylim([-0.6 0.8])
 xlabel('Covariates and symptoms')
-ylabel('Lateralization index')
+ylabel('Lateralization coefficient')
 title('Caudate linear fit - PD')
 
 subplot(132)
@@ -866,7 +866,7 @@ covariate_fit.PUTAMEN.ALL = names_permutazioni_put{idx_max_R_squared_put};
 xlim([-4 6])
 ylim([-0.6 0.8])
 xlabel('Covariates and symptoms')
-ylabel('Lateralization index')
+ylabel('Lateralization coefficient')
 title('Putamen linear fit - PD')
 
 subplot(133)
@@ -883,9 +883,9 @@ covariate_fit.PUTAMEN_ANT.ALL = names_permutazioni_put_ant{idx_max_R_squared_put
 xlim([-4 6])
 ylim([-0.6 0.8])
 xlabel('Covariates and symptoms')
-ylabel('Lateralization index')
+ylabel('Lateralization coefficient')
 title('Putamen Anterior linear fit - PD')
-sgtitle('Lateralization index - Regressors FIT PD')
+sgtitle('Lateralization coefficient - Regressors FIT PD')
 
 
 saveas(figure(26), "fit_covariates_pd.png", "png")
@@ -985,7 +985,7 @@ set(gcf, 'Position', get(0, 'Screensize'));
 subplot(121)
 plot(model_put_ant_male{idx_max_R_squared_put_ant_male})
 xlabel('Covariates and symptoms')
-ylabel('Lateralization index')
+ylabel('Lateralization coefficient')
 ylim([-0.4 0.5])
 xlim([-2.5 7])
 t = title('Fit Lateralization PUTAMEN ANTERIOR - Regressors [Male population]');
@@ -1065,7 +1065,7 @@ covariate_fit.PUTAMEN_ANT.FEMALE = names_permutazioni_put_ant{idx_max_R_squared_
 subplot(122)
 plot(model_put_ant_female{idx_max_R_squared_put_ant_female})
 xlabel('Covariates and symptoms')
-ylabel('Lateralization index')
+ylabel('Lateralization coefficient')
 ylim([-0.4 0.5])
 xlim([-2.5 7])
 t = title('Fit Lateralization PUTAMEN ANTERIOR - Regressors [Female population]');
