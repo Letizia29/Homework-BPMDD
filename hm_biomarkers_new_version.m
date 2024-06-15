@@ -566,8 +566,8 @@ end
 %% CORRELATION MATRIX of variables of interest
 % fare scatter
 %%   - HC - indirect data
-idx_covariates = [4, 153, 154, 158]; 
-covariates_hc = data_hc(:, idx_covariates); % age, height, weight, mcatot
+idx_covariates = [4, 153, 154]; 
+covariates_hc = data_hc(:, idx_covariates); % age, height, weight
 covariates_hc.('Caudate lat coeff') = LATERALIZATION_coeff.CAUDATE.HC;
 covariates_hc.('Putamen lat coeff') = LATERALIZATION_coeff.PUTAMEN.HC;
 covariates_hc.('Putamen ant lat coeff') = LATERALIZATION_coeff.PUTAMEN_ANT.HC;
@@ -602,7 +602,7 @@ end
 covariates_to_save_hc = unique(covariates_to_save_hc);
 
 %%   - HC - symptoms data
-idx_symptoms = [34, 55, 94, 27:54, 61:93]; 
+idx_symptoms = [34, 55, 94, 27:54, 61:93,158]; 
 symptoms_hc = data_hc(:, idx_symptoms); % age, height, weight, mcatot
 symptoms_hc.('Caudate lat coeff') = LATERALIZATION_coeff.CAUDATE.HC;
 symptoms_hc.('Putamen lat coeff') = LATERALIZATION_coeff.PUTAMEN.HC;
@@ -724,7 +724,7 @@ model_caud_hc = fitlm(regressors_hc_array,NOT_ABS.LATERALIZATION_coeff.CAUDATE.H
 plot(model_caud_hc)
 % xlim([-0.05 0.05])
 % ylim([-0.3 0.2])
-xlabel('Covariates')
+xlabel('Covariates and symptoms')
 ylabel('Lateralization index')
 title('Caudate linear fit - HC')
 
@@ -733,7 +733,7 @@ model_put_hc = fitlm(regressors_hc_array,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.HC
 plot(model_put_hc)
 % xlim([-0.05 0.05])
 % ylim([-0.3 0.2])
-xlabel('Covariates')
+xlabel('Covariates and symptoms')
 ylabel('Lateralization index')
 title('Putamen linear fit - HC')
 
@@ -742,9 +742,11 @@ model_put_ant_hc = fitlm(regressors_hc_array,NOT_ABS.LATERALIZATION_coeff.PUTAME
 plot(model_put_ant_hc)
 % xlim([-0.05 0.05])
 % ylim([-0.3 0.2])
-xlabel('Covariates')
+xlabel('Covariates and symptoms')
 ylabel('Lateralization index')
 title('Putamen Anterior linear fit - HC')
+sgtitle('Lateralization index - Regressors FIT HC')
+
 
 saveas(figure(25), "fit_covariates_hc.png", "png")
 
@@ -767,7 +769,7 @@ model_caud_pd = fitlm(regressors_pd_array,NOT_ABS.LATERALIZATION_coeff.CAUDATE.P
 plot(model_caud_pd)
 % xlim([-0.5 0.6])
 % ylim([-0.6 0.8])
-xlabel('Covariates')
+xlabel('Covariates and symptoms')
 ylabel('Lateralization index')
 title('Caudate linear fit - PD')
 
@@ -776,7 +778,7 @@ model_put_pd = fitlm(regressors_pd_array,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.PD
 plot(model_put_pd)
 % xlim([-0.5 0.6])
 % ylim([-0.6 0.8])
-xlabel('Covariates')
+xlabel('Covariates and symptoms')
 ylabel('Lateralization index')
 title('Putamen linear fit - PD')
 
@@ -785,9 +787,11 @@ model_put_ant_pd = fitlm(regressors_pd_array,NOT_ABS.LATERALIZATION_coeff.PUTAME
 plot(model_put_ant_pd)
 % xlim([-0.5 0.6])
 % ylim([-0.6 0.8])
-xlabel('Covariates')
+xlabel('Covariates and symptoms')
 ylabel('Lateralization index')
 title('Putamen Anterior linear fit - PD')
+sgtitle('Lateralization index - Regressors FIT PD')
+
 
 saveas(figure(26), "fit_covariates_pd.png", "png")
 
@@ -795,6 +799,90 @@ saveas(figure(26), "fit_covariates_pd.png", "png")
 anova_caud_pd = anova(model_caud_pd,'summary');
 anova_put_pd = anova(model_put_pd,'summary');
 anova_put_ant_pd = anova(model_put_ant_pd,'summary');
+
+
+%% SEPARATIONS Male - Female
+idx_male_population = find(data_pd.SEX== 2);
+idx_female_population = find(data_pd.SEX== 1);
+
+male_lateralization_coeff.CAUDATE = NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD(idx_male_population,:);
+female_lateralization_coeff.CAUDATE = NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD(idx_female_population,:);
+
+male_lateralization_coeff.PUTAMEN = NOT_ABS.LATERALIZATION_coeff.PUTAMEN.PD(idx_male_population,:);
+female_lateralization_coeff.PUTAMEN = NOT_ABS.LATERALIZATION_coeff.PUTAMEN.PD(idx_female_population,:);
+
+male_lateralization_coeff.PUTAMEN_ANT = NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.PD(idx_male_population,:);
+female_lateralization_coeff.PUTAMEN_ANT = NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.PD(idx_female_population,:);
+
+regressors_male_array = regressors_pd_array(idx_male_population,:);
+regressors_female_array = regressors_pd_array(idx_female_population,:);
+
+
+% Male fit
+model_caud_male = fitlm(regressors_male_array,male_lateralization_coeff.CAUDATE);
+model_put_male = fitlm(regressors_male_array,male_lateralization_coeff.PUTAMEN);
+model_put_ant_male = fitlm(regressors_male_array,male_lateralization_coeff.PUTAMEN_ANT);
+
+figure(27)
+set(gcf, 'Position', get(0, 'Screensize'));
+
+subplot(131)
+plot(model_caud_male)
+xlabel('Covariates and symptoms')
+ylabel('Lateralization index')
+t = title('Fit Lateralization CAUDATE - Regressors [Male population]');
+set(t, 'FontSize', 9)
+subplot(132)
+plot(model_put_male)
+xlabel('Covariates and symptoms')
+ylabel('Lateralization index')
+t = title('Fit Lateralization PUTAMEN - Regressors [Male population]');
+set(t, 'FontSize', 9)
+subplot(133)
+plot(model_put_ant_male)
+xlabel('Covariates and symptoms')
+ylabel('Lateralization index')
+t = title('Fit Lateralization PUTAMEN ANTERIOR - Regressors [Male population]');
+set(t, 'FontSize', 9)
+
+sgtitle('Male population FIT')
+saveas(figure(27), "fit_covariates_male.png", "png")
+
+
+% Female fit
+
+model_caud_female = fitlm(regressors_female_array,female_lateralization_coeff.CAUDATE);
+model_put_female = fitlm(regressors_female_array,female_lateralization_coeff.PUTAMEN);
+model_put_ant_female = fitlm(regressors_female_array,female_lateralization_coeff.PUTAMEN_ANT);
+
+figure(28)
+set(gcf, 'Position', get(0, 'Screensize'));
+
+subplot(131)
+plot(model_caud_female)
+xlabel('Covariates and symptoms')
+ylabel('Lateralization index')
+t = title('Fit Lateralization CAUDATE - Regressors [Female population]');
+set(t, 'FontSize', 9)
+subplot(132)
+plot(model_put_female)
+xlabel('Covariates and symptoms')
+ylabel('Lateralization index')
+t = title('Fit Lateralization PUTAMEN - Regressors [Female population]');
+set(t, 'FontSize', 9)
+subplot(133)
+plot(model_put_ant_female)
+xlabel('Covariates and symptoms')
+ylabel('Lateralization index')
+t=title('Fit Lateralization PUTAMEN ANTERIOR - Regressors [Female population]');
+set(t, 'FontSize', 9)
+
+
+sgtitle('Female population FIT')
+
+saveas(figure(28), "fit_covariates_female.png", "png")
+
+
 
 %% SIMPTOMS LATERALITY INDEX
 
@@ -817,7 +905,7 @@ model_sintomi_lat_caud = fitlm(sintomi_lat,NOT_ABS.LATERALIZATION_coeff.CAUDATE.
 model_sintomi_lat_put = fitlm(sintomi_lat,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.PD);
 model_sintomi_lat_put_ant = fitlm(sintomi_lat,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.PD);
 
-figure(27)
+figure(29)
 set(gcf, 'Position', get(0, 'Screensize'));
 
 subplot(131)
