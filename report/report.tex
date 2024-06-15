@@ -29,6 +29,7 @@ This study, which focuses on Parkinson's disease, aims to investigate the signif
 The lateralization of dopamine function could be useful in the future as a possible biomarker of PD symptoms severity.
 
 LAT COEFFICIENT OR INDEX CAMBIARE DAPPERTUTTO
+CONTROLLARE SINGOLARE O PLURALE DI DATA
 
 \textcolor{red}{ADD RESULTS}
 \newline
@@ -121,75 +122,117 @@ The distribution of ETHNICITY was also found similar between the two groups, whi
 
 \subsection{Feature extraction}
 
-In order to perform the statistical analysis to answer the study questions, the relevant features were extracted. 
+In order to perform the statistical analysis to answer the study questions, the relevant features were extracted.
+The analysis was based on the DAT-SPECT data, for the three ROIs, the demographic data and the symptoms tests results. Therefore, the MRI data were discarded.
+
+\subsection{Lateralization indexes}
 
 From the lateralization data, the group used a DAT binding asymmetry index found in \cite{kaasinen_ipsilateral_2016}: (right - left SBR)/(right + left SBR). The lateralization was considered relevant when the asymmetry index was higher than 20\%.
 This threshold level was adopted from a previous study \cite{fiorenzato_asymmetric_2021}. In this way, the group identified, for the Caudate,  28 PD patients with a right lateralization and 29 with a left lateralization. For the Putamen, 203 PD had a right lateralization, 2 HC and 150 PD with a left lateralization. For the Putamen Anterior, 113 PD patients were found lateralized on the right side, while 64 on the left. The remaining subjects were not lateralized.
 
 \subsection{Covariates analysis}
 
-DIVIDE SYMPTOMS - COVARIATES (indirect data)
-
-Analyzing HC, the possible covariates were sex, dominant hand, ethnicity, age, height, weight, MCATOT.
+Analyzing HC, the possible covariates were sex, dominant hand, ethnicity, age, height, weight.
 
 Regarding the discrete variables, it was possible to analyze only SEX, because the others didn't divide the subjects in groups with a comparable number of data. 
 The lateralization indexes were, for each region, divided in males and females. Through a Lillie test, both groups were found not gaussian. Therefore, they were compared with a Wilcoxon test, finding that for all the three regions, males and females had different medians of lateralization indexes.
 Consequently, SEX was considered as a covariate for the study, and the statistical analysis on PD patients was performed both on the whole group and on the two sub-groups of males and females.
 
-CONTINUE
-Through the Pearson pairwise correlation, the group analyzed the correlation coefficients of the continue variables, such as ENROLL\_AGE, WGTKG (weight - kg), HGTCM (height - cm), and MCATOT, with the lateralization indexes (figures \ref{fig:cov_mat_hc}). For the statistical analysis, were kept only the significant ones, with p-value $<$ 0.05, and correlation coefficient higher than 0.75. This threshold was chosen in order to have a strong correlation coefficient (0.6-0.79). 
+Through the Pearson pairwise correlation, the group analyzed the correlation coefficients of the continue variables, such as ENROLL\_AGE, WGTKG (weight - kg), HGTCM (height - cm), with the lateralization indexes (figures \ref{fig:cov_mat_hc}). For the statistical analysis, were kept only the significant ones, with p-value $<$ 0.05, and correlation coefficient higher than 0.5. This threshold was chosen in order to have at least a moderate correlation (0.4-0.59). 
 
 \end{multicols}
-
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=3in]{../covariates_mat_hc}
 	\caption{Correlation matrix between covariates and lateralization index - HC}
 	\label{fig:cov_mat_hc}
-	
 \end{figure} 
  
-
-
 \begin{multicols}{2}
 
 In the correlation matrix of the HC in figure \ref{fig:cov_mat_hc}, it's shown that ENROLL\_AGE has a moderate correlation only with the lateralization coefficient in the Caudate region, while it has a weak correlation with the other two ROIs. HTCM is strongly correlated with Caudate's lateralization coefficient, moderately with Putamen and has a very strong correlation with Putamen Anterior. Similarly, also WGTKG has a very strong correlation with Putamen Anterior, and a strong one with Caudate and Putamen lateralization indexes.
 
-
-
-CONFRONTO PER VARIABILI DISCRETE
-
 \subsection{Statistical methods}
 
-At first, the group compared HC and PD populations in terms of lateralization, using an Anova test. The Anova test was chosen because ?????[forse Wilcoxon]?????????????
+The group used the Pearson correlation coefficient in the covariates analysis and in the symptoms analysis.
 
-Doing so, the group investigated the presence of a difference between the lateralization in HC with the one in PD. To perform the analysis, the lateralization was taken in absolute value. The choice of using the absolute value came from the interest on the amount of lateralization, not its direction.
+The Anova test was used in the pre-processing section in order to compare the distributions of HC and PD continuous variables (age, height, weight).
+Also, the Wilcoxon test was used during the pre-processing step, but to compare the discrete variables distributions (sex, familiarity, ethnicity).
 
-As hypothesized at the start of the study, the analysis confirmed that there was a significant difference (p-value $<$ 0.01) in the lateralization of HC and PD in all the ROIs. 
+Then the group compared HC and PD populations in terms of lateralization, using an Anova test (figures \ref{fig:anova_table} and \ref{fig:anova_plot}). The Anova test was chosen because the normality assumption wasn't met, and so the T-test couldn't be used.
+Therefore, the analysis investigated the presence of a difference between the lateralization in HC with the one in PD. To perform the analysis, the lateralization was taken in absolute value. The choice of using the absolute value came from the interest on the amount of lateralization, not its direction.
 
 \subsubsection{Linear regression}
 
-Using the covariates found for PD and HC through the correlation matrix, the group performed a linear fit through the MATLAB fuction \codeword{fitlm} (the lateralization was not take in absolute value, in order to have a relation with its direction).
-
+Using the covariates variables (found for HC through the correlation matrix) and the symptoms data, the group performed a linear fit with the lateralization indexes of PD patients, to check the presence of a linear relation between them. 
+This was implemented through the MATLAB function \codeword{fitlm} (the lateralization was not take in absolute value, in order to have a relation with its direction).
 As parameter, the adjusted $R^2$ was used to get the true value of the fit.
-
-ALTRI METODI USATI
-
-FIT SENZA E CON DIVISIONE MASCHI FEMM
 
 \section{Results}
 
-As an answer to the first research question, which was to investigate the relationship between dopamine lateralization function and symptoms, the group found the following statistical results. 
+The covariates extracted for each ROI are shown in Table \ref{tbl:cov_hc}.
+
+\end{multicols}
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{ROIs}             & \textbf{Covariates} & \textbf{Correlation coefficient} \\ \hline
+		\textbf{Caudate}          & ENROLL\_AGE         & 0.593                            \\ \hline
+		\textbf{}                 & HTCM                & 0.958                            \\ \hline
+		\textbf{}                 & WGTKG               & 0.723                            \\ \hline
+		\textbf{Putamen}          & WGTKG               & 0.722                            \\ \hline
+		\textbf{Putamen Anterior} & HTCM                & 0.840                            \\ \hline
+		\textbf{}                 & WGTKG               & 0.997                            \\ \hline
+	\end{tabular}
+	\caption{Covariates correlation coefficients - HC}
+	\label{tbl:cov_hc}
+\end{table}
+
+\begin{multicols}{2}
+
+The results of the Anova test to compare the lateralization indexes of PD and HC are shown in Figures \ref{fig:anova_table} and \ref{fig:anova_plot}.
+As hypothesized at the start of the study, the analysis confirmed that there was a significant difference (p-value $<$ 0.01) in the lateralization of HC and PD in all the ROIs.
+
+\end{multicols}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=3in]{../anova_table_lat_hc_pd}
+\caption{Anova test results, comparing lateralization indexes in PD and HC}
+\label{fig:anova_table}
+\end{figure} 
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=3in]{../anova_plot_lat_hc_pd}
+\caption{Anova test boxplots, comparing lateralization indexes in PD and HC}
+\label{fig:anova_plot}
+\end{figure} 
+
+\begin{multicols}{2}
+
+\subsection{Symptoms correlation matrix}
+
+To answer the first research question, which was to investigate the relationship between dopamine lateralization function and symptoms, the group extracted the significant symptoms from a correlation matrix (Figure \ref{fig:corr_symp_pd}) obtained with the Pearson correlation as done for the covariates, with a threshold of 0.5 for the correlation coefficients. 
 
 \end{multicols}
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=3in]{../fit_covariates_hc}
-	\caption{Linear fit - HC}
-	\label{fig:lin_fit_hc}
+	\includegraphics[width=3in]{../corr_mat_symptoms_pd}
+	\caption{Correlation matrix between Lateralization indexes and symptoms - PD}
+	\label{fig:corr_symp_pd}
 \end{figure} 
+
+\begin{multicols}{2}
+
+These symptoms were used, together with the covariates found from HC, to perform a linear fit with the lateralization indexes in PD, in order to find the relationship between dopamine lateralization function and symptoms. The graphs of the fit are shown in Figure \ref{fig:lin_fit_pd}. The graphs contain on the x-axis the covariates, while on the y-axis the lateralization indexes. Each figure shows the fit for the three different ROIs, Caudate, Putamen and Putamen Anterior. 
+The numerical results of these linear fits are shown in the Table \ref{tbl:R_squared_fit_pd}, where $R^2$ (adjusted) was chosen because . The p-values were all under 0.01 and therefore they aren't shown in Table \ref{tbl:R_squared_fit_pd}.
+
+\end{multicols}
 
 \begin{figure}[h]
 	\centering
@@ -198,45 +241,28 @@ As an answer to the first research question, which was to investigate the relati
 	\label{fig:lin_fit_pd}
 \end{figure} 
 
-\begin{multicols}{2}
-
-In figures \ref{fig:lin_fit_hc} and \ref{fig:lin_fit_pd}, the linear fits are shown for HC and PD. The graphs contain on the x-axis the covariates, while on the y-axis the lateralization index, obtained in the section of Feature Extraction. Each figure shows the fit for the three different ROIs, Caudate, Putamen and Putamen Anterior. 
-
-The numerical results of these linear fits are shown in the tables below, with $R^2$ (adjusted) and p-value for each ROI.
-
-\end{multicols}
-
-\begin{tabular}{|l|l|l|r|}
-	\hline
-	CAUDATE & HC & PD \\
-	\hline
-	$R^2$ (adjusted) & 0.021899285491766 & 0.441924423381424 \\ 
-	\hline
-	p-value & 0.398349585769054 & 1.950516939619888e-20 \\
-	\hline
-\end{tabular}
-\newline
-\begin{tabular}{|l|l|l|r|}
-	\hline
-	PUTAMEN & HC & PD \\
-	\hline
-	$R^2$ (adjusted) & 0.027100337935025 & 0.481441593928543 \\ 
-	\hline
-	p-value & 0.375829445576761 & 1.749319862864852e-24 \\
-	\hline
-\end{tabular}
-\newline
-\begin{tabular}{|l|l|l|r|}
-	\hline
-	PUTAMEN ANT & HC & PD \\
-	\hline
-	$R^2$ (adjusted) &  -0.048170586150496 & 0.511431631643848 \\ 
-	\hline
-	p-value & 0.705855414513558 & 6.121704939031713e-28 \\
-	\hline
-\end{tabular}
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{ROIs}             & \textbf{adjusted $R^2$} \\ \hline
+		\textbf{Caudate}          & 0.3287                  \\ \hline
+		\textbf{Putamen}          & 0.3634                  \\ \hline
+		\textbf{Putamen Anterior} & 0.3014                  \\ \hline
+	\end{tabular}
+	\caption{Adjusted $R^2$ values of the linear fit between lateralization and symptoms}
+	\label{tbl:R_squared_fit_pd}
+\end{table}
 
 \begin{multicols}{2}
+
+FIT SENZA E CON DIVISIONE MASCHI FEMM
+
+
+
+
+
+
 
 The second research question was whether a relationship between dopamine lateralization function and possible covariates shown by healthy controls was present. To answer this question, the following results were found. 
 
