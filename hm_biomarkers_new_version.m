@@ -582,25 +582,28 @@ xticks(1:width(covariates_hc))
 xticklabels(covariates_hc.Properties.VariableNames)
 yticks(1:width(covariates_hc))
 yticklabels(covariates_hc.Properties.VariableNames)
-title("Correlation between lateralization and age, weight, height, MCATOT - HC")
+title("Correlation between lateralization and age, weight, height")
 ax = gca;
 ax.FontSize = 6;
 axis equal
+for i=1:3
+    covariates_to_save_hc.(ROIs_labels(i)) = [];
+end
 
-covariates_to_save_hc = [];
 for i =1:size(correlation.indirect.HC.R,1)
     for j = 1:size(correlation.indirect.HC.R,2)
-        if correlation.indirect.HC.p(i,j) < 0.05 && correlation.indirect.HC.R(i,j) > 0.75
-                if (j < (size(correlation.indirect.HC.R,1) -3)) && (i > (size(correlation.indirect.HC.R,1) -3)) 
+        if correlation.indirect.HC.p(i,j) < 0.05 && correlation.indirect.HC.R(i,j) > 0.5
+                if (j <= (size(correlation.indirect.HC.R,1) -3)) && (i > (size(correlation.indirect.HC.R,1) -3)) 
                     disp([covariates_hc.Properties.VariableNames{i}, ' correlated with ', covariates_hc.Properties.VariableNames{j}])
-                    covariates_to_save_hc = [covariates_to_save_hc,  convertCharsToStrings(covariates_hc.Properties.VariableNames{j})];
+                    covariates_to_save_hc.(ROIs_labels(i-3)) = [covariates_to_save_hc.(ROIs_labels(i-3)),  convertCharsToStrings(covariates_hc.Properties.VariableNames{j})];
                 end
        end
     end
 end
 
-covariates_to_save_hc = unique(covariates_to_save_hc);
-
+for i=1:3
+    covariates_to_save_hc.(ROIs_labels(i))  = unique(covariates_to_save_hc.(ROIs_labels(i)));
+end
 %%   - HC - symptoms data
 idx_symptoms = [34, 55, 94, 27:54, 61:93,158]; 
 symptoms_hc = data_hc(:, idx_symptoms); % age, height, weight, mcatot
@@ -623,19 +626,27 @@ ax = gca;
 ax.FontSize = 6;
 axis equal
 
-symptoms_to_save_hc = [];
+for i=1:3
+    symptoms_to_save_hc.(ROIs_labels(i)) = [];
+end
+
+
 for i =1:size(correlation.symptoms.HC.R,1)
     for j = 1:size(correlation.symptoms.HC.R,2)
-        if correlation.symptoms.HC.p(i,j) < 0.05 && correlation.symptoms.HC.R(i,j) > 0.75
-                if (j < (size(correlation.symptoms.HC.R,1) -3)) && (i > (size(correlation.symptoms.HC.R,1) -3)) 
+        if correlation.symptoms.HC.p(i,j) < 0.05 && correlation.symptoms.HC.R(i,j) > 0.5
+                if (j <= (size(correlation.symptoms.HC.R,1) -3)) && (i > (size(correlation.symptoms.HC.R,1) -3)) 
                     disp([symptoms_hc.Properties.VariableNames{i}, ' correlated with ', symptoms_hc.Properties.VariableNames{j}])
-                    symptoms_to_save_hc = [symptoms_to_save_hc,  convertCharsToStrings(symptoms_hc.Properties.VariableNames{j})];
+                    symptoms_to_save_hc.(ROIs_labels(size(correlation.symptoms.HC.R,1) -i+1)) = [symptoms_to_save_hc.(ROIs_labels(size(correlation.symptoms.HC.R,1) -i+1)),  convertCharsToStrings(symptoms_hc.Properties.VariableNames{j})];
                 end
        end
     end
 end
 
-symptoms_to_save_hc = unique(symptoms_to_save_hc);
+for i=1:3
+    symptoms_to_save_hc.(ROIs_labels(i))  = unique(symptoms_to_save_hc.(ROIs_labels(i)));
+end
+
+
 
 %%  - PD - indirect data
 idx_tot = [idx_covariates,idx_symptoms];
@@ -659,19 +670,26 @@ ax = gca;
 ax.FontSize = 6;
 axis equal
 
-covariates_to_save_pd = [];
+for i=1:3
+    covariates_to_save_pd.(ROIs_labels(i)) = [];
+end
+
 for i =1:size(correlation.indirect.PD.R,1)
     for j = 1:size(correlation.indirect.PD.R,2)
-        if correlation.indirect.PD.p(i,j) < 0.05 && correlation.indirect.PD.R(i,j) > 0.75
+        if correlation.indirect.PD.p(i,j) < 0.05 && correlation.indirect.PD.R(i,j) > 0.5
                 if (j < (size(correlation.indirect.PD.R,1) -3)) && (i > (size(correlation.indirect.PD.R,1) -3)) 
                     disp([covariates_pd.Properties.VariableNames{i}, ' correlated with ', covariates_pd.Properties.VariableNames{j}])
-                    covariates_to_save_pd = [covariates_to_save_pd,  convertCharsToStrings(covariates_pd.Properties.VariableNames{j})];
+                    covariates_to_save_pd.(ROIs_labels(i-3)) = [covariates_to_save_pd.(ROIs_labels(i-3)),  convertCharsToStrings(covariates_pd.Properties.VariableNames{j})];
                 end
        end
     end
 end
 
-covariates_to_save_pd  = unique(covariates_to_save_pd);
+
+for i=1:3
+    covariates_to_save_pd.(ROIs_labels(i))  = unique(covariates_to_save_pd.(ROIs_labels(i)));
+end
+
 
 %%   - PD - symptoms data
 idx_symptoms = [34, 55, 94, 27:54, 61:93]; 
@@ -695,32 +713,45 @@ ax = gca;
 ax.FontSize = 6;
 axis equal
 
-symptoms_to_save_pd = [];
+for i=1:3
+    symptoms_to_save_pd.(ROIs_labels(i)) = [];
+end
+
 for i =1:size(correlation.symptoms.PD.R,1)
     for j = 1:size(correlation.symptoms.PD.R,2)
-        if correlation.symptoms.PD.p(i,j) < 0.05 && correlation.symptoms.PD.R(i,j) > 0.75
-                if (j < (size(correlation.symptoms.PD.R,1) -3)) && (i > (size(correlation.symptoms.PD.R,1) -3)) 
+        if correlation.symptoms.PD.p(i,j) < 0.05 && correlation.symptoms.PD.R(i,j) > 0.5
+                if (j <= (size(correlation.symptoms.PD.R,1) -3)) && (i > (size(correlation.symptoms.PD.R,1) -3)) 
                     disp([symptoms_pd.Properties.VariableNames{i}, ' correlated with ', symptoms_pd.Properties.VariableNames{j}])
-                    symptoms_to_save_pd = [symptoms_to_save_pd,  convertCharsToStrings(symptoms_pd.Properties.VariableNames{j})];
+                    symptoms_to_save_pd.(ROIs_labels(size(correlation.symptoms.HC.R,1) -i)) = [symptoms_to_save_pd.(ROIs_labels(size(correlation.symptoms.HC.R,1) -i)),  convertCharsToStrings(symptoms_pd.Properties.VariableNames{j})];
                 end
        end
     end
 end
 
-symptoms_to_save_pd = unique(symptoms_to_save_pd);
+
+for i=1:3
+    symptoms_to_save_pd.(ROIs_labels(i))  = unique(symptoms_to_save_pd.(ROIs_labels(i)));
+end
 
 %% LINEAR REGRESSION
 %% - HC
-symptoms_hc_array = table2array(symptoms_hc(:,contains(symptoms_hc.Properties.VariableNames,symptoms_to_save_hc)));
-covariates_hc_array = table2array(covariates_hc(:,contains(covariates_hc.Properties.VariableNames,covariates_to_save_hc)));
 
-regressors_hc_array = [covariates_hc_array,symptoms_hc_array];
+for i=1:3
+    symptoms_hc_array.(ROIs_labels(i)) = table2array(symptoms_hc(:,contains(symptoms_hc.Properties.VariableNames,symptoms_to_save_hc.(ROIs_labels(i)))));
+    try
+        covariates_hc_array.(ROIs_labels(i)) = table2array(covariates_hc(:,contains(covariates_hc.Properties.VariableNames,covariates_to_save_hc.(ROIs_labels(i)))));
+    catch
+        covariates_hc_array.(ROIs_labels(i)) = [];
+    end
+    regressors_hc_array.(ROIs_labels(i)) = [covariates_hc_array.(ROIs_labels(i)),symptoms_hc_array.(ROIs_labels(i))];
+
+end
 
 figure(25)
 set(gcf, 'Position', get(0, 'Screensize'));
 
 subplot(131)
-model_caud_hc = fitlm(regressors_hc_array,NOT_ABS.LATERALIZATION_coeff.CAUDATE.HC);
+model_caud_hc = fitlm(regressors_hc_array.CAUDATE,NOT_ABS.LATERALIZATION_coeff.CAUDATE.HC);
 plot(model_caud_hc)
 % xlim([-0.05 0.05])
 % ylim([-0.3 0.2])
@@ -729,7 +760,7 @@ ylabel('Lateralization index')
 title('Caudate linear fit - HC')
 
 subplot(132)
-model_put_hc = fitlm(regressors_hc_array,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.HC);
+model_put_hc = fitlm(regressors_hc_array.PUTAMEN,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.HC);
 plot(model_put_hc)
 % xlim([-0.05 0.05])
 % ylim([-0.3 0.2])
@@ -738,7 +769,7 @@ ylabel('Lateralization index')
 title('Putamen linear fit - HC')
 
 subplot(133)
-model_put_ant_hc = fitlm(regressors_hc_array,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.HC);
+model_put_ant_hc = fitlm(regressors_hc_array.PUTAMEN_ANT,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.HC);
 plot(model_put_ant_hc)
 % xlim([-0.05 0.05])
 % ylim([-0.3 0.2])
@@ -756,16 +787,24 @@ anova_put_hc = anova(model_put_hc,'summary');
 anova_put_ant_hc =  anova(model_put_ant_hc,'summary');
 
 %% - PD
-symptoms_pd_array = table2array(symptoms_pd(:,contains(symptoms_pd.Properties.VariableNames,symptoms_to_save_pd)));
-covariates_pd_array = table2array(covariates_pd(:,contains(covariates_pd.Properties.VariableNames,covariates_to_save_hc)));
 
-regressors_pd_array = [covariates_pd_array,symptoms_pd_array];
+for i=1:3
+    symptoms_pd_array.(ROIs_labels(i)) = table2array(symptoms_pd(:,contains(symptoms_pd.Properties.VariableNames,symptoms_to_save_pd.(ROIs_labels(i)))));
+    try
+        covariates_pd_array.(ROIs_labels(i)) = table2array(covariates_pd(:,contains(covariates_pd.Properties.VariableNames,covariates_to_save_hc.(ROIs_labels(i)))));
+    catch
+        covariates_pd_array.(ROIs_labels(i)) = [];
+    end
+
+    regressors_pd_array.(ROIs_labels(i)) = [covariates_pd_array.(ROIs_labels(i)),symptoms_pd_array.(ROIs_labels(i))];
+
+end
 
 figure(26)
 set(gcf, 'Position', get(0, 'Screensize'));
 
 subplot(131)
-model_caud_pd = fitlm(regressors_pd_array,NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD);
+model_caud_pd = fitlm(regressors_pd_array.CAUDATE,NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD);
 plot(model_caud_pd)
 % xlim([-0.5 0.6])
 % ylim([-0.6 0.8])
@@ -774,7 +813,7 @@ ylabel('Lateralization index')
 title('Caudate linear fit - PD')
 
 subplot(132)
-model_put_pd = fitlm(regressors_pd_array,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.PD);
+model_put_pd = fitlm(regressors_pd_array.PUTAMEN,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.PD);
 plot(model_put_pd)
 % xlim([-0.5 0.6])
 % ylim([-0.6 0.8])
@@ -783,7 +822,7 @@ ylabel('Lateralization index')
 title('Putamen linear fit - PD')
 
 subplot(133)
-model_put_ant_pd = fitlm(regressors_pd_array,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.PD);
+model_put_ant_pd = fitlm(regressors_pd_array.PUTAMEN_ANT,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.PD);
 plot(model_put_ant_pd)
 % xlim([-0.5 0.6])
 % ylim([-0.6 0.8])
@@ -814,14 +853,15 @@ female_lateralization_coeff.PUTAMEN = NOT_ABS.LATERALIZATION_coeff.PUTAMEN.PD(id
 male_lateralization_coeff.PUTAMEN_ANT = NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.PD(idx_male_population,:);
 female_lateralization_coeff.PUTAMEN_ANT = NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.PD(idx_female_population,:);
 
-regressors_male_array = regressors_pd_array(idx_male_population,:);
-regressors_female_array = regressors_pd_array(idx_female_population,:);
-
+for i=1:3
+    regressors_male_array.(ROIs_labels(i)) = regressors_pd_array.(ROIs_labels(i))(idx_male_population,:);
+    regressors_female_array.(ROIs_labels(i)) = regressors_pd_array.(ROIs_labels(i))(idx_female_population,:);
+end
 
 % Male fit
-model_caud_male = fitlm(regressors_male_array,male_lateralization_coeff.CAUDATE);
-model_put_male = fitlm(regressors_male_array,male_lateralization_coeff.PUTAMEN);
-model_put_ant_male = fitlm(regressors_male_array,male_lateralization_coeff.PUTAMEN_ANT);
+model_caud_male = fitlm(regressors_male_array.CAUDATE,male_lateralization_coeff.CAUDATE);
+model_put_male = fitlm(regressors_male_array.PUTAMEN,male_lateralization_coeff.PUTAMEN);
+model_put_ant_male = fitlm(regressors_male_array.PUTAMEN_ANT,male_lateralization_coeff.PUTAMEN_ANT);
 
 figure(27)
 set(gcf, 'Position', get(0, 'Screensize'));
@@ -847,13 +887,13 @@ set(t, 'FontSize', 9)
 
 sgtitle('Male population FIT')
 saveas(figure(27), "fit_covariates_male.png", "png")
-
+clear t
 
 % Female fit
 
-model_caud_female = fitlm(regressors_female_array,female_lateralization_coeff.CAUDATE);
-model_put_female = fitlm(regressors_female_array,female_lateralization_coeff.PUTAMEN);
-model_put_ant_female = fitlm(regressors_female_array,female_lateralization_coeff.PUTAMEN_ANT);
+model_caud_female = fitlm(regressors_female_array.CAUDATE,female_lateralization_coeff.CAUDATE);
+model_put_female = fitlm(regressors_female_array.PUTAMEN,female_lateralization_coeff.PUTAMEN);
+model_put_ant_female = fitlm(regressors_female_array.PUTAMEN_ANT,female_lateralization_coeff.PUTAMEN_ANT);
 
 figure(28)
 set(gcf, 'Position', get(0, 'Screensize'));
@@ -882,6 +922,7 @@ sgtitle('Female population FIT')
 
 saveas(figure(28), "fit_covariates_female.png", "png")
 
+clear t
 
 
 %% SIMPTOMS LATERALITY INDEX
@@ -933,35 +974,35 @@ saveas(figure(27), "fit asimmetry index.png", "png")
 
 
 
-%% AGE
-age_pd = fitlm(data_pd.ENROLL_AGE,NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD);
-age_hc = fitlm(data_hc.ENROLL_AGE,NOT_ABS.LATERALIZATION_coeff.CAUDATE.HC);
-
-figure
-plot(age_pd)
-figure
-plot(age_hc)
-
-
-%% WEIGHT
-weight_pd = fitlm(data_pd.WGTKG,NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD);
-weight_hc = fitlm(data_hc.WGTKG,NOT_ABS.LATERALIZATION_coeff.CAUDATE.HC);
-
-figure
-plot(weight_pd)
-figure
-plot(weight_hc)
-
-%% MCATOT
-
-mcatot_pd = fitlm(data_pd.MCATOT,NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD);
-mcatot_hc = fitlm(data_hc.MCATOT,NOT_ABS.LATERALIZATION_coeff.CAUDATE.HC);
-
-figure
-plot(mcatot_hc)
-
-figure
-plot(mcatot_pd)
+% %% AGE
+% age_pd = fitlm(data_pd.ENROLL_AGE,NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD);
+% age_hc = fitlm(data_hc.ENROLL_AGE,NOT_ABS.LATERALIZATION_coeff.CAUDATE.HC);
+% 
+% figure
+% plot(age_pd)
+% figure
+% plot(age_hc)
+% 
+% 
+% %% WEIGHT
+% weight_pd = fitlm(data_pd.WGTKG,NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD);
+% weight_hc = fitlm(data_hc.WGTKG,NOT_ABS.LATERALIZATION_coeff.CAUDATE.HC);
+% 
+% figure
+% plot(weight_pd)
+% figure
+% plot(weight_hc)
+% 
+% %% MCATOT
+% 
+% mcatot_pd = fitlm(data_pd.MCATOT,NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD);
+% mcatot_hc = fitlm(data_hc.MCATOT,NOT_ABS.LATERALIZATION_coeff.CAUDATE.HC);
+% 
+% figure
+% plot(mcatot_hc)
+% 
+% figure
+% plot(mcatot_pd)
 
 
 
