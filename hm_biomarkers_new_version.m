@@ -800,12 +800,49 @@ for i=1:3
 
 end
 
+a = regressors_pd_array.CAUDATE;
+a(:,2) = [];
+b = regressors_pd_array.CAUDATE;
+b(:,3) = [];
+c = [regressors_pd_array.CAUDATE(:,2),regressors_pd_array.CAUDATE(:,4:end)];
+d = [regressors_pd_array.CAUDATE(:,1),regressors_pd_array.CAUDATE(:,4:end)];
+
+
+
+permutazioni_caud = {regressors_pd_array.CAUDATE; regressors_pd_array.CAUDATE(:,2:end); regressors_pd_array.CAUDATE(:,3:end);regressors_pd_array.CAUDATE(:,4:end);a ; b;c;d};
+names_permutazioni_caud = {'ALL';'HEIGHT & WEIGHT';'WEIGHT';'NOTHING';'AGE & WEIGHT';'AGE & HEIGHT';'AGE';'HEIGHT'};
+R_squared_caud = [];
+model_caud_pd = {};
+
+clear a b c d
+
+permutazioni_put = {regressors_pd_array.PUTAMEN;regressors_pd_array.PUTAMEN(:,2:end)};
+names_permutazioni_put = {'WEIGHT';'NOTHING'};
+R_squared_put = [];
+model_put_pd= {};
+
+a = regressors_pd_array.PUTAMEN_ANT;
+a(:,2) = [];
+permutazioni_put_ant = {regressors_pd_array.PUTAMEN_ANT; regressors_pd_array.PUTAMEN_ANT(:,2:end); regressors_pd_array.PUTAMEN_ANT(:,3:end); a};
+names_permutazioni_put_ant = {'ALL';'WEIGHT';'NOTHING';'HEIGHT'};
+R_squared_put_ant = [];
+model_put_ant_pd = {};
+
+clear a
+
+
+
 figure(26)
 set(gcf, 'Position', get(0, 'Screensize'));
 
 subplot(131)
-model_caud_pd = fitlm(regressors_pd_array.CAUDATE,NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD);
-plot(model_caud_pd)
+for i=1:8
+    model_caud_pd{i} = fitlm(permutazioni_caud{i},NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD);
+    R_squared_caud(i) = model_caud_pd{i}.Rsquared.Adjusted;
+end
+[max_R_squared_caud,idx_max_R_squared_caud] = max(R_squared_caud);
+plot(model_caud_pd{idx_max_R_squared_caud})
+covariate_fit.CAUDATE.ALL = names_permutazioni_caud{idx_max_R_squared_caud};
 % xlim([-0.5 0.6])
 % ylim([-0.6 0.8])
 xlabel('Covariates and symptoms')
@@ -813,8 +850,16 @@ ylabel('Lateralization index')
 title('Caudate linear fit - PD')
 
 subplot(132)
-model_put_pd = fitlm(regressors_pd_array.PUTAMEN,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.PD);
-plot(model_put_pd)
+for i=1:2
+    model_put_pd{i} = fitlm(permutazioni_put{i},NOT_ABS.LATERALIZATION_coeff.PUTAMEN.PD);
+    R_squared_put(i) = model_put_pd{i}.Rsquared.Adjusted;
+end
+[max_R_squared_put,idx_max_R_squared_put] = max(R_squared_put);
+
+plot(model_put_pd{idx_max_R_squared_put})
+covariate_fit.PUTAMEN.ALL = names_permutazioni_put{idx_max_R_squared_put};
+
+
 % xlim([-0.5 0.6])
 % ylim([-0.6 0.8])
 xlabel('Covariates and symptoms')
@@ -822,8 +867,16 @@ ylabel('Lateralization index')
 title('Putamen linear fit - PD')
 
 subplot(133)
-model_put_ant_pd = fitlm(regressors_pd_array.PUTAMEN_ANT,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.PD);
-plot(model_put_ant_pd)
+for i=1:4
+    model_put_ant_pd{i} = fitlm(permutazioni_put_ant{i},NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.PD);
+    R_squared_put_ant(i) = model_put_ant_pd{i}.Rsquared.Adjusted;
+end
+[max_R_squared_put_ant,idx_max_R_squared_put_ant] = max(R_squared_put_ant);
+
+plot(model_put_ant_pd{idx_max_R_squared_put_ant})
+covariate_fit.PUTAMEN_ANT.ALL = names_permutazioni_put_ant{idx_max_R_squared_put_ant};
+
+
 % xlim([-0.5 0.6])
 % ylim([-0.6 0.8])
 xlabel('Covariates and symptoms')
@@ -835,9 +888,9 @@ sgtitle('Lateralization index - Regressors FIT PD')
 saveas(figure(26), "fit_covariates_pd.png", "png")
 
 %% ----- Statistics
-anova_caud_pd = anova(model_caud_pd,'summary');
-anova_put_pd = anova(model_put_pd,'summary');
-anova_put_ant_pd = anova(model_put_ant_pd,'summary');
+anova_caud_pd = anova(model_caud_pd{idx_max_R_squared_caud},'summary');
+anova_put_pd = anova(model_put_pd{idx_max_R_squared_put},'summary');
+anova_put_ant_pd = anova(model_put_ant_pd{idx_max_R_squared_put},'summary');
 
 
 %% SEPARATIONS Male - Female
@@ -858,28 +911,74 @@ for i=1:3
     regressors_female_array.(ROIs_labels(i)) = regressors_pd_array.(ROIs_labels(i))(idx_female_population,:);
 end
 
+% Permutazioni Male
+a = regressors_male_array.CAUDATE;
+a(:,2) = [];
+b = regressors_male_array.CAUDATE;
+b(:,3) = [];
+c = [regressors_male_array.CAUDATE(:,2),regressors_male_array.CAUDATE(:,4:end)];
+d = [regressors_male_array.CAUDATE(:,1),regressors_male_array.CAUDATE(:,4:end)];
+
+permutazioni_caud_male = {regressors_male_array.CAUDATE; regressors_male_array.CAUDATE(:,2:end); regressors_male_array.CAUDATE(:,3:end);regressors_male_array.CAUDATE(:,4:end);a ; b;c;d};
+R_squared_caud_male = [];
+model_caud_male = {};
+
+clear a b c d
+
+permutazioni_put_male = {regressors_male_array.PUTAMEN;regressors_male_array.PUTAMEN(:,2:end)};
+R_squared_put_male = [];
+model_put_male= {};
+
+a = regressors_male_array.PUTAMEN_ANT;
+a(:,2) = [];
+permutazioni_put_ant_male = {regressors_male_array.PUTAMEN_ANT; regressors_male_array.PUTAMEN_ANT(:,2:end); regressors_male_array.PUTAMEN_ANT(:,3:end); a};
+R_squared_put_ant_male = [];
+model_put_ant_male = {};
+
+clear a
+
+
 % Male fit
-model_caud_male = fitlm(regressors_male_array.CAUDATE,male_lateralization_coeff.CAUDATE);
-model_put_male = fitlm(regressors_male_array.PUTAMEN,male_lateralization_coeff.PUTAMEN);
-model_put_ant_male = fitlm(regressors_male_array.PUTAMEN_ANT,male_lateralization_coeff.PUTAMEN_ANT);
+for i=1:8
+    model_caud_male{i} = fitlm(permutazioni_caud_male{i},male_lateralization_coeff.CAUDATE);
+    R_squared_caud_male(i) = model_caud_male{i}.Rsquared.Adjusted;
+end
+[max_R_squared_caud_male,idx_max_R_squared_caud_male] = max(R_squared_caud_male);
+covariate_fit.CAUDATE.MALE = names_permutazioni_caud{idx_max_R_squared_caud_male};
+
+for i=1:2
+    model_put_male{i} = fitlm(permutazioni_put_male{i},male_lateralization_coeff.PUTAMEN);
+    R_squared_put_male(i) = model_put_male{i}.Rsquared.Adjusted;
+end
+[max_R_squared_put_male,idx_max_R_squared_put_male] = max(R_squared_put_male);
+covariate_fit.PUTAMEN.MALE = names_permutazioni_put{idx_max_R_squared_put_male};
+
+
+for i=1:4
+    model_put_ant_male{i} = fitlm(permutazioni_put_ant_male{i},male_lateralization_coeff.PUTAMEN_ANT);
+    R_squared_put_ant_male(i) = model_put_ant_male{i}.Rsquared.Adjusted;
+end
+[max_R_squared_put_ant_male,idx_max_R_squared_put_ant_male] = max(R_squared_put_ant_male);
+covariate_fit.PUTAMEN_ANT.MALE = names_permutazioni_put_ant{idx_max_R_squared_put_ant_male};
+
 
 figure(27)
 set(gcf, 'Position', get(0, 'Screensize'));
 
 subplot(131)
-plot(model_caud_male)
+plot(model_caud_male{idx_max_R_squared_caud_male})
 xlabel('Covariates and symptoms')
 ylabel('Lateralization index')
 t = title('Fit Lateralization CAUDATE - Regressors [Male population]');
 set(t, 'FontSize', 9)
 subplot(132)
-plot(model_put_male)
+plot(model_put_male{idx_max_R_squared_put_male})
 xlabel('Covariates and symptoms')
 ylabel('Lateralization index')
 t = title('Fit Lateralization PUTAMEN - Regressors [Male population]');
 set(t, 'FontSize', 9)
 subplot(133)
-plot(model_put_ant_male)
+plot(model_put_ant_male{idx_max_R_squared_put_ant_male})
 xlabel('Covariates and symptoms')
 ylabel('Lateralization index')
 t = title('Fit Lateralization PUTAMEN ANTERIOR - Regressors [Male population]');
@@ -889,40 +988,83 @@ sgtitle('Male population FIT')
 saveas(figure(27), "fit_covariates_male.png", "png")
 clear t
 
+
+
+% Permutazioni Female
+a = regressors_female_array.CAUDATE;
+a(:,2) = [];
+b = regressors_female_array.CAUDATE;
+b(:,3) = [];
+c = [regressors_female_array.CAUDATE(:,2),regressors_female_array.CAUDATE(:,4:end)];
+d = [regressors_female_array.CAUDATE(:,1),regressors_female_array.CAUDATE(:,4:end)];
+
+permutazioni_caud_female = {regressors_female_array.CAUDATE; regressors_female_array.CAUDATE(:,2:end); regressors_female_array.CAUDATE(:,3:end);regressors_female_array.CAUDATE(:,4:end);a ; b;c;d};
+R_squared_caud_female = [];
+model_caud_female = {};
+
+clear a b c d
+
+permutazioni_put_female = {regressors_female_array.PUTAMEN;regressors_female_array.PUTAMEN(:,2:end)};
+R_squared_put_female = [];
+model_put_female= {};
+
+a = regressors_female_array.PUTAMEN_ANT;
+a(:,2) = [];
+permutazioni_put_ant_female = {regressors_female_array.PUTAMEN_ANT; regressors_female_array.PUTAMEN_ANT(:,2:end); regressors_female_array.PUTAMEN_ANT(:,3:end); a};
+R_squared_put_ant_female = [];
+model_put_ant_female = {};
+
+clear a
+
 % Female fit
 
-model_caud_female = fitlm(regressors_female_array.CAUDATE,female_lateralization_coeff.CAUDATE);
-model_put_female = fitlm(regressors_female_array.PUTAMEN,female_lateralization_coeff.PUTAMEN);
-model_put_ant_female = fitlm(regressors_female_array.PUTAMEN_ANT,female_lateralization_coeff.PUTAMEN_ANT);
+for i=1:8
+    model_caud_female{i} = fitlm(permutazioni_caud_female{i},female_lateralization_coeff.CAUDATE);
+    R_squared_caud_female(i) = model_caud_female{i}.Rsquared.Adjusted;
+end
+[max_R_squared_caud_female,idx_max_R_squared_caud_female] = max(R_squared_caud_female);
+covariate_fit.CAUDATE.FEMALE = names_permutazioni_caud{idx_max_R_squared_caud_female};
+
+for i=1:2
+    model_put_female{i} = fitlm(permutazioni_put_female{i},female_lateralization_coeff.PUTAMEN);
+    R_squared_put_female(i) = model_put_female{i}.Rsquared.Adjusted;
+end
+[max_R_squared_put_female,idx_max_R_squared_put_female] = max(R_squared_put_female);
+covariate_fit.PUTAMEN.FEMALE = names_permutazioni_put{idx_max_R_squared_put_female};
+
+for i=1:4
+    model_put_ant_female{i} = fitlm(permutazioni_put_ant_female{i},female_lateralization_coeff.PUTAMEN_ANT);
+    R_squared_put_ant_female(i) = model_put_ant_female{i}.Rsquared.Adjusted;
+end
+[max_R_squared_put_ant_female,idx_max_R_squared_put_ant_female] = max(R_squared_put_ant_female);
+covariate_fit.PUTAMEN_ANT.FEMALE = names_permutazioni_put_ant{idx_max_R_squared_put_ant_female};
 
 figure(28)
 set(gcf, 'Position', get(0, 'Screensize'));
 
 subplot(131)
-plot(model_caud_female)
+plot(model_caud_female{idx_max_R_squared_caud_female})
 xlabel('Covariates and symptoms')
 ylabel('Lateralization index')
 t = title('Fit Lateralization CAUDATE - Regressors [Female population]');
 set(t, 'FontSize', 9)
 subplot(132)
-plot(model_put_female)
+plot(model_put_female{idx_max_R_squared_put_female})
 xlabel('Covariates and symptoms')
 ylabel('Lateralization index')
 t = title('Fit Lateralization PUTAMEN - Regressors [Female population]');
 set(t, 'FontSize', 9)
 subplot(133)
-plot(model_put_ant_female)
+plot(model_put_ant_female{idx_max_R_squared_put_ant_female})
 xlabel('Covariates and symptoms')
 ylabel('Lateralization index')
-t=title('Fit Lateralization PUTAMEN ANTERIOR - Regressors [Female population]');
+t = title('Fit Lateralization PUTAMEN ANTERIOR - Regressors [Female population]');
 set(t, 'FontSize', 9)
 
-
 sgtitle('Female population FIT')
-
 saveas(figure(28), "fit_covariates_female.png", "png")
-
 clear t
+
 
 
 %% SIMPTOMS LATERALITY INDEX
@@ -1003,6 +1145,44 @@ saveas(figure(27), "fit asimmetry index.png", "png")
 % 
 % figure
 % plot(mcatot_pd)
+
+% %% Prova lasso
+% 
+% figure(30)
+% set(gcf, 'Position', get(0, 'Screensize'));
+% 
+% subplot(131)
+% coeff_model_caud_pd = lasso(regressors_pd_array.CAUDATE,NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD);
+% lasso_model_caud_pd = fitlm(regressors_pd_array.CAUDATE*coeff_model_caud_pd,NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD);
+% plot(lasso_model_caud_pd)
+% % xlim([-0.5 0.6])
+% % ylim([-0.6 0.8])
+% xlabel('Covariates and symptoms')
+% ylabel('Lateralization index')
+% title('Caudate linear fit - PD')
+% 
+% subplot(132)
+% coeff_model_put_pd = lasso(regressors_pd_array.PUTAMEN,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.PD);
+% lasso_model_put_pd = fitlm(regressors_pd_array.PUTAMEN*coeff_model_put_pd,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.PD);
+% 
+% plot(lasso_model_put_pd)
+% % xlim([-0.5 0.6])
+% % ylim([-0.6 0.8])
+% xlabel('Covariates and symptoms')
+% ylabel('Lateralization index')
+% title('Putamen linear fit - PD')
+% 
+% subplot(133)
+% coeff_model_put_ant_pd = lasso(regressors_pd_array.PUTAMEN_ANT,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.PD);
+% lasso_model_put_ant_pd = fitlm(regressors_pd_array.PUTAMEN_ANT*coeff_model_put_ant_pd,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.PD);
+% 
+% plot(lasso_model_put_ant_pd)
+% % xlim([-0.5 0.6])
+% % ylim([-0.6 0.8])
+% xlabel('Covariates and symptoms')
+% ylabel('Lateralization index')
+% title('Putamen Anterior linear fit - PD')
+% sgtitle('Lateralization index - Regressors FIT PD')
 
 
 
