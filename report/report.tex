@@ -65,7 +65,7 @@ The first step was dividing the dataset in patients (PD, SWEDD (Scans without ev
 
 In the preprocessing of the data, the patterns of missing values were analyzed, to determine the best course of action, through the VIM package in R.
 
-In the HC, as shown in figure \ref{fig:missing_patterns_HC}, GENETICS and FAMILIARITY are mostly empty fields, due to the nature of these variables: for healthy subjects, the chance of having relatives with a PD diagnosis and of having genetics history related to PD are low. On the opposite, for PD patients (figure \ref{fig:missing_patterns_PD}), GENETICS is empty at the TOT \%, while FAMILIRITY has the TOT \% of NaNs. The reason for this missingness, is probably that patients didn't know if their relatives had history of Parkinson's, or they didn't take the genetics test. 
+In the HC, as shown in figure \ref{fig:miss_patt_hc}, GENETICS and FAMILIARITY are mostly empty fields, due to the nature of these variables: for healthy subjects, the chance of having relatives with a PD diagnosis and of having genetics history related to PD are low. On the opposite, for PD patients (figure \ref{fig:miss_patt_pd}), GENETICS is empty at the TOT \%, while FAMILIRITY has the TOT \% of NaNs. The reason for this missingness, is probably that patients didn't know if their relatives had history of Parkinson's, or they didn't take the genetics test. 
 
 In the complete dataset, NP4TOT is missing at the 73.9\%; nearly all the HC didn't take the fourth part of the test, and also the participation of the PD was really low. This suggests that the fourth part of the test was taken by a few subjects. For this reason, the NP4 variables were not taken into account in the statistical analysis.
 
@@ -77,37 +77,38 @@ Regarding HEIGHT and WEIGHT, the pattern of missing data is MAR, with a total of
 
 The variable PRIM\_DIAG described the primary diagnosis; the group found some subjects with the value of 97, that wasn't explained by the data dictionary, therefore it was removed both from the HC and from the PD. 
 
-In figures \ref{fig:HC_missing_values} and \ref{fig:PD_missing_values}, all the combinations of missing values of the dataset have been represented, using the VIM package in R.
-
-
+In Figures \ref{fig:miss_val_hc} and \ref{fig:miss_val_pd}, all the combinations of missing values of the dataset have been represented, using the VIM package in R.
 \end{multicols}
 
-\begin{figure}[h]
-
+\begin{figure}
 	\centering
-	\includegraphics[width=4in]{../missing_patterns_HC}
-	\caption{Pattern of missing values in HC}
-	\label{fig:missing_patterns_HC}
+	\parbox{2.8in}{
+		\centering
+		\includegraphics[width=2.5in]{../missing_patterns_hc}
+		\caption{Pattern of missing values in HC}
+		\label{fig:miss_patt_hc}}
+	\begin{minipage}{2.8in}
+		\centering
+		\includegraphics[width=2.5in]{../missing_patterns_pd}
+		\caption{Pattern of missing values in PD}
+		\label{fig:miss_patt_pd}
+	\end{minipage}
+\end{figure}
 
+\begin{figure}
 	\centering
-	\includegraphics[width=4in]{../missing_patterns_PD}
-	\caption{Pattern of missing values in PD}
-	\label{fig:missing_patterns_PD}
-	
-\end{figure} 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=2.4in]{../missing_values_HC}
-	\caption{Missing values in HC}
-	\label{fig:HC_missing_values}
-	
-	\centering
-	\includegraphics[width=2.4in]{../missing_values_PD}
-	\caption{Missing values in PD}
-	\label{fig:PD_missing_values}
-
-\end{figure} 
-
+	\parbox{2.8in}{
+		\centering
+		\includegraphics[width=2.5in]{../missing_values_hc}
+		\caption{Missing values in HC}
+		\label{fig:miss_val_hc}}
+	\begin{minipage}{2.8in}
+		\centering
+		\includegraphics[width=2.5in]{../missing_values_pd}
+		\caption{Missing values in PD}
+		\label{fig:miss_val_pd}
+	\end{minipage}
+\end{figure}
 
 \begin{multicols}{2}
 
