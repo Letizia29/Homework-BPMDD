@@ -638,6 +638,7 @@ end
 symptoms_to_save_hc = unique(symptoms_to_save_hc);
 
 %%  - PD - indirect data
+idx_tot = [idx_covariates,idx_symptoms];
 covariates_pd = data_pd(:, idx_covariates); % age, weight, height,  np test + mcatot
 covariates_pd.('Caudate lat coeff') = LATERALIZATION_coeff.CAUDATE.PD;
 covariates_pd.('Putamen lat coeff') = LATERALIZATION_coeff.PUTAMEN.PD;
@@ -710,34 +711,37 @@ symptoms_to_save_pd = unique(symptoms_to_save_pd);
 
 %% LINEAR REGRESSION
 %% - HC
-covariates_hc_array = table2array(symptoms_hc(:,contains(symptoms_hc.Properties.VariableNames,symptoms_to_save_hc)));
+symptoms_hc_array = table2array(symptoms_hc(:,contains(symptoms_hc.Properties.VariableNames,symptoms_to_save_hc)));
+covariates_hc_array = table2array(covariates_hc(:,contains(covariates_hc.Properties.VariableNames,covariates_to_save_hc)));
+
+regressors_hc_array = [covariates_hc_array,symptoms_hc_array];
 
 figure(25)
 set(gcf, 'Position', get(0, 'Screensize'));
 
 subplot(131)
-model_caud_hc = fitlm(covariates_hc_array,NOT_ABS.LATERALIZATION_coeff.CAUDATE.HC,'interactions');
+model_caud_hc = fitlm(regressors_hc_array,NOT_ABS.LATERALIZATION_coeff.CAUDATE.HC);
 plot(model_caud_hc)
-xlim([-0.05 0.05])
-ylim([-0.3 0.2])
+% xlim([-0.05 0.05])
+% ylim([-0.3 0.2])
 xlabel('Covariates')
 ylabel('Lateralization index')
 title('Caudate linear fit - HC')
 
 subplot(132)
-model_put_hc = fitlm(covariates_hc_array,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.HC,'interactions');
+model_put_hc = fitlm(regressors_hc_array,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.HC);
 plot(model_put_hc)
-xlim([-0.05 0.05])
-ylim([-0.3 0.2])
+% xlim([-0.05 0.05])
+% ylim([-0.3 0.2])
 xlabel('Covariates')
 ylabel('Lateralization index')
 title('Putamen linear fit - HC')
 
 subplot(133)
-model_put_ant_hc = fitlm(covariates_hc_array,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.HC,'interactions');
+model_put_ant_hc = fitlm(regressors_hc_array,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.HC);
 plot(model_put_ant_hc)
-xlim([-0.05 0.05])
-ylim([-0.3 0.2])
+% xlim([-0.05 0.05])
+% ylim([-0.3 0.2])
 xlabel('Covariates')
 ylabel('Lateralization index')
 title('Putamen Anterior linear fit - HC')
@@ -750,15 +754,16 @@ anova_put_hc = anova(model_put_hc,'summary');
 anova_put_ant_hc =  anova(model_put_ant_hc,'summary');
 
 %% - PD
-covariates_pd_array = table2array(covariates_pd(:,contains(covariates_pd.Properties.VariableNames,symptoms_to_save_hc)));
-% EXCLUDE = [2,3,7,10,13,20,25,26,40];
-% covariates_pd(:,EXCLUDE) = [];
+symptoms_pd_array = table2array(symptoms_pd(:,contains(symptoms_pd.Properties.VariableNames,symptoms_to_save_pd)));
+covariates_pd_array = table2array(covariates_pd(:,contains(covariates_pd.Properties.VariableNames,covariates_to_save_hc)));
+
+regressors_pd_array = [covariates_pd_array,symptoms_pd_array];
 
 figure(26)
 set(gcf, 'Position', get(0, 'Screensize'));
 
 subplot(131)
-model_caud_pd = fitlm(covariates_pd_array,NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD);
+model_caud_pd = fitlm(regressors_pd_array,NOT_ABS.LATERALIZATION_coeff.CAUDATE.PD);
 plot(model_caud_pd)
 % xlim([-0.5 0.6])
 % ylim([-0.6 0.8])
@@ -767,7 +772,7 @@ ylabel('Lateralization index')
 title('Caudate linear fit - PD')
 
 subplot(132)
-model_put_pd = fitlm(covariates_pd_array,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.PD);
+model_put_pd = fitlm(regressors_pd_array,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.PD);
 plot(model_put_pd)
 % xlim([-0.5 0.6])
 % ylim([-0.6 0.8])
@@ -776,7 +781,7 @@ ylabel('Lateralization index')
 title('Putamen linear fit - PD')
 
 subplot(133)
-model_put_ant_pd = fitlm(covariates_pd_array,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.PD);
+model_put_ant_pd = fitlm(regressors_pd_array,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.PD);
 plot(model_put_ant_pd)
 % xlim([-0.5 0.6])
 % ylim([-0.6 0.8])
