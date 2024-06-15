@@ -568,9 +568,9 @@ end
 %%   - HC - indirect data
 idx_covariates = [4, 153, 154]; 
 covariates_hc = data_hc(:, idx_covariates); % age, height, weight
-covariates_hc.('Caudate lat coeff') = LATERALIZATION_coeff.CAUDATE.HC;
-covariates_hc.('Putamen lat coeff') = LATERALIZATION_coeff.PUTAMEN.HC;
-covariates_hc.('Putamen ant lat coeff') = LATERALIZATION_coeff.PUTAMEN_ANT.HC;
+covariates_hc.('CAUDATE') = LATERALIZATION_coeff.CAUDATE.HC;
+covariates_hc.('PUTAMEN') = LATERALIZATION_coeff.PUTAMEN.HC;
+covariates_hc.('PUTAMEN_ANT') = LATERALIZATION_coeff.PUTAMEN_ANT.HC;
 
 [correlation.indirect.HC.p, correlation.indirect.HC.R] = corrcoef(table2array(covariates_hc), 'Rows', 'pairwise');
 
@@ -607,9 +607,9 @@ end
 %%   - HC - symptoms data
 idx_symptoms = [34, 55, 94, 27:54, 61:93,158]; 
 symptoms_hc = data_hc(:, idx_symptoms); % age, height, weight, mcatot
-symptoms_hc.('Caudate lat coeff') = LATERALIZATION_coeff.CAUDATE.HC;
-symptoms_hc.('Putamen lat coeff') = LATERALIZATION_coeff.PUTAMEN.HC;
-symptoms_hc.('Putamen ant lat coeff') = LATERALIZATION_coeff.PUTAMEN_ANT.HC;
+symptoms_hc.('CAUDATE') = LATERALIZATION_coeff.CAUDATE.HC;
+symptoms_hc.('PUTAMEN') = LATERALIZATION_coeff.PUTAMEN.HC;
+symptoms_hc.('PUTAMEN_ANT') = LATERALIZATION_coeff.PUTAMEN_ANT.HC;
 
 [correlation.symptoms.HC.p, correlation.symptoms.HC.R] = corrcoef(table2array(symptoms_hc), 'Rows', 'pairwise');
 
@@ -651,9 +651,9 @@ end
 %%  - PD - indirect data
 idx_tot = [idx_covariates,idx_symptoms];
 covariates_pd = data_pd(:, idx_covariates); % age, weight, height,  np test + mcatot
-covariates_pd.('Caudate lat coeff') = LATERALIZATION_coeff.CAUDATE.PD;
-covariates_pd.('Putamen lat coeff') = LATERALIZATION_coeff.PUTAMEN.PD;
-covariates_pd.('Putamen ant lat coeff') = LATERALIZATION_coeff.PUTAMEN_ANT.PD;
+covariates_pd.('CAUDATE') = LATERALIZATION_coeff.CAUDATE.PD;
+covariates_pd.('PUTAMEN') = LATERALIZATION_coeff.PUTAMEN.PD;
+covariates_pd.('PUTAMEN_ANT') = LATERALIZATION_coeff.PUTAMEN_ANT.PD;
 
 [correlation.indirect.PD.p, correlation.indirect.PD.R] = corrcoef(table2array(covariates_pd), 'Rows', 'pairwise');
 
@@ -694,9 +694,9 @@ end
 %%   - PD - symptoms data
 idx_symptoms = [34, 55, 94, 27:54, 61:93]; 
 symptoms_pd = data_pd(:, idx_symptoms); % age, height, weight, mcatot
-symptoms_pd.('Caudate lat coeff') = LATERALIZATION_coeff.CAUDATE.PD;
-symptoms_pd.('Putamen lat coeff') = LATERALIZATION_coeff.PUTAMEN.PD;
-symptoms_pd.('Putamen ant lat coeff') = LATERALIZATION_coeff.PUTAMEN_ANT.PD;
+symptoms_pd.('CAUDATE') = LATERALIZATION_coeff.CAUDATE.PD;
+symptoms_pd.('PUTAMEN') = LATERALIZATION_coeff.PUTAMEN.PD;
+symptoms_pd.('PUTAMEN_ANT') = LATERALIZATION_coeff.PUTAMEN_ANT.PD;
 
 [correlation.symptoms.PD.p, correlation.symptoms.PD.R] = corrcoef(table2array(symptoms_pd), 'Rows', 'pairwise');
 
