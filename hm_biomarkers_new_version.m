@@ -190,16 +190,16 @@ for i = 1:length(cont_variables)
     
     % PD
     [B,TFrm] = rmoutliers(data_pd.(variables{cont_variables(i)}));
-    ind_outliers = find(TFrm);
-    data_pd(ind_outliers, :) = [];
+    ind_outliers_pd = find(TFrm);
+    data_pd(ind_outliers_pd, :) = [];
 
     % HC
     [B,TFrm] = rmoutliers(data_hc.(variables{cont_variables(i)}));
-    ind_outliers = find(TFrm);
-    data_hc(ind_outliers, :) = [];
+    ind_outliers_hc = find(TFrm);
+    data_hc(ind_outliers_hc, :) = [];
 end
 
-clear i B TFrm ind_outliers
+clear i B TFrm ind_outliers_hc ind_outliers_pd
 
 
 %% IMPORTANT VARIABLES EXTRACTION
