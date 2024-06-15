@@ -982,18 +982,6 @@ set(gcf, 'Position', get(0, 'Screensize'));
 % set(t, 'FontSize', 9)
 % subplot(133)
 
-subplot(121)
-plot(model_put_ant_male{idx_max_R_squared_put_ant_male})
-xlabel('Covariates and symptoms')
-ylabel('Lateralization coefficient')
-ylim([-0.4 0.5])
-xlim([-2.5 7])
-t = title('Fit Lateralization PUTAMEN ANTERIOR - Regressors [Male population]');
-set(t, 'FontSize', 9)
-
-% sgtitle('Male population FIT')
-saveas(figure(27), "fit_covariates_male.png", "png")
-clear t
 
 
 
@@ -1062,6 +1050,17 @@ covariate_fit.PUTAMEN_ANT.FEMALE = names_permutazioni_put_ant{idx_max_R_squared_
 % t = title('Fit Lateralization PUTAMEN - Regressors [Female population]');
 % set(t, 'FontSize', 9)
 % subplot(133)
+figure(27)
+subplot(121)
+plot(model_put_ant_male{idx_max_R_squared_put_ant_male})
+xlabel('Covariates and symptoms')
+ylabel('Lateralization coefficient')
+ylim([-0.4 0.5])
+xlim([-2.5 7])
+t = title('Fit Lateralization PUTAMEN ANTERIOR - Regressors [Male population]');
+set(t, 'FontSize', 9)
+
+% sgtitle('Male population FIT')
 subplot(122)
 plot(model_put_ant_female{idx_max_R_squared_put_ant_female})
 xlabel('Covariates and symptoms')
@@ -1071,9 +1070,9 @@ xlim([-2.5 7])
 t = title('Fit Lateralization PUTAMEN ANTERIOR - Regressors [Female population]');
 set(t, 'FontSize', 9)
 
-% sgtitle('Female population FIT')
-saveas(figure(28), "fit_covariates_female.png", "png")
-clear t
+sgtitle('Male and female population FIT')
+saveas(figure(27), "fit_covariates_male_female.png", "png")
+% clear t
 
 
 
