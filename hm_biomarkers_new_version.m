@@ -751,32 +751,32 @@ figure(25)
 set(gcf, 'Position', get(0, 'Screensize'));
 
 subplot(131)
-model_caud_hc = fitlm(regressors_hc_array.CAUDATE,NOT_ABS.LATERALIZATION_coeff.CAUDATE.HC);
+model_caud_hc = fitlm(covariates_hc_array.CAUDATE,NOT_ABS.LATERALIZATION_coeff.CAUDATE.HC);
 plot(model_caud_hc)
 % xlim([-0.05 0.05])
 % ylim([-0.3 0.2])
-xlabel('Covariates and symptoms')
+xlabel('Covariates')
 ylabel('Lateralization index')
 title('Caudate linear fit - HC')
 
 subplot(132)
-model_put_hc = fitlm(regressors_hc_array.PUTAMEN,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.HC);
+model_put_hc = fitlm(covariates_hc_array.PUTAMEN,NOT_ABS.LATERALIZATION_coeff.PUTAMEN.HC);
 plot(model_put_hc)
 % xlim([-0.05 0.05])
 % ylim([-0.3 0.2])
-xlabel('Covariates and symptoms')
+xlabel('Covariates')
 ylabel('Lateralization index')
 title('Putamen linear fit - HC')
 
 subplot(133)
-model_put_ant_hc = fitlm(regressors_hc_array.PUTAMEN_ANT,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.HC);
+model_put_ant_hc = fitlm(covariates_hc_array.PUTAMEN_ANT,NOT_ABS.LATERALIZATION_coeff.PUTAMEN_ANT.HC);
 plot(model_put_ant_hc)
 % xlim([-0.05 0.05])
 % ylim([-0.3 0.2])
-xlabel('Covariates and symptoms')
+xlabel('Covariates')
 ylabel('Lateralization index')
 title('Putamen Anterior linear fit - HC')
-sgtitle('Lateralization index - Regressors FIT HC')
+sgtitle('Lateralization index - Covariates FIT HC')
 
 
 saveas(figure(25), "fit_covariates_hc.png", "png")
