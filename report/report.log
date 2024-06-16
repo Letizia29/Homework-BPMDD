@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.3.8)  16 JUN 2024 16:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.3.8)  16 JUN 2024 17:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -624,25 +624,25 @@ File: lstmisc.sty 2024/02/21 1.10 (Carsten Heinz)
 (report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-Package hyperref Info: Link coloring OFF on input line 31.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+Package hyperref Info: Link coloring OFF on input line 35.
  (report.out) (report.out)
 \@outlinefile=\write4
 \openout4 = `report.out'.
@@ -694,8 +694,8 @@ Package biblatex Info: Data encoding 'utf8' specified.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'report.bbl' found.
  (report.bbl)
-Package biblatex Info: Reference section=0 on input line 31.
-Package biblatex Info: Reference segment=0 on input line 31.
+Package biblatex Info: Reference section=0 on input line 35.
+Package biblatex Info: Reference segment=0 on input line 35.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -732,154 +732,154 @@ Package biblatex Info: Reference segment=0 on input line 31.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 34.
+(Font)              <12> on input line 38.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 34.
+(Font)              <8> on input line 38.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 34.
+(Font)              <6> on input line 38.
 
-Underfull \hbox (badness 10000) in paragraph at lines 36--38
+Underfull \hbox (badness 10000) in paragraph at lines 40--42
 
+ []
+
+
+Underfull \hbox (badness 5147) in paragraph at lines 54--62
+\OT1/cmr/m/n/9 In pre-vi-ous stud-ies, the con-nec-tion be-tween
  []
 
 [1
 
 {C:/Users/bened/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 74--76
+Underfull \hbox (badness 10000) in paragraph at lines 82--84
 
  []
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 87--88
-[]\OT1/cmr/m/n/10 For all the test-related vari-ables
- []
-
-<../missing_patterns_hc.png, id=103, 903.375pt x 361.35pt>
+<../missing_patterns_hc.png, id=107, 903.375pt x 361.35pt>
 File: ../missing_patterns_hc.png Graphic file (type png)
 <use ../missing_patterns_hc.png>
-Package pdftex.def Info: ../missing_patterns_hc.png  used on input line 104.
+Package pdftex.def Info: ../missing_patterns_hc.png  used on input line 112.
 (pdftex.def)             Requested size: 180.67499pt x 72.2687pt.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 104.
+(Font)              <7> on input line 112.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 104.
-<../missing_patterns_pd.png, id=104, 903.375pt x 361.35pt>
+(Font)              <5> on input line 112.
+<../missing_patterns_pd.png, id=108, 903.375pt x 361.35pt>
 File: ../missing_patterns_pd.png Graphic file (type png)
 <use ../missing_patterns_pd.png>
-Package pdftex.def Info: ../missing_patterns_pd.png  used on input line 107.
+Package pdftex.def Info: ../missing_patterns_pd.png  used on input line 115.
 (pdftex.def)             Requested size: 180.67499pt x 72.2687pt.
-<../missing_values_hc.png, id=105, 903.375pt x 361.35pt>
+<../missing_values_hc.png, id=109, 903.375pt x 361.35pt>
 File: ../missing_values_hc.png Graphic file (type png)
 <use ../missing_values_hc.png>
-Package pdftex.def Info: ../missing_values_hc.png  used on input line 119.
+Package pdftex.def Info: ../missing_values_hc.png  used on input line 127.
 (pdftex.def)             Requested size: 180.67499pt x 72.2687pt.
-<../missing_values_pd.png, id=106, 903.375pt x 361.35pt>
+<../missing_values_pd.png, id=110, 903.375pt x 361.35pt>
 File: ../missing_values_pd.png Graphic file (type png)
 <use ../missing_values_pd.png>
-Package pdftex.def Info: ../missing_values_pd.png  used on input line 122.
+Package pdftex.def Info: ../missing_values_pd.png  used on input line 130.
 (pdftex.def)             Requested size: 180.67499pt x 72.2687pt.
-[3 <../missing_patterns_hc.png> <../missing_patterns_pd.png> <../missing_values
-_hc.png> <../missing_values_pd.png>]
-<../covariates_mat_hc.png, id=120, 385.44pt x 303.0522pt>
+ [3 <../missing_patterns_hc.png> <../missing_patterns_pd.png> <../missing_value
+s_hc.png> <../missing_values_pd.png>]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <9> on input line 154.
+<../covariates_mat_hc.png, id=124, 385.44pt x 303.0522pt>
 File: ../covariates_mat_hc.png Graphic file (type png)
 <use ../covariates_mat_hc.png>
-Package pdftex.def Info: ../covariates_mat_hc.png  used on input line 167.
+Package pdftex.def Info: ../covariates_mat_hc.png  used on input line 175.
 (pdftex.def)             Requested size: 144.54pt x 113.64429pt.
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 168.
+(caption)                particular \caption on input line 176.
 See the caption package documentation for explanation.
 
-[4]
+[4 <../covariates_mat_hc.png (PNG copy)>]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 212.
+(caption)                particular \caption on input line 220.
 See the caption package documentation for explanation.
 
 
-Overfull \hbox (8.00253pt too wide) in paragraph at lines 202--212
+Overfull \hbox (8.00253pt too wide) in paragraph at lines 210--220
  [] 
  []
 
-[5 <../covariates_mat_hc.png (PNG copy)>]
-<../anova_plot_lat_hc_pd.png, id=147, 526.96875pt x 395.22656pt>
+<../anova_plot_lat_hc_pd.png, id=140, 526.96875pt x 395.22656pt>
 File: ../anova_plot_lat_hc_pd.png Graphic file (type png)
 <use ../anova_plot_lat_hc_pd.png>
-Package pdftex.def Info: ../anova_plot_lat_hc_pd.png  used on input line 225.
+Package pdftex.def Info: ../anova_plot_lat_hc_pd.png  used on input line 233.
 (pdftex.def)             Requested size: 216.81pt x 162.61081pt.
 
-
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 226.
+(caption)                particular \caption on input line 234.
 See the caption package documentation for explanation.
 
 
-Overfull \hbox (9.95842pt too wide) in paragraph at lines 225--226
+Overfull \hbox (9.95842pt too wide) in paragraph at lines 233--234
  [][] 
  []
 
-<../corr_mat_symptoms_pd.png, id=149, 585.387pt x 502.0356pt>
+<../corr_mat_symptoms_pd.png, id=142, 585.387pt x 502.0356pt>
 File: ../corr_mat_symptoms_pd.png Graphic file (type png)
 <use ../corr_mat_symptoms_pd.png>
-Package pdftex.def Info: ../corr_mat_symptoms_pd.png  used on input line 237.
+Package pdftex.def Info: ../corr_mat_symptoms_pd.png  used on input line 245.
 (pdftex.def)             Requested size: 216.81pt x 185.94177pt.
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 238.
+(caption)                particular \caption on input line 246.
 See the caption package documentation for explanation.
 
 
-Overfull \hbox (9.95842pt too wide) in paragraph at lines 237--238
+Overfull \hbox (9.95842pt too wide) in paragraph at lines 245--246
  [][] 
  []
 
-<../fit_covariates_pd.png, id=154, 1156.32pt x 668.7384pt>
+[5 <../anova_plot_lat_hc_pd.png (PNG copy)>]
+<../fit_covariates_pd.png, id=158, 1156.32pt x 668.7384pt>
 File: ../fit_covariates_pd.png Graphic file (type png)
 <use ../fit_covariates_pd.png>
-Package pdftex.def Info: ../fit_covariates_pd.png  used on input line 254.
+Package pdftex.def Info: ../fit_covariates_pd.png  used on input line 262.
 (pdftex.def)             Requested size: 216.81pt x 125.38814pt.
 
+
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 255.
+(caption)                particular \caption on input line 263.
 See the caption package documentation for explanation.
 
 
-Overfull \hbox (9.95842pt too wide) in paragraph at lines 254--255
+Overfull \hbox (9.95842pt too wide) in paragraph at lines 262--263
  [][] 
  []
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 270.
+(caption)                particular \caption on input line 278.
 See the caption package documentation for explanation.
 
-[6 <../anova_plot_lat_hc_pd.png (PNG copy)> <../corr_mat_symptoms_pd.png (PNG c
-opy)>]
-<../fit_covariates_male_female.png, id=165, 1156.32pt x 668.7384pt>
+<../fit_covariates_male_female.png, id=161, 1156.32pt x 668.7384pt>
 File: ../fit_covariates_male_female.png Graphic file (type png)
 <use ../fit_covariates_male_female.png>
 Package pdftex.def Info: ../fit_covariates_male_female.png  used on input line 
-283.
+291.
 (pdftex.def)             Requested size: 216.81pt x 125.38814pt.
 
-
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 284.
+(caption)                particular \caption on input line 292.
 See the caption package documentation for explanation.
 
 
-Overfull \hbox (9.95842pt too wide) in paragraph at lines 283--284
+Overfull \hbox (9.95842pt too wide) in paragraph at lines 291--292
  [][] 
  []
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 297.
+(caption)                particular \caption on input line 305.
 See the caption package documentation for explanation.
 
-[7 <../fit_covariates_pd.png (PNG copy)> <../fit_covariates_male_female.png (PN
-G copy)>] [8] [9] (report.aux)
+[6 <../corr_mat_symptoms_pd.png (PNG copy)> <../fit_covariates_pd.png (PNG copy
+)> <../fit_covariates_male_female.png (PNG copy)>] [7] [8] (report.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
@@ -898,35 +898,40 @@ Package logreq Info: Writing requests to 'report.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 19772 strings out of 474457
- 350631 string characters out of 5742755
- 1943190 words of memory out of 5000000
- 41857 multiletter control sequences out of 15000+600000
- 564697 words of font info for 58 fonts, out of 8000000 for 9000
+ 19786 strings out of 474457
+ 350921 string characters out of 5742755
+ 1950190 words of memory out of 5000000
+ 41867 multiletter control sequences out of 15000+600000
+ 565838 words of font info for 62 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,8n,79p,1902b,1470s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,8n,79p,1902b,1478s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\bened\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
-1000.pk><C:/Users/bened/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
+0900.pk><C:/Users/bened/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
 ts/cm/cmbx10.pfb><C:/Users/bened/AppData/Local/Programs/MiKTeX/fonts/type1/publ
 ic/amsfonts/cm/cmbx12.pfb><C:/Users/bened/AppData/Local/Programs/MiKTeX/fonts/t
 ype1/public/amsfonts/cm/cmbx5.pfb><C:/Users/bened/AppData/Local/Programs/MiKTeX
 /fonts/type1/public/amsfonts/cm/cmbx9.pfb><C:/Users/bened/AppData/Local/Program
-s/MiKTeX/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Users/bened/AppData/Loc
-al/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/bened/Ap
-pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/
-bened/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C
-:/Users/bened/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr1
-0.pfb><C:/Users/bened/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
-/cm/cmr12.pfb><C:/Users/bened/AppData/Local/Programs/MiKTeX/fonts/type1/public/
-amsfonts/cm/cmr5.pfb><C:/Users/bened/AppData/Local/Programs/MiKTeX/fonts/type1/
-public/amsfonts/cm/cmr7.pfb><C:/Users/bened/AppData/Local/Programs/MiKTeX/fonts
-/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/bened/AppData/Local/Programs/MiKTe
-X/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/bened/AppData/Local/Progr
-ams/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/bened/AppData/Lo
-cal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on report.pdf (9 pages, 784107 bytes).
+s/MiKTeX/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><C:/Users/bened/AppData/Lo
+cal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Users/bened/
+AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Use
+rs/bened/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb
+><C:/Users/bened/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/c
+mmi6.pfb><C:/Users/bened/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfo
+nts/cm/cmmi9.pfb><C:/Users/bened/AppData/Local/Programs/MiKTeX/fonts/type1/publ
+ic/amsfonts/cm/cmr10.pfb><C:/Users/bened/AppData/Local/Programs/MiKTeX/fonts/ty
+pe1/public/amsfonts/cm/cmr12.pfb><C:/Users/bened/AppData/Local/Programs/MiKTeX/
+fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/bened/AppData/Local/Programs/
+MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/bened/AppData/Local/Pr
+ograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/bened/AppData/L
+ocal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/bened/Ap
+pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy9.pfb><C:/Users/
+bened/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><
+C:/Users/bened/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmt
+t10.pfb><C:/Users/bened/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
+ts/cm/cmtt9.pfb>
+Output written on report.pdf (8 pages, 835043 bytes).
 PDF statistics:
- 303 PDF objects out of 1000 (max. 8388607)
+ 322 PDF objects out of 1000 (max. 8388607)
  50 named destinations out of 1000 (max. 500000)
  182 words of extra memory for PDF output out of 10000 (max. 10000000)
 

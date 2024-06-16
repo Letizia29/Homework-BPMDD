@@ -16,7 +16,11 @@
 \author{Benedetta Corso, Letizia Rossato, Dalila Dattoli}
 \date{}
 \addbibresource{bibliog.bib}
-
+\providecommand{\keywords}[1]
+{
+	\small	
+	\textbf{\textit{Keywords--}} #1
+}
 \NewDocumentCommand{\codeword}{v}{%
 	\texttt{\textcolor{blue}{#1}}%
 }
@@ -37,6 +41,10 @@ This study, which focuses on Parkinson's disease, aims to investigate the signif
 \newline
 
 \end{abstract}
+
+\keywords{Parkinson's disease, dopamine lateralization, DAT-SPECT, MDS-UPRDS, SBR, motor symptoms, linear regression}
+
+
 \vspace{5pt}
 \hrule
 \vspace{6pt}
@@ -78,7 +86,7 @@ There was then the data regarding the neuropsychological assessments of the pati
 
 The first step of the study was dividing the dataset in Parkinson's patients (PD, SWEDD (Scans without evidence of dopaminergic deficit), Prodromal (before the onset of classical Parkinson's symptoms)) and healthy controls (HC).
 
-In the preprocessing of the data, the patterns of missing values were analyzed, to determine the best course of action, through the VIM package in R.
+In the preprocessing of the data, the patterns of missing values were analyzed, to determine the best course of action, through the VIM package in R. \cite{missing_templ}
 
 In the HC, as shown in Figure \ref{fig:miss_patt_hc}, GENETICS and FAMILIARITY are mostly empty fields, due to the nature of these variables: for healthy subjects, the chance of having relatives with a PD diagnosis and of having genetics history related to PD are low. On the opposite, for PD patients (Figure \ref{fig:miss_patt_pd}), GENETICS is empty at the 24.5\%, while FAMILIARITY has the 47.7\% of NaNs. The reason for this missingness, is probably that patients didn't know if their relatives had history of Parkinson's, or they didn't take the genetics test. 
 

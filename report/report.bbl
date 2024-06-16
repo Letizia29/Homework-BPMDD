@@ -882,5 +882,43 @@
     \field{urlmonth}{05}
     \field{urlyear}{2024}
   \endentry
+
+  \entry{missing_templ}{article}{}
+    \name{author}{3}{}{%
+      {{hash=TM}{%
+         family={Templ},
+         familyi={T\bibinitperiod},
+         given={Matthias},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=AA}{%
+         family={Alfons},
+         familyi={A\bibinitperiod},
+         given={Andreas},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=FP}{%
+         family={Filzmoser},
+         familyi={F\bibinitperiod},
+         given={Peter},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{TMAAFP1}
+    \strng{fullhash}{TMAAFP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+    \verb{doi}
+    \verb 10.1007/s11634-011-0102-y
+    \endverb
+    \field{pages}{29\bibrangedash 47}
+    \field{title}{Exploring incomplete data using visualization techniques}
+    \field{volume}{6}
+    \field{journaltitle}{Advances in Data Analysis and Classification}
+    \field{month}{04}
+    \field{year}{2012}
+  \endentry
 \enddatalist
 \endinput
