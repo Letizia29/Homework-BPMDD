@@ -176,6 +176,32 @@
     \field{urlyear}{2024}
   \endentry
 
+  \entry{analysis_of_covariance_and_alternatives}{article}{}
+    \name{author}{1}{}{%
+      {{hash=HB}{%
+         family={Huitema},
+         familyi={H\bibinitperiod},
+         given={Bradley},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{HB1}
+    \strng{fullhash}{HB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \verb{doi}
+    \verb 10.1002/9781118067475
+    \endverb
+    \field{isbn}{9780471748960}
+    \field{title}{The Analysis of Covariance and Alternatives: Statistical
+  Methods for Experiments, Quasi-Experiments, and Single-Case Studies, Second
+  Edition}
+    \field{month}{10}
+    \field{year}{2011}
+  \endentry
+
   \entry{kaasinen_ipsilateral_2016}{article}{}
     \name{author}{1}{}{%
       {{hash=KV}{%
@@ -240,6 +266,221 @@
     \field{year}{2016}
     \field{urlday}{31}
     \field{urlmonth}{05}
+    \field{urlyear}{2024}
+  \endentry
+
+  \entry{marek_parkinsons_2018}{article}{}
+    \name{author}{27}{}{%
+      {{hash=MK}{%
+         family={Marek},
+         familyi={M\bibinitperiod},
+         given={Kenneth},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=CS}{%
+         family={Chowdhury},
+         familyi={C\bibinitperiod},
+         given={Sohini},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=SA}{%
+         family={Siderowf},
+         familyi={S\bibinitperiod},
+         given={Andrew},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=LS}{%
+         family={Lasch},
+         familyi={L\bibinitperiod},
+         given={Shirley},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=CCS}{%
+         family={Coffey},
+         familyi={C\bibinitperiod},
+         given={Christopher\bibnamedelima S.},
+         giveni={C\bibinitperiod\bibinitdelim S\bibinitperiod},
+      }}%
+      {{hash=CC}{%
+         family={Caspell‐Garcia},
+         familyi={C\bibinitperiod},
+         given={Chelsea},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=ST}{%
+         family={Simuni},
+         familyi={S\bibinitperiod},
+         given={Tanya},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=JD}{%
+         family={Jennings},
+         familyi={J\bibinitperiod},
+         given={Danna},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=TCM}{%
+         family={Tanner},
+         familyi={T\bibinitperiod},
+         given={Caroline\bibnamedelima M.},
+         giveni={C\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=TJQ}{%
+         family={Trojanowski},
+         familyi={T\bibinitperiod},
+         given={John\bibnamedelima Q.},
+         giveni={J\bibinitperiod\bibinitdelim Q\bibinitperiod},
+      }}%
+      {{hash=SLM}{%
+         family={Shaw},
+         familyi={S\bibinitperiod},
+         given={Leslie\bibnamedelima M.},
+         giveni={L\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=SJ}{%
+         family={Seibyl},
+         familyi={S\bibinitperiod},
+         given={John},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=SN}{%
+         family={Schuff},
+         familyi={S\bibinitperiod},
+         given={Norbert},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=SA}{%
+         family={Singleton},
+         familyi={S\bibinitperiod},
+         given={Andrew},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=KK}{%
+         family={Kieburtz},
+         familyi={K\bibinitperiod},
+         given={Karl},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=TAW}{%
+         family={Toga},
+         familyi={T\bibinitperiod},
+         given={Arthur\bibnamedelima W.},
+         giveni={A\bibinitperiod\bibinitdelim W\bibinitperiod},
+      }}%
+      {{hash=MB}{%
+         family={Mollenhauer},
+         familyi={M\bibinitperiod},
+         given={Brit},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=GD}{%
+         family={Galasko},
+         familyi={G\bibinitperiod},
+         given={Doug},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=CLM}{%
+         family={Chahine},
+         familyi={C\bibinitperiod},
+         given={Lana\bibnamedelima M.},
+         giveni={L\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=WD}{%
+         family={Weintraub},
+         familyi={W\bibinitperiod},
+         given={Daniel},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=FT}{%
+         family={Foroud},
+         familyi={F\bibinitperiod},
+         given={Tatiana},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=TD}{%
+         family={Tosun‐Turgut},
+         familyi={T\bibinitperiod},
+         given={Duygu},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=PK}{%
+         family={Poston},
+         familyi={P\bibinitperiod},
+         given={Kathleen},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=AV}{%
+         family={Arnedo},
+         familyi={A\bibinitperiod},
+         given={Vanessa},
+         giveni={V\bibinitperiod},
+      }}%
+      {{hash=FM}{%
+         family={Frasier},
+         familyi={F\bibinitperiod},
+         given={Mark},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=ST}{%
+         family={Sherer},
+         familyi={S\bibinitperiod},
+         given={Todd},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=t}{%
+         family={{the Parkinson's Progression Markers Initiative}},
+         familyi={t\bibinitperiod},
+      }}%
+    }
+    \list{language}{1}{%
+      {en}%
+    }
+    \strng{namehash}{MK+1}
+  \strng{fullhash}{MKCSSALSCCSCCSTJDTCMTJQSLMSJSNSAKKTAWMBGDCLMWDFTTDPKAVFMSTt1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{abstract}{%
+    Objective: The Parkinson’s Progression Markers Initiative (PPMI) is an
+  observational, international study designed to establish biomarker-deﬁned
+  cohorts and identify clinical, imaging, genetic, and biospecimen
+  Parkinson’s disease (PD) progression markers to accelerate
+  disease-modifying therapeutic trials. Methods: A total of 423 untreated PD,
+  196 Healthy Control (HC) and 64 SWEDD (scans without evidence of dopaminergic
+  deﬁcit) subjects were enrolled at 24 sites. To enroll PD subjects as early
+  as possible following diagnosis, subjects were eligible with only asymmetric
+  bradykinesia or tremor plus a dopamine transporter (DAT) binding deﬁcit on
+  SPECT imaging. Acquisition of data was standardized as detailed at
+  www.ppmi-info.org. Results: Approximately 9\% of enrolled subjects had a
+  single PD sign at baseline. DAT imaging excluded 16\% of potential PD
+  subjects with SWEDD. The total MDS-UPDRS for PD was 32.4 compared to 4.6 for
+  HC and 28.2 for SWEDD. On average, PD subjects demonstrated 45\% and 68\%
+  reduction in mean striatal and contralateral putamen Speciﬁc Binding Ratios
+  (SBR), respectively. Cerebrospinal ﬂuid (CSF) was acquired from
+  {\textgreater}97\% of all subjects. CSF (PD/HC/SWEDD pg/mL) a-synuclein
+  (1845/2204/2141) was reduced in PD vs HC or SWEDD (P {\textless} 0.03).
+  Similarly, t-tau (45/53) and p-tau (16/18) were reduced in PD versus HC (P
+  {\textless} 0.01), Interpretation: PPMI has detailed the biomarker signature
+  for an early PD cohort deﬁned by clinical features and imaging biomarkers.
+  This strategy provides the framework to establish biomarker cohorts and to
+  deﬁne longitudinal progression biomarkers to support future PD treatment
+  trials.%
+    }
+    \verb{doi}
+    \verb 10.1002/acn3.644
+    \endverb
+    \field{issn}{2328-9503, 2328-9503}
+    \field{number}{12}
+    \field{pages}{1460\bibrangedash 1477}
+    \field{title}{The {Parkinson}'s progression markers initiative ({PPMI}) –
+  establishing a {PD} biomarker cohort}
+    \field{volume}{5}
+    \field{journaltitle}{Annals of Clinical and Translational Neurology}
+    \field{month}{12}
+    \field{year}{2018}
+    \field{urlday}{11}
+    \field{urlmonth}{06}
     \field{urlyear}{2024}
   \endentry
 
