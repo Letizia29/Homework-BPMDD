@@ -460,17 +460,34 @@ clear rois_names rois_names_diag i j
 % Caudate
 y = [LATERALIZATION_coeff.CAUDATE.PD' LATERALIZATION_coeff.CAUDATE.HC']';
 group1 = [repmat("PD_caudate",length(LATERALIZATION_coeff.CAUDATE.PD),1);repmat("HC_caudate",length(LATERALIZATION_coeff.CAUDATE.HC),1)];
+
+[p_wil,h_caud] = ranksum(LATERALIZATION_coeff.CAUDATE.PD,LATERALIZATION_coeff.CAUDATE.HC);
 [p,tbl,stats]  = anova1(y,group1);
 if p > 0.05
     disp("There isn't significant difference between the means of the DATSCAN of HC and PD in the CAUDATE region")
 else
     disp("There is significant difference between the means of the DATSCAN of HC and PD in the CAUDATE region")
 end
+if p_wil > 0.05
+    disp("There isn't significant difference between the means of the DATSCAN of HC and PD in the CAUDATE region WILCOXON")
+else
+    disp("There is significant difference between the means of the DATSCAN of HC and PD in the CAUDATE region WILCOXON")
+end
+
+
 
 % Putamen
 y = [LATERALIZATION_coeff.PUTAMEN.PD' LATERALIZATION_coeff.PUTAMEN.HC']';
 group2 = [repmat("PD_putamen",length(LATERALIZATION_coeff.PUTAMEN.PD),1);repmat("HC_putamen",length(LATERALIZATION_coeff.PUTAMEN.HC),1)];
 [p,tbl,stats]  = anova1(y,group2);
+[p_wil,h_caud] = ranksum(LATERALIZATION_coeff.PUTAMEN.PD,LATERALIZATION_coeff.PUTAMEN.HC);
+
+if p_wil > 0.05
+    disp("There isn't significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN region WILCOXON")
+else
+    disp("There is significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN region WILCOXON")
+end
+
 if p > 0.05
     disp("There isn't significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN region")
 else
@@ -481,18 +498,28 @@ end
 y = [LATERALIZATION_coeff.PUTAMEN_ANT.PD' LATERALIZATION_coeff.PUTAMEN_ANT.HC']';
 group3 = [repmat("PD_putamen_ant",length(LATERALIZATION_coeff.PUTAMEN_ANT.PD),1);repmat("HC_putamen_ant",length(LATERALIZATION_coeff.PUTAMEN_ANT.HC),1)];
 [p,tbl,stats]  = anova1(y,group3);
+[p_wil,h_caud] = ranksum(LATERALIZATION_coeff.PUTAMEN_ANT.PD,LATERALIZATION_coeff.PUTAMEN_ANT.HC);
+
 if p > 0.05
     disp("There isn't significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN ANT region")
 else
     disp("There is significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN ANT region")
 end
 
+if p_wil > 0.05
+    disp("There isn't significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN ANT region WILCOXON")
+else
+    disp("There is significant difference between the means of the DATSCAN of HC and PD in the PUTAMEN ANT region WILCOXON")
+end
 % with all the ROIs
 y = [LATERALIZATION_coeff.CAUDATE.PD' LATERALIZATION_coeff.CAUDATE.HC' LATERALIZATION_coeff.PUTAMEN.PD' LATERALIZATION_coeff.PUTAMEN.HC' LATERALIZATION_coeff.PUTAMEN_ANT.PD' LATERALIZATION_coeff.PUTAMEN_ANT.HC' ]';
 group4 = [group1; group2; group3];
 [p,tbl,stats]  = anova1(y,group4);
 title('Lateralization coefficients for each ROI - PD & HC')
 ylabel('Lateralization coefficient')
+
+
+
 
 clear y p tbl stats group4 group3 group2 group1 
 
