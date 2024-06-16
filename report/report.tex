@@ -5,12 +5,16 @@
 \usepackage{xcolor}
 \usepackage{listings}
 \usepackage{xparse}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{multicol}
 \setlength{\columnsep}{0.7cm}
 \usepackage[backend=bibtex]{biblatex}
 \usepackage[a4paper, total={6in, 8in}]{geometry}
 %opening
-\title{Analysis of dopamine lateralization function in relation to Parkinson's symptoms}
+\title{ \textbf{Analysis of dopamine lateralization function in relation to Parkinson's symptoms}}
 \author{Benedetta Corso, Letizia Rossato, Dalila Dattoli}
+\date{}
 \addbibresource{bibliog.bib}
 
 \NewDocumentCommand{\codeword}{v}{%
@@ -29,18 +33,21 @@
 \maketitle
 
 \begin{abstract}
-This study, which focuses on Parkinson's disease, aims to investigate the significance of left-right lateralization based on dopamine values using DAT-SPECT (Dopamine Transporter Single Photon Emission Computed Tomography) imaging data and their correlation with clinical symptoms in Parkinson’s disease patient (PD) and healthy controls (HC). DAT-SPECT is an imaging technique primarily used to visualize and measure the density of dopamine transporters in the brain. This technique is particularly useful in the diagnosis and evaluation of neurodegenerative diseases, such as Parkinson's disease and other forms of parkinsonism. The dataset, from PPMI, used to perform the analysis, consists of variables relating to demographic data, DAT-SPECT scores and MDS-UPDRS test, which is a combination of clinical, neurological, and imaging tests, since there is no specific test for the diagnosis of Parkinson’s disease. In order to investigate whether the lateralization is related to symptoms, a linear regression was used. This analysis verified that the lateralization present only in PD patients is highly related to symptoms.
+This study, which focuses on Parkinson's disease, aims to investigate the significance of right-left lateralization on dopamine values using DAT-SPECT (Dopamine Transporter Single Photon Emission Computed Tomography) imaging data and their correlation with clinical symptoms in Parkinson’s disease patient (PD) and healthy controls (HC). DAT-SPECT is an imaging technique primarily used to visualize and measure the density of dopamine transporters in the brain. This technique is particularly useful in the diagnosis and evaluation of neurodegenerative diseases, such as Parkinson's disease and other forms of parkinsonism. The dataset, from PPMI, used to perform the analysis, consists of variables relating to demographic data, DAT-SPECT scores and MDS-UPDRS test, which is a combination of clinical, neurological, and imaging tests, since there is no specific test for the diagnosis of Parkinson’s disease. In order to investigate whether the lateralization is related to symptoms, a linear regression was used. This analysis verified that the lateralization present only in PD patients is highly related to symptoms.
 \newline
 
 \end{abstract}
+\vspace{5pt}
+\hrule
+\vspace{6pt}
 
 \begin{multicols}{2}
 \section{Introduction}
-Parkinson's disease is a chronic neurodegenerative disorder of the central nervous system primarily affecting motor control. It is characterized by the progressive loss of nerve cells in the brain region called the substantia nigra, which is responsible for producing a neurotransmitter called dopamine. Dopamine deficiency leads to motor symptoms such as tremors, muscle rigidity, bradykinesia (slowness of movement), and postural instability. In addition to motor symptoms, Parkinson's disease can cause a wide range of non-motor symptoms including sleep problems, depression, anxiety, fatigue, and cognitive difficulties. While the exact cause of Parkinson's disease is not fully understood, it is believed to result from a combination of genetic and environmental factors \cite{beitz_parkinsons_2014}. Currently, there is no cure for Parkinson's disease, but there are treatments available to manage symptoms and improve the patients’ quality of life.  However, studies conducted in recent years (CITAZIONE) have shown that the lateralization of brain dopamine in Parkinson's disease (PD) is a significant and distinctive aspect of the pathology. In particular, during its development, the degeneration of dopaminergic neurons in the substantia nigra is not uniform. Generally, one side of the brain is more affected than the other, leading to marked asymmetry. This marked asymmetry is visible especially in motor symptoms, such as more pronounced tremors on one side of the body and greater use of one hand over the other \cite{riederer_lateralisation_2018}. 
+Parkinson's disease is a chronic neurodegenerative disorder of the central nervous system primarily affecting motor control. It is characterized by the progressive loss of nerve cells in the brain region called the substantia nigra, which is responsible for producing a neurotransmitter called dopamine. Dopamine deficiency leads to motor symptoms such as tremors, muscle rigidity, bradykinesia (slowness of movement), and postural instability. In addition to motor symptoms, Parkinson's disease can cause a wide range of non-motor symptoms including sleep problems, depression, anxiety, fatigue, and cognitive difficulties. While the exact cause of Parkinson's disease is not fully understood, it is believed to result from a combination of genetic and environmental factors \cite{beitz_parkinsons_2014}. Currently, there is no cure for Parkinson's disease, but there are treatments available to manage symptoms and improve the patients’ quality of life.  However, studies conducted in recent years \cite{shigekiyo_laterality_2020} have shown that the lateralization of brain dopamine in Parkinson's disease (PD) is a significant and distinctive aspect of the pathology. In particular, during its development, the degeneration of dopaminergic neurons in the substantia nigra is not uniform. Generally, one side of the brain is more affected than the other, leading to marked asymmetry. This marked asymmetry is visible especially in motor symptoms, such as more pronounced tremors on one side of the body and greater use of one hand over the other \cite{riederer_lateralisation_2018}. 
 \newline
 In previous studies, the connection between dopamine lateralization and symptoms has already been examined. For example, in a study conducted by Pirker et al. \cite{pirker_correlation_2003}, it resulted that the motor symptoms on the less affected side were more correlated to striatal DAT binding.
 \newline
-Therefore, the aim of this study is to further investigate this idea, analyzing a dataset containing information about patients' motor and cognitive symptoms and also their lateralization data obtained from DAT-SPECT scans. The dopamine degeneration is explored in three different Regions of Interests (ROIs) in the brain, divided in right and left: Caudate, Putamen and Putamen Anterior. This analysis aims to investigate whether there are some relevant covariates from HC associated to dopamine function lateralization, and furthermore, to investigate the relationship (if present) between the lateralization of dopamine function in these brain areas and the symptoms shown by Parkinson's patients.
+Therefore, the aim of this study is to further investigate this idea, analyzing a dataset containing information about patients' motor and cognitive symptoms and also their lateralization data obtained from DAT-SPECT scans. The dopamine degeneration is explored in three different Regions of Interests (ROIs) in the brain, divided in right and left: Caudate, Putamen and Putamen Anterior. This analysis aims to investigate whether there are some relevant covariates from HC associated to dopamine function lateralization, and furthermore, to investigate the relationship (if present) between the lateralization of dopamine function in these brain areas and the symptoms shown by Parkinson's patients. \cite{kagi_role_2010}
 In addition, the group checked also if there was a difference in lateralization between HC and PD. 
 \newline
 Agreeing with what found in the paper by Pirker et al. \cite{pirker_correlation_2003}, the group expected to find a strong relation between the dopamine lateralization and the motor symptoms. The lateralization was expected to be significantly different between the two groups of HC and PD. Also the lateralization in different ROIs was expected to be related: a high lateralization in the Caudate was expected if both Putamen and Putamen Anterior were highly lateralized. Regarding the covariates, age was expected to be the variable most correlated to the dopamine function lateralization.
@@ -140,8 +147,7 @@ From the lateralization data, the group used a DAT binding asymmetry coefficient
 	\frac{(right_{SBR} - left_{SBR})}{(right_{SBR} + left_{SBR})}
 \end{equation}
 The lateralization was considered relevant when the asymmetry coefficient was higher than 20\%.
-This threshold level was adopted from a previous study \cite{fiorenzato_asymmetric_2021}. In this way, the group identified, for the Caudate, 28 PD patients with a right lateralization and 29 with a left lateralization. For the Putamen, 203 PD had a right lateralization, 2 HC and 150 PD with a left lateralization. For the Putamen Anterior, 113 PD patients were found lateralized on the right side, while 64 on the left. The remaining subjects were not lateralized.
-
+This threshold level was adopted from a previous study \cite{fiorenzato_asymmetric_2021}. 
 This coefficient was used just to count the subjects with a relevant lateralization, while in the statistical analysis, all the subjects were considered.
 
 \subsection{Covariates analysis}
@@ -154,20 +160,17 @@ Regarding the discrete variables, it was possible to analyze only SEX, because t
 For the analysis of the covariate SEX, the lateralization coefficients were, for each region, divided in males and females. Through a Lilliefors test, both groups were found not gaussian. Therefore, they were compared with a Wilcoxon test, finding that only for Putamen Anterior, males and females had different medians of lateralization coefficients.
 Consequently, SEX was considered as a covariate for Putamen Anterior lateralization data, and the statistical analysis on PD patients was performed both on the whole group and on the two sub-groups of males and females for this brain region.
 
-Through the Pearson pairwise correlation, the group analyzed the correlation coefficients of the continue variables, such as ENROLL\_AGE, WGTKG (weight - kg), HGTCM (height - cm), with the lateralization coefficients (figures \ref{fig:cov_mat_hc}). For the statistical analysis, were kept only the significant ones, with p-value $<$ 0.05, and correlation coefficient higher than 0.5. This threshold was chosen in order to have at least a moderate correlation (0.4-0.59). 
+Through the Pearson pairwise correlation, the group analyzed the correlation coefficients of the continue variables, such as ENROLL\_AGE, WGTKG (weight - kg), HGTCM (height - cm), with the lateralization coefficients (Figures \ref{fig:cov_mat_hc}). For the statistical analysis, were kept only the significant ones, with p-value $<$ 0.05, and correlation coefficient higher than 0.5. This threshold was chosen in order to have at least a moderate correlation (0.4-0.59). 
 
-\end{multicols}
-
-\begin{figure}[h]
+\begin{Figure}
 	\centering
 	\includegraphics[width=2in]{../covariates_mat_hc}
-	\caption{Correlation matrix between covariates and lateralization coefficient - HC}
+	\captionof{figure}{Correlation matrix between covariates and lateralization coefficient - HC}
 	\label{fig:cov_mat_hc}
-\end{figure} 
- 
-\begin{multicols}{2}
 
-In the correlation matrix of the HC in figure \ref{fig:cov_mat_hc}, it's shown that ENROLL\_AGE has a moderate correlation only with the lateralization coefficient in the Caudate region, while it has a weak correlation with the other two ROIs. HTCM is strongly correlated with Caudate's lateralization coefficient, moderately with Putamen and has a very strong correlation with Putamen Anterior. Similarly, also WGTKG has a very strong correlation with Putamen Anterior, and a strong one with Caudate and Putamen lateralization coefficients.
+\end{Figure}
+ 
+In the correlation matrix of the HC in Figure \ref{fig:cov_mat_hc}, it's shown that ENROLL\_AGE has a moderate correlation only with the lateralization coefficient in the Caudate region, while it has a weak correlation with the other two ROIs. HTCM is strongly correlated with Caudate's lateralization coefficient, moderately with Putamen and has a very strong correlation with Putamen Anterior. Similarly, also WGTKG has a very strong correlation with Putamen Anterior, and a strong one with Caudate and Putamen lateralization coefficients.
 
 \subsection{Statistical methods}
 
@@ -191,10 +194,11 @@ A seen in the pre-processing step, the 2 groups of HC and PD were similarly dist
 
 The covariates extracted for each ROI are shown in Table \ref{tbl:cov_hc}.
 
-\end{multicols}
 
-\begin{table}[h]
+
+\begin{center}
 	\centering
+	\tiny
 	\begin{tabular}{|c|c|c|}
 		\hline
 		\textbf{ROIs}             & \textbf{Covariates} & \textbf{Correlation coefficient} \\ \hline
@@ -205,63 +209,57 @@ The covariates extracted for each ROI are shown in Table \ref{tbl:cov_hc}.
 		\textbf{Putamen Anterior} & HTCM                & 0.840                            \\ \hline
 		\textbf{}                 & WGTKG               & 0.997                            \\ \hline
 	\end{tabular}
-	\caption{Covariates correlation coefficients - HC}
+	\captionof{table}{Covariates correlation coefficients - HC}
 	\label{tbl:cov_hc}
-\end{table}
+\end{center}
 
-\begin{multicols}{2}
 
 \subsection{Comparison between HC and PD lateralizations}
 
 The boxplot comparing the lateralization coefficients of PD and HC is shown in Figure \ref{fig:anova_plot}.
 As hypothesized at the start of the study, the analysis confirmed that there was a significant difference (p-value $<$ 0.01) in the lateralization of HC and PD in all the ROIs.
+Using the lateralization coefficient threshold, the group identified, for the Caudate, 28 PD patients with a right lateralization and 29 with a left lateralization. For the Putamen, 203 PD had a right lateralization, 2 HC and 150 PD with a left lateralization. For the Putamen Anterior, 113 PD patients were found lateralized on the right side, while 64 on the left. The remaining subjects were not lateralized.
 
-\end{multicols}
-
-\begin{figure}[h]
+\begin{Figure}
 	\centering
 	\includegraphics[width=3in]{../anova_plot_lat_hc_pd}
-	\caption{Boxplot comparing lateralization coefficients in PD and HC}
+	\captionof{figure}{Boxplot comparing lateralization coefficients in PD and HC}
 	\label{fig:anova_plot}
-\end{figure}
-
-\begin{multicols}{2}
+\end{Figure}
 
 \subsection{Symptoms correlation matrix}
 
 To answer the second research question, which was to investigate the relationship between dopamine lateralization function and symptoms, the group extracted the significant symptoms from a correlation matrix (Figure \ref{fig:corr_symp_pd}) obtained with the Pearson correlation as done for the covariates, with a threshold of 0.5 for the correlation coefficients. 
 
-\end{multicols}
 
-\begin{figure}[h]
+\begin{Figure}
 	\centering
 	\includegraphics[width=3in]{../corr_mat_symptoms_pd}
-	\caption{Correlation matrix between Lateralization coefficients and symptoms - PD}
+	\captionof{figure}{Correlation matrix between Lateralization coefficients and symptoms - PD}
 	\label{fig:corr_symp_pd}
-\end{figure} 
+\end{Figure} 
 
-\begin{multicols}{2}
 
-\subsection{Linear fit with symptoms}
+\subsection{Linear fit with covariates and symptoms}
 
-These symptoms were used, together with the covariates found from HC, to perform a linear fit with the lateralization coefficients in PD, in order to find the relationship between dopamine lateralization function and symptoms. The graphs of the fit are shown in Figure \ref{fig:lin_fit_pd}. The graphs contain on the x-axis the covariates, while on the y-axis the lateralization coefficients. Each figure shows the fit for the three different ROIs, Caudate, Putamen and Putamen Anterior. 
+These symptoms were used, together with the covariates found from HC, to perform a linear fit with the lateralization coefficients in PD, in order to find the relationship between dopamine lateralization function and symptoms. The graphs of the fit are shown in Figure \ref{fig:lin_fit_pd}. The graphs contain on the x-axis the covariates and the symptoms, while on the y-axis the lateralization coefficients. Each figure shows the fit for the three different ROIs, Caudate, Putamen and Putamen Anterior. 
 
 To improve the fit, the group chose the best combination of covariates among the ones found before, using as selection criteria the adjusted $R^2$ value of the models tried with all the possible combinations. The selected covariates are listed in Table \ref{tbl:R_squared_fit_pd}. 
 In this way, the sensitivity of the model to the various covariates was studied.
 
-The numerical results of these linear fits are shown in the Table \ref{tbl:R_squared_fit_pd}, where $R^2$ (adjusted) was chosen because of the large amount of variables, in order to retrieve a more accurate value (see \cite{analysis_of_covariance_and_alternatives}). The p-values were all below 0.05 and aren't shown in Table \ref{tbl:R_squared_fit_pd}.
+The numerical results of these linear fits are shown in the Table \ref{tbl:R_squared_fit_pd}, where $R^2$ (adjusted) was chosen because of the large amount of variables, in order to retrieve a more accurate value (see \cite{analysis_of_covariance_and_alternatives}). The p-values were all below 0.05 and so were significant.
 
-\end{multicols}
-
-\begin{figure}[h]
+\begin{Figure}
 	\centering
 	\includegraphics[width=3in]{../fit_covariates_pd}
-	\caption{Linear fit - PD}
+	\captionof{figure}{Linear fit - PD}
 	\label{fig:lin_fit_pd}
-\end{figure} 
+\end{Figure} 
 
-\begin{table}[h]
+
+\begin{center}
 	\centering
+	\tiny
 	\begin{tabular}{|c|c|l|}
 		\hline
 		\textbf{ROIs}             & \textbf{Adjusted $R^2$} & \textbf{Covariates} \\ \hline
@@ -269,45 +267,43 @@ The numerical results of these linear fits are shown in the Table \ref{tbl:R_squ
 		\textbf{Putamen}          & 0.3673                  & None                \\ \hline
 		\textbf{Putamen Anterior} & 0.3014                  & HTCM, WGTKG         \\ \hline
 	\end{tabular}
-	\caption{Adjusted $R^2$ values of the linear fit between lateralization and symptoms}
+	\captionof{table}{Adjusted $R^2$ values of the linear fit between lateralization and symptoms}
 	\label{tbl:R_squared_fit_pd}
-\end{table}
+\end{center}
 
 
-\begin{multicols}{2}
 
-\subsection{Linear fit with symptoms - gender division}
+\subsection{Linear fit with covariates and symptoms - gender division}
 
 The linear fit on the Putamen Anterior was repeated for two sub-groups of patients - males and females, always selecting the best covariates from all the possible combinations. The fit are shown in Figure \ref{fig:lin_fit_male_female}, the p-values were all $<$ 0.05, while the adjusted $R^2$ values are shown in Table \ref{tbl:lin_fit_put_ant} for both males and females.
 
-\end{multicols}
 
-\begin{figure}[h]
+\begin{Figure}
 	\centering
 	\includegraphics[width=3in]{../fit_covariates_male_female}
-	\caption{Linear fit for males and females - PD}
+	\captionof{figure}{Linear fit for males and females - PD}
 	\label{fig:lin_fit_male_female}
-\end{figure} 
+\end{Figure} 
 
-\begin{table}[h]
+\begin{center}
 	\centering
+	\tiny
 	\begin{tabular}{|c|c|l|}
 		\hline
 		\textbf{Putamen Anterior} & \textbf{Adjusted $R^2$} & \textbf{Covariates} \\ \hline
 		\textbf{Males}            & 0.2721                  & HTCM, WGTKG         \\ \hline
 		\textbf{Females}          & 0.3523                  & WGTKG               \\ \hline
 	\end{tabular}
-	\caption{Adjusted $R^2$ for the linear fit of Putamen Anterior for males and females}
+	\captionof{table}{Adjusted $R^2$ for the linear fit of Putamen Anterior for males and females}
 	\label{tbl:lin_fit_put_ant}
-\end{table}
+\end{center}
 
-\begin{multicols}{2}
 
 \section{Discussion}
 
-In the analysis of the dataset, the extraction of the lateralization coefficient, based on \cite{kaasinen_ipsilateral_2016}, allowed to verify the difference between HC and PD. In fact, with the threshold at 20\%, the group verified that the strongly lateralized subjects were present only among PD patients. 
+In the analysis of the dataset, the extraction of the lateralization coefficient, based on \cite{kaasinen_ipsilateral_2016}, allowed to verify the difference between HC and PD. With the threshold at 20\%, the group verified that the strongly lateralized subjects were present only among PD patients, except for two outliers. 
 
-The first aim of the study was to assess whether there were some relevant covariates associated to dopamine function lateralization. To do so, the analysis consisted in computing the correlation matrix between the lateralization data and the possible covariates in HC. Only the variables with at least a moderate correlation were selected as covariates. Analyzing these results (Table \ref{tbl:cov_hc}), the group concluded that weight was the only covariate associated to all the three regions of interest; therefore it's probable that a patient with a high body weight, and consequent high probability of having a disease like diabetes, will show a stronger lateralization of dopamine function. With respect to age, the analysis showed that the initial hypothesis wasn't verified for every ROI; in fact, age had a moderate correlation only with Caudate, while it was initially hypothesized to have a strong correlation with all the brain areas.
+The first aim of the study was to assess whether there were some relevant covariates associated to dopamine function lateralization. To do so, the analysis consisted in computing the correlation matrix between the lateralization data and the possible covariates in HC. Only the variables with at least a moderate correlation were selected as covariates. Analyzing these results (Table \ref{tbl:cov_hc}), the group concluded that weight was the only covariate associated to all the three regions of interest; therefore it's probable that a patient with a high body weight, and consequent high probability of health complications, will show a stronger lateralization of dopamine function. With respect to age, the analysis showed that the initial hypothesis wasn't verified for every ROI; in fact, age had a moderate correlation only with Caudate, while it was initially hypothesized to have a strong correlation with all the brain areas.
 
 The group understood that there wasn't any significant lateralization in the HC, and therefore the linear fit wasn't appropriate to describe its relation with the symptoms.
 
@@ -331,7 +327,9 @@ To further improve the study in case of future tries to analyze the dopamine lat
 It could also help to assure the presence of data for as many subjects as possible in all the symptoms assessment tests, in order to complete the analysis considering every possible symptom (motor and cognitive). 
 Another important factor would be to assure the quality of the DAT-SPECT scans and of the consequent SBR extraction. 
 
-Maybe with future studies, it will be possible to assess the nature of the relationship between lateralization and symptoms, eventually helping the creation of a new biomarker for PD diagnosis. 
+Maybe with future studies, it will be possible to assess the nature of the relationship between lateralization and symptoms, eventually helping the creation of a new biomarker for PD diagnosis, since the loss of dopaminergic neurons is present even in the early stages of the disease before the onset of motor symptoms. \cite{booij_spect_2007}
+
+Like in the study \cite{lorio_combination_2019} by Lorio et al., another strategy could be combining DAT-SPECT data with MRI data to have a more accurate biomarker and so a more accurate analysis.
 
 
 \end{multicols}

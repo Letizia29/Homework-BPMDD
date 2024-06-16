@@ -75,6 +75,65 @@
     \field{year}{2014}
   \endentry
 
+  \entry{booij_spect_2007}{article}{}
+    \name{author}{2}{}{%
+      {{hash=BJ}{%
+         family={Booij},
+         familyi={B\bibinitperiod},
+         given={Jan},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=KRJ}{%
+         family={Knol},
+         familyi={K\bibinitperiod},
+         given={Remco\bibnamedelima J.J.},
+         giveni={R\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+    }
+    \list{language}{1}{%
+      {en}%
+    }
+    \strng{namehash}{BJKRJ1}
+    \strng{fullhash}{BJKRJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{abstract}{%
+    In studies on (premotor) Parkinson’s disease (PD), single photon emission
+  computed tomography (SPECT) studies have focused on imaging of the
+  presynaptic dopamine transporter (DAT) and postsynaptic dopamine D2 receptors
+  (D2Rs). Here we review the results of SPECT studies on the dopaminergic
+  system in PD, with particular emphasis on: the accuracy of SPECT imaging of
+  the dopaminergic system to detect alternations of the dopaminergic system in
+  early PD, the diagnostic accuracy of DAT SPECT in PD, the contribution of DAT
+  imaging to detect preclinical phases of PD, and the potential role of SPECT
+  imaging to monitoring progression of dopaminergic degeneration in PD.%
+    }
+    \verb{doi}
+    \verb 10.1016/S1353-8020(08)70042-7
+    \endverb
+    \field{issn}{13538020}
+    \field{pages}{S425\bibrangedash S428}
+    \field{title}{{SPECT} imaging of the dopaminergic system in (premotor)
+  {Parkinson}'s disease}
+    \verb{url}
+    \verb https://linkinghub.elsevier.com/retrieve/pii/S1353802008700427
+    \endverb
+    \field{volume}{13}
+    \verb{file}
+    \verb Booij e Knol - 2007 - SPECT imaging of the dopaminergic system in (pr
+    \verb emo.pdf:C\:\\Users\\bened\\Zotero\\storage\\PG85VR6C\\Booij e Knol -
+    \verb 2007 - SPECT imaging of the dopaminergic system in (premo.pdf:applica
+    \verb tion/pdf
+    \endverb
+    \field{journaltitle}{Parkinsonism \& Related Disorders}
+    \field{year}{2007}
+    \field{urlday}{31}
+    \field{urlmonth}{05}
+    \field{urlyear}{2024}
+  \endentry
+
   \entry{fiorenzato_asymmetric_2021}{article}{}
     \name{author}{5}{}{%
       {{hash=FE}{%
@@ -264,6 +323,141 @@
     \field{journaltitle}{Annals of Clinical and Translational Neurology}
     \field{month}{01}
     \field{year}{2016}
+    \field{urlday}{31}
+    \field{urlmonth}{05}
+    \field{urlyear}{2024}
+  \endentry
+
+  \entry{kagi_role_2010}{article}{}
+    \name{author}{3}{}{%
+      {{hash=KG}{%
+         family={Kägi},
+         familyi={K\bibinitperiod},
+         given={G.},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=BKP}{%
+         family={Bhatia},
+         familyi={B\bibinitperiod},
+         given={K.\bibnamedelima P.},
+         giveni={K\bibinitperiod\bibinitdelim P\bibinitperiod},
+      }}%
+      {{hash=TE}{%
+         family={Tolosa},
+         familyi={T\bibinitperiod},
+         given={E.},
+         giveni={E\bibinitperiod},
+      }}%
+    }
+    \list{language}{1}{%
+      {eng}%
+    }
+    \keyw{Humans, *Tomography, Emission-Computed, Single-Photon, Dopamine
+  Plasma Membrane Transport Proteins/*metabolism, Lewy Body
+  Disease/diagnosis/diagnostic imaging, Movement
+  Disorders/diagnosis/*diagnostic imaging, Parkinson
+  Disease/diagnosis/diagnostic imaging, Parkinsonian
+  Disorders/diagnosis/diagnostic imaging, Tremor/diagnosis/diagnostic imaging}
+    \strng{namehash}{KGBKPTE1}
+    \strng{fullhash}{KGBKPTE1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{abstract}{%
+    Dopamine transporter (DAT) imaging is a sensitive method to detect
+  presynaptic dopamine neuronal dysfunction, which is a hallmark of
+  neurodegenerative parkinsonism. DAT imaging can therefore assist the
+  differentiation between conditions with and without presynaptic dopaminergic
+  deficit. Diagnosis of Parkinson disease or tremor disorders can be achieved
+  with high degrees of accuracy in cases with full expression of classical
+  clinical features; however, diagnosis can be difficult, since there is a
+  substantial clinical overlap especially in monosymptomatic tremor (dystonic
+  tremor, essential tremor, Parkinson tremor). The use of DAT-SPECT can prove
+  or excludes with high sensitivity nigrostriatal dysfunction in those cases
+  and facilitates early and accurate diagnosis. Furthermore, a normal DAT-SPECT
+  is helpful in supporting a diagnosis of drug-induced-, psychogenic- and
+  vascular parkinsonism by excluding underlying true nigrostriatal dysfunction.
+  This review addresses the value of DAT-SPECT and its impact on diagnostic
+  accuracy in movement disorders presenting with tremor and/or parkinsonism.%
+    }
+    \verb{doi}
+    \verb 10.1136/jnnp.2008.157370
+    \endverb
+    \field{issn}{1468-330X 0022-3050}
+    \field{note}{Place: England}
+    \field{number}{1}
+    \field{pages}{5\bibrangedash 12}
+    \field{title}{The role of {DAT}-{SPECT} in movement disorders.}
+    \field{volume}{81}
+    \field{journaltitle}{Journal of neurology, neurosurgery, and psychiatry}
+    \field{month}{01}
+    \field{year}{2010}
+  \endentry
+
+  \entry{lorio_combination_2019}{article}{}
+    \name{author}{5}{}{%
+      {{hash=LS}{%
+         family={Lorio},
+         familyi={L\bibinitperiod},
+         given={Sara},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=SF}{%
+         family={Sambataro},
+         familyi={S\bibinitperiod},
+         given={Fabio},
+         giveni={F\bibinitperiod},
+      }}%
+      {{hash=BA}{%
+         family={Bertolino},
+         familyi={B\bibinitperiod},
+         given={Alessandro},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=DB}{%
+         family={Draganski},
+         familyi={D\bibinitperiod},
+         given={Bogdan},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=DJ}{%
+         family={Dukart},
+         familyi={D\bibinitperiod},
+         given={Juergen},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \list{language}{1}{%
+      {en}%
+    }
+    \strng{namehash}{LS+1}
+    \strng{fullhash}{LSSFBADBDJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \verb{doi}
+    \verb 10.3389/fnagi.2019.00057
+    \endverb
+    \field{issn}{1663-4365}
+    \field{pages}{57}
+    \field{title}{The {Combination} of {DAT}-{SPECT}, {Structural} and
+  {Diffusion} {MRI} {Predicts} {Clinical} {Progression} in {Parkinson}’s
+  {Disease}}
+    \verb{url}
+    \verb https://www.frontiersin.org/article/10.3389/fnagi.2019.00057/full
+    \endverb
+    \field{volume}{11}
+    \verb{file}
+    \verb Lorio et al. - 2019 - The Combination of DAT-SPECT, Structural and Di
+    \verb ffu.pdf:C\:\\Users\\bened\\Zotero\\storage\\QCGUHMEL\\Lorio et al. -
+    \verb 2019 - The Combination of DAT-SPECT, Structural and Diffu.pdf:applica
+    \verb tion/pdf
+    \endverb
+    \field{journaltitle}{Frontiers in Aging Neuroscience}
+    \field{month}{03}
+    \field{year}{2019}
     \field{urlday}{31}
     \field{urlmonth}{05}
     \field{urlyear}{2024}
@@ -615,6 +809,75 @@
     \field{journaltitle}{Cell and Tissue Research}
     \field{month}{07}
     \field{year}{2018}
+    \field{urlday}{31}
+    \field{urlmonth}{05}
+    \field{urlyear}{2024}
+  \endentry
+
+  \entry{shigekiyo_laterality_2020}{article}{}
+    \name{author}{2}{}{%
+      {{hash=ST}{%
+         family={Shigekiyo},
+         familyi={S\bibinitperiod},
+         given={Taro},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=AS}{%
+         family={Arawaka},
+         familyi={A\bibinitperiod},
+         given={Shigeki},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \list{language}{1}{%
+      {en}%
+    }
+    \strng{namehash}{STAS1}
+    \strng{fullhash}{STAS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{abstract}{%
+    Abstract Motor symptoms of Parkinson’s disease (PD) occur unilaterally
+  and progress with asymmetry, while progressive supranuclear palsy (PSP) and
+  multiple system atrophy of the parkinsonism subtype (MSA-P) lack this
+  tendency. We assessed the laterality of specific binding ratios (SBRs) on
+  dopamine transporter single-photon emission computed tomography (DAT-SPECT)
+  for the differential diagnosis of these diseases in 311 PD, 33 PSP, 20 MSA-P,
+  and 137 control patients. The average SBR in PD was higher than that in PSP
+  (P = 0.035). Compared with Hoehn–Yahr (HY) stages, the average SBR in
+  PD with HY stage I was only higher than that in PSP
+  (P {\textless} 0.001). SBR laterality in PD with HY stage I was
+  significantly higher than that in PSP (P = 0.001). This difference was
+  not observed in PD with HY stage II. The average and laterality of SBRs in
+  MSA-P were similar to those in PD and PSP. The asymmetry indices were similar
+  among PD, PSP, and MSA-P. These data suggest that PSP shows a pattern of SBRs
+  different from that in PD, attributed to HY stage I in PD. The limited
+  usefulness of DAT-SPECT may be explained by the low discrimination between PD
+  with bilateral motor symptoms and PSP.%
+    }
+    \verb{doi}
+    \verb 10.1038/s41598-020-72321-y
+    \endverb
+    \field{issn}{2045-2322}
+    \field{number}{1}
+    \field{pages}{15761}
+    \field{title}{Laterality of specific binding ratios on {DAT}-{SPECT} for
+  differential diagnosis of degenerative parkinsonian syndromes}
+    \verb{url}
+    \verb https://www.nature.com/articles/s41598-020-72321-y
+    \endverb
+    \field{volume}{10}
+    \verb{file}
+    \verb Shigekiyo e Arawaka - 2020 - Laterality of specific binding ratios on
+    \verb  DAT-SPECT.pdf:C\:\\Users\\bened\\Zotero\\storage\\MZVWY9VZ\\Shigekiy
+    \verb o e Arawaka - 2020 - Laterality of specific binding ratios on DAT-SPE
+    \verb CT.pdf:application/pdf
+    \endverb
+    \field{journaltitle}{Scientific Reports}
+    \field{month}{09}
+    \field{year}{2020}
     \field{urlday}{31}
     \field{urlmonth}{05}
     \field{urlyear}{2024}
