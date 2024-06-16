@@ -29,37 +29,47 @@
 \maketitle
 
 \begin{abstract}
-This study, which focuses on Parkinson's disease, aims to investigate the significance of left-right lateralization based on dopamine values using DAT-SPECT imaging data and their correlation with clinical symptoms in Parkinson’s disease patient (PD) and healthy controls (HC). DAT-SPECT (Dopamine Transporter Single Photon Emission Computed Tomography) is an imaging technique primarily used to visualize and measure the density of dopamine transporters in the brain.  Indeed, this technique is particularly useful in the diagnosis and evaluation of neurodegenerative diseases, such as Parkinson's disease and other forms of parkinsonism. The dataset, used to perform the analysis, consists of variables relating to demographic data, DAT-SPECT scores and finally the Neuropsychological (NP) tests which are a combination of clinical, neurological, and imaging test since there is no specific test for the diagnosis of Parkinson’s disease. In order to investigate whether the lateralization is related to symptoms, a linear regression approach was used. This analysis verified that the lateralization is highly related to symptoms in PD patients.
-The lateralization of dopamine function could be useful in the future as a possible biomarker of PD symptoms severity.
+This study, which focuses on Parkinson's disease, aims to investigate the significance of left-right lateralization based on dopamine values using DAT-SPECT (Dopamine Transporter Single Photon Emission Computed Tomography) imaging data and their correlation with clinical symptoms in Parkinson’s disease patient (PD) and healthy controls (HC). DAT-SPECT is an imaging technique primarily used to visualize and measure the density of dopamine transporters in the brain. This technique is particularly useful in the diagnosis and evaluation of neurodegenerative diseases, such as Parkinson's disease and other forms of parkinsonism. The dataset, from PPMI, used to perform the analysis, consists of variables relating to demographic data, DAT-SPECT scores and MDS-UPDRS test, which is a combination of clinical, neurological, and imaging tests, since there is no specific test for the diagnosis of Parkinson’s disease. In order to investigate whether the lateralization is related to symptoms, a linear regression was used. This analysis verified that the lateralization present only in PD patients is highly related to symptoms.
 \newline
 
 \end{abstract}
 
 \begin{multicols}{2}
 \section{Introduction}
-Parkinson's disease is a chronic neurodegenerative disorder of the central nervous system primarily affecting motor control. It is characterized by the progressive loss of nerve cells in the brain region called the substantia nigra, which is responsible for producing a neurotransmitter called dopamine. Dopamine deficiency leads to motor symptoms such as tremors, muscle rigidity, bradykinesia (slowness of movement), and postural instability. In addition to motor symptoms, Parkinson's disease can cause a wide range of non-motor symptoms including sleep problems, depression, anxiety, fatigue, and cognitive difficulties. While the exact cause of Parkinson's disease is not fully understood, it is believed to result from a combination of genetic and environmental factors \cite{beitz_parkinsons_2014}. Currently, there is no cure for Parkinson's disease, but there are treatments available to manage symptoms and improve the patients’ quality of life.  However, studies conducted in recent years have shown that the lateralization of brain dopamine in Parkinson's disease (PD) is a significant and distinctive aspect of the pathology. In particular, during its development, the degeneration of dopaminergic neurons in the substantia nigra is not uniform. Generally, one side of the brain is more affected than the other, leading to marked asymmetry. This marked asymmetry is visible not only in motor symptoms, such as more pronounced tremors on one side of the body and greater use of one hand over the other, but it can also be evident in non-motor disturbances, including cognitive issues for example in the sleep behavior and or sense of smell \cite{riederer_lateralisation_2018}. 
+Parkinson's disease is a chronic neurodegenerative disorder of the central nervous system primarily affecting motor control. It is characterized by the progressive loss of nerve cells in the brain region called the substantia nigra, which is responsible for producing a neurotransmitter called dopamine. Dopamine deficiency leads to motor symptoms such as tremors, muscle rigidity, bradykinesia (slowness of movement), and postural instability. In addition to motor symptoms, Parkinson's disease can cause a wide range of non-motor symptoms including sleep problems, depression, anxiety, fatigue, and cognitive difficulties. While the exact cause of Parkinson's disease is not fully understood, it is believed to result from a combination of genetic and environmental factors \cite{beitz_parkinsons_2014}. Currently, there is no cure for Parkinson's disease, but there are treatments available to manage symptoms and improve the patients’ quality of life.  However, studies conducted in recent years (CITAZIONE) have shown that the lateralization of brain dopamine in Parkinson's disease (PD) is a significant and distinctive aspect of the pathology. In particular, during its development, the degeneration of dopaminergic neurons in the substantia nigra is not uniform. Generally, one side of the brain is more affected than the other, leading to marked asymmetry. This marked asymmetry is visible especially in motor symptoms, such as more pronounced tremors on one side of the body and greater use of one hand over the other \cite{riederer_lateralisation_2018}. 
 \newline
-In previous studies, the connection between dopamine lateralization and symptoms has already been examined. For example, in \cite{pirker_correlation_2003}, it resulted that the motor symptoms on the less affected side were more correlated to striatal DAT binding.
+In previous studies, the connection between dopamine lateralization and symptoms has already been examined. For example, in a study conducted by Pirker et al. \cite{pirker_correlation_2003}, it resulted that the motor symptoms on the less affected side were more correlated to striatal DAT binding.
 \newline
-Therefore, the aim of this study is to further investigate this idea, analyzing a dataset containing information about patients' motor and cognitive symptoms and also their lateralization data obtained from DAT-SPECT scans. The dopamine degeneration is explored in three different Regions of Interests (ROIs) in the brain, divided in right and left: Caudate, Putamen and Putamen Anterior. This analysis aims to investigate whether there are some relevant covariates from HC associated to dopamine function lateralization, and furthermore, the relationship (if present) between the lateralization of dopamine function in these brain areas and the symptoms shown by Parkinson's patients.
-To do so, the group checked also if there was a difference in lateralization between HC and PD. 
+Therefore, the aim of this study is to further investigate this idea, analyzing a dataset containing information about patients' motor and cognitive symptoms and also their lateralization data obtained from DAT-SPECT scans. The dopamine degeneration is explored in three different Regions of Interests (ROIs) in the brain, divided in right and left: Caudate, Putamen and Putamen Anterior. This analysis aims to investigate whether there are some relevant covariates from HC associated to dopamine function lateralization, and furthermore, to investigate the relationship (if present) between the lateralization of dopamine function in these brain areas and the symptoms shown by Parkinson's patients.
+In addition, the group checked also if there was a difference in lateralization between HC and PD. 
 \newline
-Agreeing with what found in \cite{pirker_correlation_2003}, the group expected to find a strong relation between the dopamine lateralization and the motor symptoms. The lateralization was expected to be significantly different between the two groups of HC and PD. Also the lateralization in different ROIs was expected to be related: a high lateralization in the Caudate was expected if both Putamen and Putamen Anterior were highly lateralized. Regarding the covariates, age was expected to be the variable most correlated to the dopamine function lateralization.
+Agreeing with what found in the paper by Pirker et al. \cite{pirker_correlation_2003}, the group expected to find a strong relation between the dopamine lateralization and the motor symptoms. The lateralization was expected to be significantly different between the two groups of HC and PD. Also the lateralization in different ROIs was expected to be related: a high lateralization in the Caudate was expected if both Putamen and Putamen Anterior were highly lateralized. Regarding the covariates, age was expected to be the variable most correlated to the dopamine function lateralization.
 
 \section{Material and Methods}
 
 \subsection{Dataset description}
-The dataset used in this study was composed of 1556 subjects, of which 256 healthy controls and 1300 PD patients with different levels of symptoms' severity. Not all the variables given were interesting for the study. For example, all the data regarding the MRI acquisitions were discarded, because the analysis focused on the data from the DAT-SPECT scans, which were Striatal Binding Ratios (SBR) of the three ROIs (right and left sides), whether the scan was completed and its quality based on visual interpretation, as well as information regarding the date of the scan and the injection. 
+The dataset used in this study was composed of 1556 subjects, of which 256 healthy controls and 1300 PD patients with different levels of symptoms' severity. Not all the variables given were interesting for the study. For example, all the data regarding the MRI acquisitions were discarded, because the analysis focused on the data from the DAT-SPECT scans.
+
+The variables:
+\begin{itemize}
+	\item DATSCAN\_CAUDATE\_L
+	\item DATSCAN\_CAUDATE\_R
+	\item DATSCAN\_PUTAMEN\_L
+	\item DATSCAN\_PUTAMEN\_R
+	\item DATSCAN\_PUTAMEN\_ANT\_L
+	\item DATSCAN\_PUTAMEN\_ANT\_R
+\end{itemize}
+contained the Striatal Binding Ratios (SBR) of the three ROIs (right and left sides), whether the scan was completed and its quality based on visual interpretation, as well as information regarding the date of the scan and the injection. 
 \newline
 The dataset included a part of demographics data, like age, ethnicity, gender, family members affected by PD, height, weight and dominant hand.
 A total of 967 and 589 patients were males and females, respectively. The average age in the baseline was 62.69 ± 10.11 years (range [29.3–86.5]). 
 
-There was then the data regarding the neuropsychological assessments of the patients using the Movement Disorder Society (MDS)-sponsored revision of the Unified Parkinson's Disease Rating Scale (MDS-UPDRS). The test is divided in 4 parts, concerning different classes of motor and cognitive symptoms, as specified in the PPMI Program Protocols \cite{marek_parkinsons_2018}. Each answer could range from 0 (normal) to 4 (severe), and for each part there was a summing-up variable, that contained the sum of all the scores of that section. These variables were called NP1PTOT, NP1RTOT, NP2TOT, NP3TOT, NP4TOT. Some motor symptoms, especially in the third part, were divided in right and left, for example, the severity of tremor of the right or left upper limb. This was useful to investigate the different relation with the dopamine function lateralization.
+There was then the data regarding the neuropsychological assessments of the patients using the Movement Disorder Society (MDS)-sponsored revision of the Unified Parkinson's Disease Rating Scale (MDS-UPDRS). The test is divided in 4 parts, concerning different classes of motor and cognitive symptoms, as specified in the PPMI Program Protocols \cite{marek_parkinsons_2018}. Each answer could range from 0 (normal) to 4 (severe), and for each part there was a summing-up variable, that contained the sum of all the scores of that section. These variables were called NP1PTOT, NP1RTOT, NP2TOT, NP3TOT, NP4TOT. Some motor symptoms in the third part, were divided in right and left, for example, the severity of tremor of the right or left upper limb. This was useful to investigate the different relation with the dopamine function lateralization.
 \newline
 
 \subsection{Cleaning e preprocessing}
 
-The first step was dividing the dataset in patients (PD, SWEDD (Scans without evidence of dopaminergic deficit), Prodromal (before the onset of classical Parkinson's symptoms)) and HC.
+The first step of the study was dividing the dataset in Parkinson's patients (PD, SWEDD (Scans without evidence of dopaminergic deficit), Prodromal (before the onset of classical Parkinson's symptoms)) and healthy controls (HC).
 
 In the preprocessing of the data, the patterns of missing values were analyzed, to determine the best course of action, through the VIM package in R.
 
@@ -71,7 +81,7 @@ For all the test-related variables (NP1PTOT, NP1RTOT, NP2TOT, NP3TOT), both in H
 
 For ETHNICITY, SEX, and HAND (dominant hand of the subject), there aren't missing valules in the whole dataset. In the ENROLL\_AGE variable, the missing values were calculated using the DAT-SCAN date and the birth date of the subject.
 
-Regarding HEIGHT and WEIGHT, the pattern of missing data is MAR, with a total of TOT \% of NaNs. 
+Regarding HEIGHT and WEIGHT, the pattern of missing data is MAR, with a total of 33.3\% of NaNs. 
 
 The variable PRIM\_DIAG described the primary diagnosis; the group found some subjects with the value of 97, that wasn't explained by the data dictionary, therefore it was removed both from the HC and from the PD. 
 
@@ -114,19 +124,22 @@ Another reason of exclusion from the analysis, was having an incomplete DAT-SCAN
 
 The preprocessing step ended with the removal of some outliers from ENROLL\_AGE, HTCM and WGTKG. The ouliers of weight were 14 in PD patients and 42 in HC; for height just 2 PD were considered outliers, while, looking at age, 4 PD and 8 HC were removed as outliers.
 
-Concerning the demographics data, the two datasets were compared, to see if they had the same distributions. Through the Anova test, the average values of age, height and weight were found identical for the two groups. The proportion of male and female was comparable: in the whole dataset, the proportion of females was 37,85\%, while in PD was 38,5\% and in HC 34,37\%. 
+Concerning the demographics data, the two datasets were compared, to see if they had the same distributions. Through the Lilliefors test (MATLAB function \codeword{lillietest}), the gaussianity of age, height and weight was checked. For the gaussian variables, the Anova test (MATLAB function \codeword{anova1}) was used to compare the population means, while for the not gaussian ones, the Wilcoxon test was applied (MATLAB function \codeword{ranksum}). The average values of age, height and weight were found identical for the two groups. The proportion of male and female was comparable: in the whole dataset, the proportion of females was 37,85\%, while in PD was 38,5\% and in HC 34,37\%. 
 
-The distribution of ETHNICITY was also found similar between the two groups, while FAMILIARITY and HAND were significant different in the two populations when analyzed through a Wilcoxon test. The differences in FAMILIARITY can be explained by the connection between PD patients and the genetic components in the disease: for a PD patient, it's more likely to have some relatives affected by PD, than for an healthy subject. 
-
+The distribution of ETHNICITY was also found similar between the two groups, while FAMILIARITY and HAND were significant different in the two populations when analyzed through a Wilcoxon test. The differences in FAMILIARITY can be explained by the connection between PD patients and the genetic components in the disease: for a PD patient, it's more likely to have some relatives affected by PD, than for an healthy subject. The difference in HAND is due to the composition of the dataset; therefore, for this reason, and because there weren't enough left-handed subjects, this variable wasn't used in the analysis.
 
 \subsection{Feature extraction}
 
 In order to perform the statistical analysis to answer the study questions, the relevant features were extracted.
-The analysis was based on the DAT-SPECT data, for the three ROIs, the demographic data and the symptoms tests results. Therefore, the MRI data were discarded.
+The analysis was based on the DAT-SPECT data, for the three ROIs, the demographic data and the symptoms tests results.
 
 \subsection{Lateralization coefficients}
 
-From the lateralization data, the group used a DAT binding asymmetry coefficient found in \cite{kaasinen_ipsilateral_2016}: (right - left SBR)/(right + left SBR). The lateralization was considered relevant when the asymmetry coefficient was higher than 20\%.
+From the lateralization data, the group used a DAT binding asymmetry coefficient found in a study conducted by Kaasinen et al. \cite{kaasinen_ipsilateral_2016}: 
+\begin{equation}
+	\frac{(right_{SBR} - left_{SBR})}{(right_{SBR} + left_{SBR})}
+\end{equation}
+The lateralization was considered relevant when the asymmetry coefficient was higher than 20\%.
 This threshold level was adopted from a previous study \cite{fiorenzato_asymmetric_2021}. In this way, the group identified, for the Caudate, 28 PD patients with a right lateralization and 29 with a left lateralization. For the Putamen, 203 PD had a right lateralization, 2 HC and 150 PD with a left lateralization. For the Putamen Anterior, 113 PD patients were found lateralized on the right side, while 64 on the left. The remaining subjects were not lateralized.
 
 This coefficient was used just to count the subjects with a relevant lateralization, while in the statistical analysis, all the subjects were considered.
@@ -136,8 +149,9 @@ This coefficient was used just to count the subjects with a relevant lateralizat
 In this section, the group investigated whether there was any relevant covariate from HC associated to dopamine function lateralization.
 Analyzing HC, the possible covariates were sex, dominant hand, ethnicity, age, height, weight.
 
-Regarding the discrete variables, it was possible to analyze only SEX, because the others didn't divide the subjects in groups with a comparable number of data. 
-The lateralization coefficients were, for each region, divided in males and females. Through a Lillie test, both groups were found not gaussian. Therefore, they were compared with a Wilcoxon test, finding that only for Putamen Anterior, males and females had different medians of lateralization coefficients.
+Regarding the discrete variables, it was possible to analyze only SEX, because the others didn't divide the subjects in groups with a comparable number of data.
+
+For the analysis of the covariate SEX, the lateralization coefficients were, for each region, divided in males and females. Through a Lilliefors test, both groups were found not gaussian. Therefore, they were compared with a Wilcoxon test, finding that only for Putamen Anterior, males and females had different medians of lateralization coefficients.
 Consequently, SEX was considered as a covariate for Putamen Anterior lateralization data, and the statistical analysis on PD patients was performed both on the whole group and on the two sub-groups of males and females for this brain region.
 
 Through the Pearson pairwise correlation, the group analyzed the correlation coefficients of the continue variables, such as ENROLL\_AGE, WGTKG (weight - kg), HGTCM (height - cm), with the lateralization coefficients (figures \ref{fig:cov_mat_hc}). For the statistical analysis, were kept only the significant ones, with p-value $<$ 0.05, and correlation coefficient higher than 0.5. This threshold was chosen in order to have at least a moderate correlation (0.4-0.59). 
@@ -162,7 +176,7 @@ The group used the Pearson correlation coefficient in the covariates analysis an
 The Anova test was used in the pre-processing section in order to compare the distributions of HC and PD continuous variables (age, height, weight).
 Also, the Wilcoxon test was used during the pre-processing step, but to compare the discrete variables distributions (sex, familiarity, ethnicity).
 
-Then the group compared HC and PD populations in terms of lateralization, using an Anova test (figures \ref{fig:anova_table} and \ref{fig:anova_plot}). The Anova test was chosen because the normality assumption wasn't met, and so the T-test couldn't be used.
+Then the group compared HC and PD populations in terms of lateralization, using a Wilcoxon test (Figure \ref{fig:anova_plot}). The Wilcoxon test was chosen because the normality assumption wasn't met, and so the T-test couldn't be used.
 Therefore, the analysis investigated the presence of a difference between the lateralization in HC with the one in PD. To perform the analysis, the lateralization was taken in absolute value. The choice of using the absolute value came from the interest on the amount of lateralization, not its direction.
 
 \subsubsection{Linear regression}
@@ -199,24 +213,16 @@ The covariates extracted for each ROI are shown in Table \ref{tbl:cov_hc}.
 
 \subsection{Comparison between HC and PD lateralizations}
 
-The results of the Anova test to compare the lateralization coefficients of PD and HC are shown in Figures \ref{fig:anova_table} and \ref{fig:anova_plot}.
+The boxplot comparing the lateralization coefficients of PD and HC is shown in Figure \ref{fig:anova_plot}.
 As hypothesized at the start of the study, the analysis confirmed that there was a significant difference (p-value $<$ 0.01) in the lateralization of HC and PD in all the ROIs.
 
 \end{multicols}
 
 \begin{figure}[h]
 	\centering
-	\parbox{2.8in}{
-		\centering
-		\includegraphics[width=3in]{../anova_table_lat_hc_pd}
-		\caption{Anova test results, comparing lateralization coefficients in PD and HC}
-		\label{fig:anova_table}}
-	\begin{minipage}{2.8in}
-		\centering
-		\includegraphics[width=3in]{../anova_plot_lat_hc_pd}
-		\caption{Anova test boxplots, comparing lateralization coefficients in PD and HC}
-		\label{fig:anova_plot}
-	\end{minipage}
+	\includegraphics[width=3in]{../anova_plot_lat_hc_pd}
+	\caption{Boxplot comparing lateralization coefficients in PD and HC}
+	\label{fig:anova_plot}
 \end{figure}
 
 \begin{multicols}{2}
