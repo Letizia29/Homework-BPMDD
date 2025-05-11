@@ -1,5 +1,5 @@
-# HM---BPMDD
-Homework for Biomarkers, Precision Medicine and Drug Development - Università degli studi di Padova - 2023/2024
+# Homework - Biomarkers, Precision Medicine and Drug Development
+ - Università degli studi di Padova - 2023/2024
 
 Analysis of dopamine lateralization function in relation to Parkinson's symptoms
 
